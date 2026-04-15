@@ -1,49 +1,110 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Default/Dark Theme */
+  --color-bg-main: #0a0a0a;
+  --color-bg-offset: #111111;
+  --color-bg-panel: rgba(25, 25, 30, 0.7);
+  --color-border-glass: rgba(255, 255, 255, 0.05);
+  --color-overlay: rgba(0, 0, 0, 0.9);
+  --shadow-main: rgba(0, 0, 0, 0.8);
+  --shadow-light: rgba(0, 0, 0, 0.5);
+  --curtain-grad-l: linear-gradient(90deg, #2b0b0b 0%, #5c100c 90%, #8c1e16 100%);
+  --curtain-grad-r: linear-gradient(270deg, #2b0b0b 0%, #5c100c 90%, #8c1e16 100%);
+  
+  --color-text-main: #f5f5f5;
+  --color-text-muted: #a0a0a0;
+
+  /* Accent invariant colors */
+  --color-crimson: #9e1b1b;
+  --color-crimson-bright: #c82424;
+  --color-gold: #d4af37;
+  --color-gold-light: #f3e5ab;
+  --color-silver: #c0c0c0;
+  
+  /* Fonts */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root[data-theme='light'] {
+  --color-bg-main: #FFF8F0; /* Cream */
+  --color-bg-offset: #FDE8D8; /* Peach */
+  --color-bg-panel: rgba(255, 255, 255, 0.6);
+  --color-border-glass: rgba(167, 139, 250, 0.3); /* Lavender glass edge */
+  --color-overlay: rgba(253, 232, 216, 0.9); /* Peach overlay instead of dark */
+  --shadow-main: rgba(45, 27, 78, 0.2); /* Soft plum shadow */
+  --shadow-light: rgba(45, 27, 78, 0.1);
+  --curtain-grad-l: linear-gradient(90deg, #FFF8F0 0%, #FDE8D8 90%, #F472B6 100%); /* Cream -> Peach -> Pink */
+  --curtain-grad-r: linear-gradient(270deg, #FFF8F0 0%, #FDE8D8 90%, #F472B6 100%);
+  
+  --color-text-main: #2D1B4E; /* Plum / Deep Purple */
+  --color-text-muted: #645585;
+  
+  /* Accents stay the same for elegance */
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  cursor: none; /* We use a completely custom cursor universally */
+}
+
+body {
+  background-color: var(--color-bg-main);
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.1) 2px, transparent 2px),
+    radial-gradient(rgba(212, 175, 55, 0.1) 2px, transparent 2px);
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  cursor: none; /* Hide default pointer over links for custom cursor */
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  cursor: none;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Glassmorphism Util */
+.glass-panel {
+  background: var(--color-bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-offset);
+  border-radius: 4px;
+  border: 1px solid var(--color-border-glass);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-crimson);
 }

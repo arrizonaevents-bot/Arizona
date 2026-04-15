@@ -1,0 +1,309 @@
+/* Our Work Premium Styles */
+
+.main {
+  width: 100%;
+}
+
+/* Common */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+  position: relative;
+}
+
+.sectionHeader::after {
+  content: "✧ ✧ ✧";
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--color-gold);
+  letter-spacing: 15px;
+  font-size: 1.2rem;
+  opacity: 0.4;
+}
+.sectionHeader h2 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-text-main);
+}
+@media(min-width: 768px) { .sectionHeader h2 { font-size: 4rem; } }
+
+
+/* 1. PAGE HERO */
+.heroSection {
+  height: 60vh;
+  min-height: 500px;
+  background-color: var(--color-bg-main);
+  background-image: radial-gradient(circle at center, rgba(212,175,55,0.05) 0%, transparent 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.heroContent {
+  text-align: center;
+  z-index: 10;
+}
+
+.label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--color-gold);
+  margin-bottom: 1.5rem;
+}
+
+.heroContent h1 {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-text-main);
+}
+
+@media(min-width: 768px) {
+  .heroContent h1 { font-size: 5rem; }
+}
+
+.heroContent p { font-size: 1.2rem; color: var(--color-text-muted); letter-spacing: 1px; }
+
+/* 2. STATS BAR */
+.statsBar {
+  padding: 4rem 5%;
+  background: var(--color-bg-offset);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.statBlock { text-align: center; }
+.statBlock h3 { font-family: var(--font-heading); font-size: 3rem; color: var(--color-gold); font-weight: normal; margin-bottom: 0.5rem; }
+.statBlock p { font-size: 0.9rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 2px;}
+
+/* 3. SCHOOLS GRID */
+.schoolsSection {
+  padding: 8rem 5%;
+  background-color: var(--color-bg-main);
+}
+
+.schoolsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media(min-width: 500px) {
+  .schoolsGrid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+}
+
+.schoolCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 3rem 2rem;
+  cursor: none; /* custom cursor will show */
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s;
+}
+
+.schoolCard:hover {
+  border-color: rgba(212,175,55,0.4);
+}
+
+.cardIcon { color: var(--color-gold); margin-bottom: 1.5rem; opacity: 0.8; }
+.schoolCard h3 { font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-text-main); margin-bottom: 0.5rem; }
+.schoolCard p { color: var(--color-text-muted); font-size: 0.9rem; letter-spacing: 1px; }
+
+.cardGlow {
+  position: absolute; bottom: 0; right: 0;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(212,175,55,0.1), transparent 70%);
+}
+
+
+/* MODAL */
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--color-overlay);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+}
+
+.modalContent {
+  background-color: var(--color-bg-main);
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+.modalHeader {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.modalHeader h2 { font-family: var(--font-heading); font-size: 2rem; color: var(--color-gold); }
+
+.closeBtn {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: none;
+  transition: color 0.3s;
+}
+.closeBtn:hover { color: var(--color-text-main); }
+
+.modalBody {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modalPhotoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media(min-width: 500px) { .modalPhotoGrid { flex-direction: row; } }
+
+.photoBox {
+  flex: 1; height: 200px;
+  background: var(--color-bg-offset);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.modalDesc {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text-main);
+  margin-bottom: 3rem;
+}
+
+.impactBadges { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.badge {
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 4. DELIVERY MODULES */
+.deliverySection {
+  padding: 8rem 5%;
+  background: var(--color-bg-offset);
+}
+
+.stepContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media(min-width: 900px) {
+  .stepContainer { flex-direction: row; }
+}
+
+.stepCard {
+  background: rgba(255,255,255,0.02);
+  border-top: 2px solid var(--color-crimson);
+  padding: 3rem 2rem;
+  height: 100%;
+}
+
+.stepHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem;
+}
+
+.stepNumber {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: rgba(255,255,255,0.2);
+}
+
+.stepIcon { color: var(--color-gold); }
+.stepCard h3 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-text-main); margin-bottom: 1rem; }
+.stepCard p { color: var(--color-text-muted); line-height: 1.6; }
+
+/* 5. SKILLS OFFERED */
+.skillsSection {
+  padding: 8rem 5%;
+  background-color: var(--color-bg-main);
+}
+
+.skillsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.skillPill {
+  background: transparent;
+  color: var(--color-text-main);
+  padding: 1rem 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 6. CTA */
+.ctaStrip {
+  padding: 8rem 5%;
+  text-align: center;
+  background: linear-gradient(0deg, rgba(158,27,27,0.1) 0%, transparent 100%);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.ctaStrip h2 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-text-main);
+  margin-bottom: 3rem;
+}
+
+.btnPrimaryLg {
+  display: inline-block;
+  background: var(--color-gold);
+  color: var(--color-bg-main);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  padding: 1.5rem 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+}
+
+.btnPrimaryLg:hover { background: var(--color-text-main); box-shadow: 0 0 30px rgba(212,175,55,0.4); }

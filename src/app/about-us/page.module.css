@@ -1,0 +1,320 @@
+/* About Us Premium Styles */
+
+.main {
+  width: 100%;
+}
+
+/* 1. PAGE HERO */
+.heroSection {
+  height: 50vh;
+  min-height: 400px;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.bgOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at top, rgba(158,27,27,0.2) 0%, transparent 70%);
+}
+
+.heroContent {
+  text-align: center;
+  z-index: 10;
+}
+
+.heroContent h1 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+@media(min-width: 768px) {
+  .heroContent h1 { font-size: 4.5rem; }
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.crumbLink { color: var(--color-text-muted); transition: color 0.3s; }
+.crumbLink:hover { color: var(--color-gold); }
+.crumbSep { color: rgba(255,255,255,0.2); margin: 0 0.5rem; }
+.crumbActive { color: var(--color-gold); }
+
+/* Common Typography */
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+@media(min-width: 768px) { .sectionTitle { font-size: 3.5rem; } }
+
+.centerTitle {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-text-main);
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.centerTitle::after {
+  content: "✧ ✧ ✧";
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--color-gold);
+  letter-spacing: 15px;
+  font-size: 1.2rem;
+  opacity: 0.4;
+}
+
+.goldText {
+  color: var(--color-gold);
+  font-style: italic;
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+/* 2. OUR STORY */
+.storySection {
+  background-color: var(--color-bg-dark);
+  padding: 8rem 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media(min-width: 900px) {
+  .storySection { flex-direction: row; align-items: center; }
+}
+
+.storyLeft { flex: 1.2; }
+
+.storyParas {
+  border-left: 1px solid rgba(255,255,255,0.1);
+  padding-left: 2rem;
+  margin-top: 2rem;
+}
+
+.storyParas p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.storyRight { flex: 1; }
+
+.quoteCard {
+  background: rgba(25, 25, 30, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 3rem;
+  text-align: left;
+}
+
+.quoteIcon { color: var(--color-gold); margin-bottom: 1.5rem; }
+
+.quoteCard p {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  line-height: 1.4;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.quoteAuthor {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-gold);
+}
+
+/* 3. VISION & MISSION */
+.visionMission {
+  padding: 8rem 5%;
+  background: var(--color-bg-offset);
+  border-top: 1px solid rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+
+.pivotsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media(min-width: 768px) {
+  .pivotsContainer { flex-direction: row; }
+}
+
+.pivotCard {
+  flex: 1;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 4rem 3rem;
+  text-align: center;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.pivotCard:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(212,175,55,0.3);
+}
+
+.pivotIcon { color: var(--color-gold); margin-bottom: 1.5rem; }
+.pivotCard h3 { font-family: var(--font-heading); font-size: 2rem; color: var(--color-text-main); margin-bottom: 1.5rem; }
+.pivotCard p { color: var(--color-text-muted); line-height: 1.6; }
+
+/* 4. TEAM */
+.teamSection {
+  padding: 8rem 5%;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+  position: relative;
+}
+
+.sectionHeader::after {
+  content: "✧ ✧ ✧";
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--color-gold);
+  letter-spacing: 15px;
+  font-size: 1.2rem;
+  opacity: 0.4;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media(min-width: 768px) { .teamGrid { grid-template-columns: repeat(2, 1fr); } }
+
+.teamCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 3rem;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatarPlaceholder {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold);
+  background: rgba(212,175,55,0.1);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.avatarIcon { color: var(--color-gold); }
+
+.memberName { font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-text-main); margin-bottom: 0.5rem; }
+.rolePill { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--color-gold); margin-bottom: 1.5rem; }
+.memberBio { color: var(--color-text-muted); line-height: 1.6; }
+
+
+/* 5. ACCOLADES */
+.accoladesSection {
+  padding: 8rem 5%;
+  background: #050505;
+}
+
+.accoladesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media(min-width: 500px) { .accoladesGrid { grid-template-columns: repeat(2, 1fr); } }
+@media(min-width: 900px) { .accoladesGrid { grid-template-columns: repeat(4, 1fr); } }
+
+.accoladePhoto {
+  background-color: var(--color-bg-offset);
+  height: 300px;
+  border: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.photoOverlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--color-overlay);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s;
+}
+
+.accoladePhoto:hover .photoOverlay { opacity: 1; }
+
+.photoOverlay p {
+  color: var(--color-gold);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* 6. CTA STRIP */
+.ctaStrip {
+  padding: 8rem 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.ctaCard {
+  background: linear-gradient(135deg, rgba(158,27,27,0.2), transparent);
+  border: 1px solid rgba(158,27,27,0.5);
+  padding: 5rem 2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.ctaCard h2 { font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-text-main); margin-bottom: 3rem; }
+
+@media(min-width: 768px){ .ctaCard h2 { font-size: 3rem; } }
+
+.ctaBtn {
+  display: inline-block;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 1.2rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+}
+
+.ctaBtn:hover { background: var(--color-gold); color: var(--color-bg-main); }
