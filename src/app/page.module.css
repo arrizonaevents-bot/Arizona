@@ -20,9 +20,9 @@
 /* Shared curtain base — Professional & Optimized */
 .curtainLeft, .curtainRight {
   position: absolute;
-  top: 110px;           /* Increased safe-zone below Navbar */
+  top: 0;               /* Covers Navbar on load */
   width: 60vw;
-  height: calc(100% - 110px);
+  height: 100%;
   z-index: 50;
   will-change: transform;
   
@@ -59,7 +59,7 @@
 /* ── Valance — Professional & Properly Spaced ─────────────────── */
 .curtainValance {
   position: absolute;
-  top: 110px;           /* Sit below Navbar with more space */
+  top: 0;               /* Cover the very top of the screen */
   left: 0;
   right: 0;
   height: 84px;
@@ -161,15 +161,13 @@
   inset: 0;
   z-index: 10;
   pointer-events: none;
-  background:
-    /* text backdrop overlay for readability */
-    radial-gradient(ellipse 65% 50% at 50% 45%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 45%, transparent 70%),
-    /* bottom fade for stats */
-    linear-gradient(to top,    rgba(0,0,0,0.95) 0%,  transparent 40%),
-    /* top fade */
-    linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,  transparent 30%),
-    /* edge darkening */
-    radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.6) 100%);
+  background: radial-gradient(
+    circle at 50% 50%, 
+    transparent 20%, 
+    rgba(0,0,0,0.4) 60%, 
+    rgba(0,0,0,0.85) 100%
+  );
+  will-change: opacity;
 }
 
 /* ── Hero badge ── */

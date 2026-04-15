@@ -174,7 +174,7 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
         <div className={styles.fallback}>
           <span>✦</span>
         </div>
-      ) : shouldLoad ? (
+      ) : (shouldLoad && isInView) ? (
         <Spline
           scene="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode"
           onLoad={onLoad}
