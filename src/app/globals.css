@@ -51,16 +51,23 @@
 
 body {
   background-color: var(--color-bg-main);
-  background-image: 
-    radial-gradient(rgba(212, 175, 55, 0.1) 2px, transparent 2px),
-    radial-gradient(rgba(212, 175, 55, 0.1) 2px, transparent 2px);
-  background-size: 80px 80px;
-  background-position: 0 0, 40px 40px;
+  /* Premium grain texture overlay — extremely cheap to render but adds high-end feel */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  opacity: 1;
   color: var(--color-text-main);
   font-family: var(--font-body);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg-main);
+  z-index: -1;
 }
 
 a {

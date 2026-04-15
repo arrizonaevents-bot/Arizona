@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${inter.variable}`}>
+      <body className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
         <ThemeProvider>
           <CustomCursor />
           <Navbar />

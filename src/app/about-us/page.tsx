@@ -58,7 +58,7 @@ export default function AboutUs() {
           <h2 className={styles.sectionTitle}>A Script for <span className={styles.goldText}>Every Dreamer</span></h2>
           <div className={styles.storyParas}>
             <p>
-              For over a decade, the Arizona Institute of Performing Arts has been the 
+              For over a decade, the Arizona Institute of Performing Arts and Event Management has been the 
               premiere destination for aspiring actors, dancers, and creators. We started 
               with a simple goal: to give every child a platform to discover their innate talent.
             </p>

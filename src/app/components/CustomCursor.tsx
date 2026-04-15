@@ -76,9 +76,8 @@ export default function CustomCursor() {
           left: 0,
           width: "40px",
           height: "40px",
-          border: isHovering ? "2px solid rgba(212, 175, 55, 0.4)" : "1px solid rgba(212, 175, 55, 0.2)",
-          backgroundColor: isHovering ? "rgba(212, 175, 55, 0.1)" : "transparent",
-          backdropFilter: isHovering ? "blur(4px)" : "none",
+          border: isHovering ? "1.5px solid rgba(212, 175, 55, 0.8)" : "1.2px solid rgba(212, 175, 55, 0.3)",
+          backgroundColor: "transparent",
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 9998,
@@ -88,7 +87,7 @@ export default function CustomCursor() {
           y: smoothY
         }}
         animate={{
-          scale: isHovering ? 2 : 1,
+          scale: isHovering ? 1.2 : 1,
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
       />

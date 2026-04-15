@@ -1,15 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import styles from "./page.module.css";
 import sceneStyles from "./components/Hero3DScene.module.css";
 import confetti from "canvas-confetti";
 import TiltCard from "./components/TiltCard";
-import { Play, Sparkles, Star, Target } from "lucide-react";
-import Lenis from "lenis";
+import { Sparkles, Star, Target } from "lucide-react";
+
+// Removed: Lenis (conflicts with Framer Motion scroll tracking),
+// Play icon (unused)
 
 const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
   ssr: false,
@@ -28,115 +31,150 @@ const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
 
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
+  const router  = useRouter();
+  const [sessionKey, setSessionKey] = useState(0);
 
-  // Force page to start at the absolute top on reload and init smooth scroll
   useEffect(() => {
+    setSessionKey(Date.now());
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
     window.scrollTo(0, 0);
-
-    // Initialize Lenis for premium smooth scrolling globally
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => lenis.destroy();
+    // Removed Lenis: it fights with Framer Motion's useScroll and causes jank.
+    // Native scroll is already smooth on modern browsers with CSS scroll-behavior.
   }, []);
 
-  // Track how far we've scrolled through the hero section (0 → 1)
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  // Use the raw MotionValue directly to avoid React re-renders every frame when scrolling
-  // We eliminated scrollProgress state!
+  // Use MotionValues — never causes re-renders, runs entirely on compositor thread
+  const textY       = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  // Parallax: nudge hero text upward as the user scrolls
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  
-  // sceneScale was removed to optimize scroll performance
-
-  // ── Confetti ─────────────────────────────────────────────────────
   const triggerConfetti = () => {
     confetti({
-      particleCount: 80,
-      spread: 100,
+      particleCount: 60,
+      spread: 90,
       origin: { y: 0.6 },
       colors: ["#D4AF37", "#FFF", "#8C7323", "#C0C0C0"],
     });
   };
 
+  // Simpler fadeUp — no scale/blur on scroll, just opacity+Y on viewport enter
   const fadeUp = {
-    initial:     { opacity: 0, y: 70 },
+    initial:     { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
-    viewport:    { once: true, margin: "-100px" },
-    transition:  { duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    viewport:    { once: true, margin: "-80px" },
+    transition:  { duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
   };
 
   return (
     <main className={styles.main}>
 
       {/* ══════════════════════════════════════════════════
-          1. HERO  — full-bleed 3D + theatrical text
+          1. HERO
       ══════════════════════════════════════════════════ */}
-      <section ref={heroRef} className={styles.heroSection}>
+      <section ref={heroRef} className={styles.heroSection} style={{ position: "relative" }}>
 
-        {/* Curtains that part on load */}
+        {/* ── Valance / Rail — stays fixed at top, fades after curtains open ── */}
         <motion.div
-          className={styles.curtainLeft}
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-        />
-        <motion.div
-          className={styles.curtainRight}
-          initial={{ x: 0 }}
-          animate={{ x: "100%" }}
-          transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          className={styles.curtainValance}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.8, delay: 3.2 }}
+          aria-hidden="true"
         />
 
-        {/* ── 3D Spline scene sits behind everything ── */}
-        <div style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`curtain-left-${sessionKey}`}
+            className={styles.curtainLeft}
+            initial={{ scaleX: 1, x: 0, opacity: 1 }}
+            animate={{ 
+              scaleX: 0.2, 
+              x: "-40%",
+              opacity: 0
+            }}
+            transition={{
+              duration: 3,
+              ease: [0.45, 0, 0.55, 1],
+              delay: 0.5,
+              opacity: { delay: 2.8, duration: 0.2 }
+            }}
+            style={{ transformOrigin: "left center", willChange: "transform" }}
+            aria-hidden="true"
+          />
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`curtain-right-${sessionKey}`}
+            className={styles.curtainRight}
+            initial={{ scaleX: 1, x: 0, opacity: 1 }}
+            animate={{ 
+              scaleX: 0.2, 
+              x: "40%",
+              opacity: 0
+            }}
+            transition={{
+              duration: 3,
+              ease: [0.45, 0, 0.55, 1],
+              delay: 0.5,
+              opacity: { delay: 2.8, duration: 0.2 }
+            }}
+            style={{ transformOrigin: "right center", willChange: "transform" }}
+            aria-hidden="true"
+          />
+        </AnimatePresence>
+
+        {/* 3D Spline scene — pointer-events blocked, no scale effect */}
+        <div style={{ width: "100%", height: "100%", position: "absolute", inset: 0, zIndex: 1 }}>
           <Hero3DScene scrollYProgress={scrollYProgress} />
         </div>
 
-        {/* Subtle spotlight cone on top of the 3D scene */}
+        {/* Spotlight */}
         <div className={styles.spotlightWrapper} aria-hidden="true">
           <div className={styles.spotlightMain} />
         </div>
 
-        {/* Gradient vignette so text stays legible */}
+        {/* Vignette */}
         <div className={styles.heroVignette} aria-hidden="true" />
 
-        {/* ── Hero copy — layered above the 3D scene ── */}
+        {/* Hero copy — GP-Ucomposited transform, no blur animation */}
         <motion.div
           className={styles.heroContent}
-          style={{ y: textY, opacity: textOpacity }}
+          style={{ 
+            y: textY, 
+            opacity: textOpacity, 
+            willChange: "transform, opacity",
+            paddingTop: "120px" // Shift content down slightly to clear the valance area
+          }}
         >
           <motion.div
             className={styles.heroCenter}
-            initial={{ scale: 0.9, opacity: 0, filter: "blur(10px)" }}
-            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1.5, delay: 1.0, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
           >
             <motion.span
               className={styles.heroBadge}
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4, duration: 0.6 }}
+              transition={{ delay: 1.2, duration: 0.5 }}
             >
               ✦ Arizona Institute of Performing Arts and Event Management ✦
             </motion.span>
+
+            <motion.div
+              className={styles.verticals}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.4, duration: 0.7 }}
+            >
+              CHOREOGRAPHY <span className={styles.divider}>|</span> THEATRE <span className={styles.divider}>|</span> MUSIC <span className={styles.divider}>|</span> ANNUAL SCHOOL FUNCTIONS
+            </motion.div>
 
             <h1 className={styles.heroTitle}>
               We Bring Out <br />
@@ -154,7 +192,7 @@ export default function Home() {
               <button
                 onClick={() => {
                   triggerConfetti();
-                  setTimeout(() => (window.location.href = "/contact-us"), 600);
+                  setTimeout(() => router.push("/contact-us"), 600);
                 }}
                 className={styles.btnSecondary}
               >
@@ -164,23 +202,23 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* ── Scroll hint ── */}
+        {/* Scroll hint */}
         <motion.div
           className={styles.scrollHint}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.5, duration: 1 }}
+          transition={{ delay: 2.2, duration: 0.8 }}
         >
           <span className={styles.scrollLine} />
           <span className={styles.scrollLabel}>Scroll</span>
         </motion.div>
 
-        {/* ── Stats bar ── */}
+        {/* Stats bar */}
         <motion.div
           className={styles.statsRow}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
           <div className={styles.statLine}><h3>14</h3><span>Skills</span></div>
@@ -203,7 +241,7 @@ export default function Home() {
             <div className={styles.videoEmbed}>
               <iframe
                 src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
-                title="Welcome"
+                title="Welcome to Arizona Institute"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 loading="lazy"
@@ -215,18 +253,18 @@ export default function Home() {
 
         <motion.div
           className={styles.featureChips}
-          variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+          variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
             <Sparkles size={18} className={styles.goldIcon} /> Fun Learning
           </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
             <Star size={18} className={styles.goldIcon} /> Stage Performance
           </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
             <Target size={18} className={styles.goldIcon} /> Expert Mentors
           </motion.div>
         </motion.div>
@@ -264,7 +302,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════
-          4. OUR WORK / PARTNERS
+          4. PARTNERS
       ══════════════════════════════════════════════════ */}
       <section className={styles.workPreview}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
@@ -296,9 +334,9 @@ export default function Home() {
             <motion.div
               key={i}
               className={styles.masonryItem}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.07, duration: 0.5 }}
               viewport={{ once: true }}
             >
               <TiltCard className="card-3d" style={{ width: "100%", height: "100%" }}>
@@ -320,13 +358,13 @@ export default function Home() {
         <div className={styles.ambientGlow} />
         <div className={styles.ctaCard}>
           <motion.h2 {...fadeUp}>Ready To Shine?</motion.h2>
-          <motion.p {...fadeUp}>Book a free consultation and let's discuss your journey.</motion.p>
+          <motion.p {...fadeUp}>Book a free consultation and let&apos;s discuss your journey.</motion.p>
           <motion.button
             {...fadeUp}
             className={styles.btnPrimaryLg}
             onClick={() => {
               triggerConfetti();
-              setTimeout(() => (window.location.href = "/contact-us"), 600);
+              setTimeout(() => router.push("/contact-us"), 600);
             }}
           >
             Unlock The Stage
