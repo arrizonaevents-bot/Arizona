@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+
+  // Use raw motion values to bypass React render cycle completely
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
+  
+  const smoothX = useSpring(mouseX, { stiffness: 150, damping: 15, mass: 0.5 });
+  const smoothY = useSpring(mouseY, { stiffness: 150, damping: 15, mass: 0.5 });
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -52,11 +59,11 @@ export default function CustomCursor() {
           pointerEvents: "none",
           zIndex: 9999,
           translateX: "-50%",
-          translateY: "-50%"
+          translateY: "-50%",
+          x: mouseX,
+          y: mouseY
         }}
         animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
           scale: isHovering ? 0 : 1,
         }}
         transition={{ type: "tween", ease: "linear", duration: 0 }}
@@ -76,11 +83,11 @@ export default function CustomCursor() {
           pointerEvents: "none",
           zIndex: 9998,
           translateX: "-50%",
-          translateY: "-50%"
+          translateY: "-50%",
+          x: smoothX,
+          y: smoothY
         }}
         animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
           scale: isHovering ? 2 : 1,
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -27,7 +28,7 @@ export default function Navbar() {
       <div className={styles.container}>
         <div className={styles.logoContainer}>
           <Link href="/" className={styles.logo}>
-            AIPA
+            <Image src="/img/LOGO.png" alt="AIPA Logo" width={50} height={50} priority />
           </Link>
         </div>
 

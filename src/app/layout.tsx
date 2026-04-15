@@ -17,8 +17,11 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Arizona Institute of Performing Arts',
+  title: 'Arizona Institute of Performing Arts and Event Management',
   description: 'A platform to discover talent, build confidence, and shine on the grand stage.',
+  icons: {
+    icon: '/img/LOGO.png',
+  },
 }
 
 export default function RootLayout({
