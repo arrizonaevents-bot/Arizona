@@ -3,17 +3,40 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./page.module.css";
-import { X, Hexagon, Play, Briefcase, Zap } from "lucide-react";
+import { X, Play, Briefcase, Zap } from "lucide-react";
+import Image from "next/image";
 import TiltCard from "../components/TiltCard";
 
 export default function OurWork() {
   const [selectedSchool, setSelectedSchool] = useState<number | null>(null);
 
-  const schools = Array.from({ length: 12 }).map((_, i) => ({
+  const schoolData = [
+    { name: "GNPS School", logo: "/school/DL-ns-5d81688b-3139-445c-a97f-39139f9312d9_GnpsLogo.jpeg" },
+    { name: "Partner School 2", logo: "/school/app_icon.png" },
+    { name: "Partner School 3", logo: "/school/channels4_profile.jpg" },
+    { name: "Partner School 4", logo: "/school/images (1).jpg" },
+    { name: "Partner School 5", logo: "/school/images (1).png" },
+    { name: "Partner School 6", logo: "/school/images (2).jpg" },
+    { name: "Partner School 7", logo: "/school/images (2).png" },
+    { name: "Partner School 8", logo: "/school/images (3).png" },
+    { name: "Partner School 9", logo: "/school/images (4).png" },
+    { name: "Partner School 10", logo: "/school/images (5).png" },
+    { name: "Partner School 11", logo: "/school/images (6).png" },
+    { name: "Partner School 12", logo: "/school/images (7).png" },
+    { name: "Partner School 13", logo: "/school/images.jpg" },
+    { name: "Partner School 14", logo: "/school/images.png" },
+    { name: "Partner School 15", logo: "/school/logo_head.png" },
+    { name: "Partner School 16", logo: "/school/main-logo.png" },
+    { name: "Partner School 17", logo: "/school/unnamed (1).png" },
+    { name: "Partner School 18", logo: "/school/unnamed.png" },
+  ];
+
+  const schools = schoolData.map((s, i) => ({
     id: i,
-    name: `Partner School ${i + 1}`,
+    name: s.name,
+    logo: s.logo,
     city: "Chandigarh, India",
-    description: `We conducted bespoke theatre sessions at Partner School ${i + 1}, intensely training ${120 + i * 15} students in method acting, dialogue delivery, and stage presence.`,
+    description: `We conducted bespoke theatre sessions at ${s.name}, intensely training ${120 + i * 15} students in method acting, dialogue delivery, and stage presence.`,
     impact: ["Drama Masterclass", "Annual Production", "Voice Workshop"]
   }));
 
@@ -88,7 +111,15 @@ export default function OurWork() {
                   className={styles.schoolCard}
                   onClick={() => setSelectedSchool(school.id)}
                 >
-                  <Hexagon size={40} className={styles.cardIcon}/>
+                  <div className={styles.logoWrapper}>
+                    <Image 
+                      src={school.logo} 
+                      alt={school.name}
+                      fill
+                      sizes="100px"
+                      className={styles.logoImage}
+                    />
+                  </div>
                   <h3>{school.name}</h3>
                   <p>{school.city}</p>
                   <div className={styles.cardGlow}></div>
@@ -146,7 +177,7 @@ export default function OurWork() {
             { num: "01", title: 'Curriculum Integration', desc: 'Seamlessly embedded into regular timetables.', icon: <Briefcase size={30} className={styles.stepIcon} /> },
             { num: "02", title: 'After School Studios', desc: 'Deep-dive intensive theatre sessions.', icon: <Play size={30} className={styles.stepIcon} /> },
             { num: "03", title: 'Masterclasses', desc: 'Specialized focus on precise disciplines.', icon: <Zap size={30} className={styles.stepIcon} /> },
-            { num: "04", title: 'Grand Productions', desc: 'Directing full-scale Annual Day Events.', icon: <Hexagon size={30} className={styles.stepIcon} /> }
+            { num: "04", title: 'Grand Productions', desc: 'Directing full-scale Annual Day Events.', icon: <Zap size={30} className={styles.stepIcon} /> }
           ].map((mode, i) => (
              <motion.div 
                 key={mode.num}

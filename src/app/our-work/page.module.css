@@ -105,28 +105,54 @@
 }
 
 .schoolCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  padding: 3rem 2rem;
+  background: white; /* Clean white background for logos */
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 2.5rem 1.5rem;
   cursor: none; /* custom cursor will show */
   height: 100%;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.4s;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .schoolCard:hover {
-  border-color: rgba(212,175,55,0.4);
+  transform: translateY(-8px);
+  border-color: var(--color-gold);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
-.cardIcon { color: var(--color-gold); margin-bottom: 1.5rem; opacity: 0.8; }
-.schoolCard h3 { font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-text-main); margin-bottom: 0.5rem; }
-.schoolCard p { color: var(--color-text-muted); font-size: 0.9rem; letter-spacing: 1px; }
+.logoWrapper {
+  position: relative;
+  width: 100px;
+  height: 80px;
+  margin-bottom: 2rem;
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+.schoolCard h3 { 
+  font-family: var(--font-heading); 
+  font-size: 1.3rem; 
+  color: #1a1a1a; /* Dark text for white cards */
+  margin-bottom: 0.5rem; 
+}
+
+.schoolCard p { 
+  color: #666; /* Muted text for white cards */
+  font-size: 0.9rem; 
+  letter-spacing: 1px; 
+}
 
 .cardGlow {
   position: absolute; bottom: 0; right: 0;
   width: 100px; height: 100px;
-  background: radial-gradient(circle, rgba(212,175,55,0.1), transparent 70%);
+  background: radial-gradient(circle, rgba(212,175,55,0.2), transparent 70%);
 }
 
 

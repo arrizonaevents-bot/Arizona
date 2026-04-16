@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import styles from "./page.module.css";
 import sceneStyles from "./components/Hero3DScene.module.css";
 import confetti from "canvas-confetti";
@@ -28,6 +29,27 @@ const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
     </div>
   ),
 });
+
+const SCHOOL_LOGOS = [
+  "/school/DL-ns-5d81688b-3139-445c-a97f-39139f9312d9_GnpsLogo.jpeg",
+  "/school/app_icon.png",
+  "/school/channels4_profile.jpg",
+  "/school/images (1).jpg",
+  "/school/images (1).png",
+  "/school/images (2).jpg",
+  "/school/images (2).png",
+  "/school/images (3).png",
+  "/school/images (4).png",
+  "/school/images (5).png",
+  "/school/images (6).png",
+  "/school/images (7).png",
+  "/school/images.jpg",
+  "/school/images.png",
+  "/school/logo_head.png",
+  "/school/main-logo.png",
+  "/school/unnamed (1).png",
+  "/school/unnamed.png",
+];
 
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
@@ -310,9 +332,17 @@ export default function Home() {
         </motion.div>
         <motion.div className={styles.carouselWrapper} {...fadeUp}>
           <div className={styles.carouselTrack}>
-            {[1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8].map((n, i) => (
+            {[...SCHOOL_LOGOS, ...SCHOOL_LOGOS].map((logo, i) => (
               <div key={i} className={styles.logoCard}>
-                <span>School {n}</span>
+                <div className={styles.logoWrapper}>
+                  <Image 
+                    src={logo} 
+                    alt={`Partner School ${i + 1}`}
+                    fill
+                    sizes="200px"
+                    className={styles.logoImage}
+                  />
+                </div>
               </div>
             ))}
           </div>
