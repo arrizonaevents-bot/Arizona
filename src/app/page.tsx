@@ -298,12 +298,13 @@ export default function Home() {
           <h2>Where Talent Meets The Stage</h2>
           <div className={styles.aboutTextGroup}>
             <p>
-              The Arizona Institute of Performing Arts and Event Management is dedicated to nurturing raw talent
-              and turning it into spectacular stage performances across Theatre, Choreography, Music, and Annual Day School Functions.
+              At Arizona, we don’t just curate events—we craft experiences. From Sports Days to 
+              Annual Functions, we take complete ownership to ensure every moment is transformational, 
+              inspiring, and flawlessly delivered.
             </p>
             <p>
-              From professional mentors to grand recital events, our students experience
-              the best of theater and arts education in an elegant, stress-free environment.
+              With a repertoire of 50+ innovative themes and a team of professional practitioners, we 
+              empower students to discover their voice, build confidence, and become the storytellers of tomorrow.
             </p>
           </div>
           <Link href="/about-us" className={styles.btnOutlineGold}>Discover Our Story</Link>

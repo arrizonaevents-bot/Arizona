@@ -11,22 +11,22 @@ export default function AboutUs() {
     { 
       name: "Arti Dang", 
       role: "Masters in Theatre, Punjab University",
-      bio: "A visionary founder who believes in the transformative power of arts for every child."
+      bio: "A visionary founder bringing a refined creative vision where professionalism meets passion."
     },
     { 
       name: "Gurmeet Singh Mitwa", 
       role: "Actor & Theatre Director, 30+ Bollywood films",
-      bio: "Bringing decades of professional stage and screen experience direct to our students."
+      bio: "An industry veteran enriching every project with real-world exposure to television, film, and stage."
     },
     { 
       name: "Darshan Singh", 
       role: "Scriptwriter & Theatre Director, 20+ stage plays",
-      bio: "Master storyteller and director crafting unforgettable stage narratives."
+      bio: "Expert in stage dynamics and storytelling, turning potential challenges into perfectly executed moments."
     },
     { 
       name: "Krishan Kant Dang", 
       role: "Celebrity Anchor, Newsreader, Zee Punjabi/PTC",
-      bio: "Guiding students to discover their most confident and expressive public voice."
+      bio: "Guided by strong media expertise to help students connect with audiences and embrace storytelling."
     }
   ];
 
@@ -44,7 +44,7 @@ export default function AboutUs() {
         <div className={styles.bgOverlay}></div>
         <div className={styles.heroContent}>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            The Stage Is Set
+            Crafting Experiences. <br /><span className={styles.goldText}>Building Confidence.</span>
           </motion.h1>
           <motion.div className={styles.breadcrumb} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
             <Link href="/" className={styles.crumbLink}>Home</Link> <span className={styles.crumbSep}>/</span> <span className={styles.crumbActive}>About</span>
@@ -55,21 +55,25 @@ export default function AboutUs() {
       {/* 2. OUR STORY */}
       <section className={styles.storySection}>
         <motion.div className={styles.storyLeft} {...fadeUp}>
-          <h2 className={styles.sectionTitle}>A Script for <span className={styles.goldText}>Every Dreamer</span></h2>
+          <h2 className={styles.sectionTitle}>Where <span className={styles.goldText}>Talent</span> Meets The Stage</h2>
           <div className={styles.storyParas}>
             <p>
-              For over a decade, the Arizona Institute of Performing Arts and Event Management has been the 
-              premiere destination for aspiring actors, dancers, and creators. We started 
-              with a simple goal: to give every child a platform to discover their innate talent.
+              At Arizona Institute of Performing Arts & Event Management, we believe that 
+              every stage is more than just a platform—it is a space where confidence is built, 
+              creativity finds its voice, and stories come alive. Led by a visionary Director with a 
+              deep-rooted passion for the performing arts, Arizona reflects a unique blend of 
+              artistic excellence, discipline, and imaginative expression.
             </p>
             <p>
-              Our specialized curriculum goes beyond just memorizing lines or steps. We 
-              focus on building self-esteem, enhancing communication skills, and eliminating 
-              stage fright through completely stress-free, immersive learning environments.
+              From Sports Days and Annual Functions to Graduation Ceremonies, we take complete 
+              ownership—from ideation to execution—ensuring every moment is meaningful and 
+              flawlessly delivered. Our approach is not transactional; it is transformational. 
+              We believe every school event is an opportunity to inspire, engage, and elevate.
             </p>
             <p>
-              Whether it's a school partnership or individual coaching, we infuse every 
-              session with joy, creativity, and the undeniable magic of the theater.
+              Our strength lies in our exceptional team of professional choreographers, theatre 
+              practitioners, and music experts who bring global standards to every project. Together, 
+              we create performances that are not only visually compelling but emotionally resonant.
             </p>
           </div>
         </motion.div>
@@ -77,8 +81,8 @@ export default function AboutUs() {
           <TiltCard className="card-3d">
             <div className={styles.quoteCard}>
               <Quote className={styles.quoteIcon} size={40} />
-              <p>"To unleash the hidden artist inside every child, empowering them to conquer any stage life offers."</p>
-              <div className={styles.quoteAuthor}>— Our Motivation</div>
+              <p>"Every stage is a canvas, every student is a storyteller, and every event is an opportunity to create something extraordinary."</p>
+              <div className={styles.quoteAuthor}>— Our Creative Philosophy</div>
             </div>
           </TiltCard>
         </motion.div>
@@ -94,19 +98,66 @@ export default function AboutUs() {
         >
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 }}} className={styles.pivotCard}>
              <Compass size={40} className={styles.pivotIcon} />
-             <h3>The Vision</h3>
-             <p>To empower children to develop immense imagination and an unstoppable creative spirit.</p>
+             <h3>Learning Through Expression</h3>
+             <p>Our programs help children discover hidden talents and unlock their potential through acting, voice modulation, and movement.</p>
           </motion.div>
 
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 }}} className={styles.pivotCard}>
              <Flame size={40} className={styles.pivotIcon} />
-             <h3>The Mission</h3>
-             <p>To mould kids into confident, expressive humans through stress-free, engaging, and magical learning experiences.</p>
+             <h3>Transformational Impact</h3>
+             <p>Preparing students to think, lead, and shine as self-assured individuals through stress-free, magical learning experiences.</p>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* 4. TEAM */}
+      {/* 4. OFFERINGS & REACH */}
+      <section className={styles.offeringsSection}>
+        <motion.div className={styles.offeringsHeader} {...fadeUp}>
+           <span className={styles.sectionLabel}>Our Reach</span>
+           <h2 className={styles.sectionTitle}>More Than <span className={styles.goldText}>Just Events</span></h2>
+        </motion.div>
+        
+        <div className={styles.offeringsGrid}>
+          <motion.div className={styles.offeringsText} {...fadeUp}>
+            <p>
+              Arizona’s influence extends far beyond event management. We conduct structured 
+              theatre and performing arts programs integrated directly within **school timetables**, 
+              **after-school clubs**, **studio sessions**, and specialized **workshops**.
+            </p>
+            <p>
+              Each session is meticulously designed to ensure holistic development in a 
+              stress-free environment, integrating:
+            </p>
+            <ul className={styles.offeringsList}>
+              <li>Actively engaging Dialogue Delivery & Voice Modulation</li>
+              <li>Imaginative Creative Writing & Improvisation</li>
+              <li>Body Movement & Strategic Stage Presence</li>
+            </ul>
+            <p>
+              Through our **play-production-oriented approach**, even our youngest learners 
+              gain the confidence to perform live, connect with audiences, and embrace 
+              the timeless art of storytelling.
+            </p>
+          </motion.div>
+          <motion.div className={styles.offeringsVisual} {...fadeUp}>
+            <TiltCard className="card-3d">
+              <div className={styles.highlightsCard}>
+                <div className={styles.highlightItem}>
+                  <div className={styles.highlightNumber}>50+</div>
+                  <div className={styles.highlightLabel}>Original Themes</div>
+                </div>
+                <hr className={styles.highlightDivider} />
+                <div className={styles.highlightItem}>
+                  <div className={styles.highlightNumber}>Artistry</div>
+                  <div className={styles.highlightLabel}>Beyond Performance</div>
+                </div>
+              </div>
+            </TiltCard>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 5. TEAM */}
       <section className={styles.teamSection}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
            <span className={styles.sectionLabel}>The Directors</span>

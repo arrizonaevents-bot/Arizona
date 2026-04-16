@@ -11,7 +11,7 @@ export default function Footer() {
           <p style={{fontSize: "0.8rem", letterSpacing: "2px", textTransform: "uppercase", color: "var(--color-gold)", marginBottom: "1rem"}}>
             Choreography | Theatre | Music | Annual School Functions
           </p>
-          <p>Inspiring creativity, shaping tomorrow's artists safely and beautifully.</p>
+          <p>Every stage is a canvas. Every student is a storyteller.</p>
         </div>
         
         <div className={styles.links}>
