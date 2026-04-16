@@ -20,11 +20,7 @@ const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
   loading: () => (
     <div className={sceneStyles.sceneWrapper} aria-hidden="true" style={{ zIndex: 0 }}>
       <div className={sceneStyles.loadOverlay}>
-        <div className={sceneStyles.loader}>
-          <span className={sceneStyles.loaderDot} />
-          <span className={sceneStyles.loaderDot} />
-          <span className={sceneStyles.loaderDot} />
-        </div>
+        <div className={sceneStyles.spotlightShimmer} />
       </div>
     </div>
   ),
@@ -100,7 +96,7 @@ export default function Home() {
       ══════════════════════════════════════════════════ */}
       <section ref={heroRef} className={styles.heroSection} style={{ position: "relative" }}>
 
-        {/* ── Valance / Rail — stays fixed at top, fades after curtains open ── */}
+        {/* Curtains removed for performance optimization 
         <motion.div
           className={styles.curtainValance}
           initial={{ opacity: 1 }}
@@ -150,6 +146,7 @@ export default function Home() {
             aria-hidden="true"
           />
         </AnimatePresence>
+        */}
 
         {/* 3D Spline scene — pointer-events blocked, no scale effect */}
         <div style={{ width: "100%", height: "100%", position: "absolute", inset: 0, zIndex: 1 }}>
@@ -171,20 +168,20 @@ export default function Home() {
             y: textY, 
             opacity: textOpacity, 
             willChange: "transform, opacity",
-            paddingTop: "120px" // Shift content down slightly to clear the valance area
+            paddingTop: "280px" // Further increased offset for better framing
           }}
         >
           <motion.div
             className={styles.heroCenter}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
           >
             <motion.span
               className={styles.heroBadge}
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
             >
               ✦ Arizona Institute of Performing Arts and Event Management ✦
             </motion.span>
@@ -193,7 +190,7 @@ export default function Home() {
               className={styles.verticals}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.4, duration: 0.7 }}
+              transition={{ delay: 0.6, duration: 0.7 }}
             >
               CHOREOGRAPHY <span className={styles.divider}>|</span> THEATRE <span className={styles.divider}>|</span> MUSIC <span className={styles.divider}>|</span> ANNUAL SCHOOL FUNCTIONS
             </motion.div>
@@ -229,7 +226,7 @@ export default function Home() {
           className={styles.scrollHint}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.2, duration: 0.8 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
         >
           <span className={styles.scrollLine} />
           <span className={styles.scrollLabel}>Scroll</span>
@@ -240,7 +237,7 @@ export default function Home() {
           className={styles.statsRow}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
           <div className={styles.statLine}><h3>14</h3><span>Skills</span></div>

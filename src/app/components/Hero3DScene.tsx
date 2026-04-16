@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from "react";
 import Spline from "@splinetool/react-spline";
 import type { Application } from "@splinetool/runtime";
-import type { MotionValue } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Hero3DScene.module.css";
 
 interface Hero3DSceneProps {
@@ -23,31 +23,26 @@ function hasVariable(api: Record<string, unknown>, name: string): boolean {
 export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
   const splineRef    = useRef<Application | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
   const [isLoaded, setIsLoaded]     = useState(false);
+  const [showScene, setShowScene]   = useState(false);
   const [hasError, setHasError]     = useState(false);
   const [isInView, setIsInView]     = useState(true);
 
-  // Load Spline immediately (100ms) so it's ready when curtains open
-  useEffect(() => {
-    const timer = setTimeout(() => setShouldLoad(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
   // Refs — never cause re-renders
   const varsChecked = useRef(false);
-  const hasAnyVar   = useRef(false); // true only if at least one variable exists
+  const hasAnyVar   = useRef(false); 
   const hasMX       = useRef(false);
   const hasMY       = useRef(false);
   const hasSY       = useRef(false);
   const rawMouse    = useRef({ x: 0, y: 0 });
   const smoothMouse = useRef({ x: 0, y: 0 });
   const lastSent    = useRef({ mx: -999, my: -999, sy: -999 });
-  const rafRef      = useRef<number | null>(null);
 
   const onLoad = useCallback((app: Application) => {
     splineRef.current = app;
     setIsLoaded(true);
+    // 200ms buffer: ensure Spline has actually painted the first frame before we reveal it
+    setTimeout(() => setShowScene(true), 200);
   }, []);
 
   const onError = useCallback(() => setHasError(true), []);
@@ -99,22 +94,11 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
     if (!isLoaded) return;
 
     const LERP = 0.12; 
+    let rafId: number | null = null;
 
     const tick = () => {
-      // Optimization: Stop everything if not in view
-      if (!isInView) {
-        rafRef.current = requestAnimationFrame(tick);
-        return;
-      }
-      
-      // Cleanup check
+      if (!isInView || document.visibilityState !== "visible") return;
       if (varsChecked.current && !hasAnyVar.current) return;
-      
-      // Optimization: Don't process spline updates if the tab is hidden
-      if (document.visibilityState !== "visible") {
-        rafRef.current = requestAnimationFrame(tick);
-        return;
-      }
 
       smoothMouse.current.x += (rawMouse.current.x - smoothMouse.current.x) * LERP;
       smoothMouse.current.y += (rawMouse.current.y - smoothMouse.current.y) * LERP;
@@ -146,43 +130,64 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
         }
       }
 
-
-      rafRef.current = requestAnimationFrame(tick);
+      rafId = requestAnimationFrame(tick);
     };
 
-    rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current); };
-  }, [isLoaded, scrollYProgress]);
+    if (isInView) {
+      rafId = requestAnimationFrame(tick);
+    }
+
+    return () => { 
+      if (rafId !== null) cancelAnimationFrame(rafId); 
+    };
+  }, [isLoaded, isInView, scrollYProgress]);
 
   return (
     <div
       ref={containerRef}
       className={styles.sceneWrapper}
       aria-hidden="true"
-      style={{ willChange: "transform" }}
+      style={{ 
+        willChange: "transform",
+        visibility: isInView ? "visible" : "hidden"
+      }}
     >
-      {/* Loading overlay: only shown before scene loads */}
-      <div className={`${styles.loadOverlay} ${isLoaded ? styles.hidden : ""}`}>
-        <div className={styles.loader}>
-          <span className={styles.loaderDot} />
-          <span className={styles.loaderDot} />
-          <span className={styles.loaderDot} />
-        </div>
-      </div>
+      <AnimatePresence>
+        {!showScene && !hasError && (
+          <motion.div 
+            key="loader"
+            className={styles.loadOverlay}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          >
+            <div className={styles.spotlightShimmer} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {hasError ? (
         <div className={styles.fallback}>
           <span>✦</span>
         </div>
-      ) : (shouldLoad && isInView) ? (
-        <Spline
-          scene="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode"
-          onLoad={onLoad}
-          onError={onError}
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ 
+            opacity: showScene ? 1 : 0, 
+            scale: showScene ? 1 : 0.97 
+          }}
+          transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
           className={styles.splineCanvas}
-          style={{ opacity: isLoaded ? 1 : 0, transition: "opacity 1.2s ease" }}
-        />
-      ) : null}
+        >
+          <Spline
+            scene="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode"
+            onLoad={onLoad}
+            onError={onError}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </motion.div>
+      )}
     </div>
   );
 }

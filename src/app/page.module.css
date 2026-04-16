@@ -494,8 +494,7 @@
 .glassFrame {
   width: 100%; height: 100%;
   border: 1px solid rgba(212,175,55,0.3);
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 12, 0.4); /* Solidified slightly to compensate for blur loss */
   display: flex; align-items: center; justify-content: center;
 }
 
@@ -511,7 +510,7 @@
 .carouselTrack {
   display: flex;
   width: max-content;
-  animation: scroll 30s linear infinite;
+  animation: scroll 120s linear infinite;
   will-change: transform;
 }
 

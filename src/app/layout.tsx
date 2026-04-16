@@ -31,6 +31,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Manual high-priority preload for the 3D scene file to eliminate "black screen" delay */}
+        <link 
+          rel="preload" 
+          href="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode" 
+          as="fetch" 
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
         <ThemeProvider>
           <CustomCursor />

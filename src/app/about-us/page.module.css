@@ -125,8 +125,7 @@
 .storyRight { flex: 1; }
 
 .quoteCard {
-  background: rgba(25, 25, 30, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(25, 25, 30, 0.85); /* Darkened slightly to compensate for blur loss */
   border: 1px solid rgba(255,255,255,0.05);
   padding: 3rem;
   text-align: left;
