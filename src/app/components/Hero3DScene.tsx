@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from "react";
 import Spline from "@splinetool/react-spline";
 import type { Application } from "@splinetool/runtime";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionValue } from "framer-motion";
 import styles from "./Hero3DScene.module.css";
 
 interface Hero3DSceneProps {
