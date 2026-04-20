@@ -25,7 +25,7 @@ const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
         zIndex: 1, 
         height: '100vh', 
         width: '100vw', 
-        background: 'radial-gradient(circle at 50% -20%, #1a1a1a 0%, #000 70%)' 
+        background: 'radial-gradient(circle at 50% -20%, #1a1a1a 0%, #000 80%)' 
       }}
     >
       <div className={sceneStyles.loadOverlay} style={{ background: "transparent" }}>

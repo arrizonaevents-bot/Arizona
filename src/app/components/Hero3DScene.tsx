@@ -175,9 +175,13 @@ export default function Hero3DScene({}: Hero3DSceneProps) {
           <motion.div
             key="loader"
             className={styles.loadOverlay}
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 1, scale: 1 }}
+            exit={{ 
+              opacity: 0, 
+              scale: 1.4,
+              filter: "blur(20px)"
+            }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className={styles.spotlightShimmer} />
           </motion.div>
@@ -190,9 +194,17 @@ export default function Hero3DScene({}: Hero3DSceneProps) {
         </div>
       ) : (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showScene ? 1 : 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          initial={{ opacity: 0, scale: 1.15 }}
+          animate={{ 
+            opacity: showScene ? 1 : 0,
+            scale: showScene ? 1 : 1.15,
+            filter: showScene ? "blur(0px)" : "blur(10px)"
+          }}
+          transition={{ 
+            duration: 1.6, 
+            ease: [0.16, 1, 0.3, 1],
+            opacity: { duration: 1 } 
+          }}
           className={styles.splineCanvas}
         >
           {isClient && (
