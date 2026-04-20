@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export default function TiltCard({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
@@ -16,39 +16,44 @@ export default function TiltCard({ children, className, style }: { children: Rea
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
   
-  const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
-  const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
-  const glareOpacity = useTransform(mouseXSpring, [-0.5, 0, 0.5], [0.3, 0, 0.3]);
+  const glareX        = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const glareY        = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const glareOpacity  = useTransform(mouseXSpring, [-0.5, 0, 0.5], [0.3, 0, 0.3]);
 
-  const [isHovering, setIsHovering] = useState(false);
+  // ─── Cached rect: read once on mouseenter, not every pixel of movement ───
+  const cachedRect  = useRef<DOMRect | null>(null);
+  // Track hover state in a ref to avoid re-renders — use motionValue for glare
+  const isHoveringMV = useMotionValue(0);
+  const glareVisible  = useTransform(isHoveringMV, [0, 1], [0, 1]);
+
+  const handleMouseEnter = () => {
+    if (ref.current) cachedRect.current = ref.current.getBoundingClientRect();
+    isHoveringMV.set(1);
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
+    const rect = cachedRect.current;
+    if (!rect) return;
+
+    const xPct = (e.clientX - rect.left) / rect.width  - 0.5;
+    const yPct = (e.clientY - rect.top)  / rect.height - 0.5;
 
     x.set(xPct);
     y.set(yPct);
-    setIsHovering(true);
   };
 
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
-    setIsHovering(false);
+    cachedRect.current = null;
+    isHoveringMV.set(0);
   };
 
   return (
     <motion.div
       ref={ref}
       className={className}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -61,7 +66,7 @@ export default function TiltCard({ children, className, style }: { children: Rea
         overflow: "hidden"
       }}
     >
-      {/* Glare internal layer */}
+      {/* Glare internal layer — driven purely by MotionValues, no React re-renders */}
       <motion.div
         style={{
           position: "absolute",
@@ -75,10 +80,10 @@ export default function TiltCard({ children, className, style }: { children: Rea
           height: "200%",
           pointerEvents: "none",
           zIndex: 10,
-          mixBlendMode: "overlay"
+          mixBlendMode: "overlay",
+          visibility: glareVisible.get() > 0 ? "visible" : "hidden",
         }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovering ? undefined : 0 }}
+        animate={{ opacity: undefined }}
       />
       {children}
     </motion.div>

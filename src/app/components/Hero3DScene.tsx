@@ -6,9 +6,7 @@ import type { Application } from "@splinetool/runtime";
 import { motion, AnimatePresence, MotionValue } from "framer-motion";
 import styles from "./Hero3DScene.module.css";
 
-interface Hero3DSceneProps {
-  scrollYProgress?: MotionValue<number>;
-}
+interface Hero3DSceneProps {}
 
 function hasVariable(api: Record<string, unknown>, name: string): boolean {
   try {
@@ -20,17 +18,23 @@ function hasVariable(api: Record<string, unknown>, name: string): boolean {
   return false;
 }
 
-export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
+export default function Hero3DScene({}: Hero3DSceneProps) {
   const splineRef    = useRef<Application | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded]     = useState(false);
-  const [showScene, setShowScene]   = useState(false);
-  const [hasError, setHasError]     = useState(false);
-  const [isInView, setIsInView]     = useState(true);
+  const [isLoaded, setIsLoaded]   = useState(false);
+  const [showScene, setShowScene] = useState(false);
+  const [hasError, setHasError]   = useState(false);
+  const [isInView, setIsInView]   = useState(true);
+
+  // Checks if we are on the client to avoid hydration mismatch
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Refs — never cause re-renders
   const varsChecked = useRef(false);
-  const hasAnyVar   = useRef(false); 
+  const hasAnyVar   = useRef(false);
   const hasMX       = useRef(false);
   const hasMY       = useRef(false);
   const hasSY       = useRef(false);
@@ -38,16 +42,18 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
   const smoothMouse = useRef({ x: 0, y: 0 });
   const lastSent    = useRef({ mx: -999, my: -999, sy: -999 });
 
+  const cachedRect = useRef<DOMRect | null>(null);
+
   const onLoad = useCallback((app: Application) => {
     splineRef.current = app;
     setIsLoaded(true);
-    // 200ms buffer: ensure Spline has actually painted the first frame before we reveal it
-    setTimeout(() => setShowScene(true), 200);
+    // Smoothly reveal the scene once loaded
+    setShowScene(true);
   }, []);
 
   const onError = useCallback(() => setHasError(true), []);
 
-  // Check which variables exist once after load
+  // Check variables once after load
   useEffect(() => {
     if (!isLoaded || varsChecked.current) return;
     const api = splineRef.current as unknown as Record<string, unknown>;
@@ -59,18 +65,22 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
     varsChecked.current = true;
   }, [isLoaded]);
 
-  // Track mouse — throttled to only update ref, no state
+  // Viewport and Interaction tracking
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    const onEnter = () => {
+      cachedRect.current = container.getBoundingClientRect();
+    };
     const onMove = (e: MouseEvent) => {
-      const r = container.getBoundingClientRect();
+      const r = cachedRect.current ?? container.getBoundingClientRect();
       rawMouse.current = {
         x:  ((e.clientX - r.left) / r.width)  * 2 - 1,
         y: -((e.clientY - r.top)  / r.height) * 2 + 1,
       };
     };
+    const onResize = () => { cachedRect.current = null; };
 
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
@@ -78,26 +88,31 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
     );
     observer.observe(container);
 
-    container.addEventListener("mousemove", onMove, { passive: true });
+    container.addEventListener("mouseenter", onEnter, { passive: true });
+    container.addEventListener("mousemove",  onMove,  { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+
     const blockWheel = (e: WheelEvent) => e.stopPropagation();
     container.addEventListener("wheel", blockWheel, { capture: true, passive: true });
 
     return () => {
       observer.disconnect();
-      container.removeEventListener("mousemove", onMove);
+      container.removeEventListener("mouseenter", onEnter);
+      container.removeEventListener("mousemove",  onMove);
       container.removeEventListener("wheel", blockWheel, { capture: true });
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
-  // RAF loop — optimization: only runs when visible and variables exist
+  // RAF loop
   useEffect(() => {
     if (!isLoaded) return;
 
-    const LERP = 0.12; 
+    const LERP = 0.12;
     let rafId: number | null = null;
 
     const tick = () => {
-      if (!isInView || document.visibilityState !== "visible") return;
+      if (!isInView) return;
       if (varsChecked.current && !hasAnyVar.current) return;
 
       smoothMouse.current.x += (rawMouse.current.x - smoothMouse.current.x) * LERP;
@@ -116,14 +131,6 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
               set("mouseY", smoothMouse.current.y);
               lastSent.current.my = smoothMouse.current.y;
             }
-            if (hasSY.current) {
-              const progress = scrollYProgress ? scrollYProgress.get() : 0;
-              const clamped = Math.max(0, Math.min(1, progress));
-              if (Math.abs(lastSent.current.sy - clamped) > 0.001) {
-                set("scrollY", clamped);
-                lastSent.current.sy = clamped;
-              }
-            }
           } catch {
             hasAnyVar.current = false;
           }
@@ -133,33 +140,44 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
       rafId = requestAnimationFrame(tick);
     };
 
-    if (isInView) {
-      rafId = requestAnimationFrame(tick);
-    }
-
-    return () => { 
-      if (rafId !== null) cancelAnimationFrame(rafId); 
+    const start = () => {
+      if (isInView && rafId === null) rafId = requestAnimationFrame(tick);
     };
-  }, [isLoaded, isInView, scrollYProgress]);
+    const stop = () => {
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    };
+
+    const onVisibilityChange = () => {
+      document.hidden ? stop() : (isInView && start());
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    start();
+
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [isLoaded, isInView]);
 
   return (
     <div
       ref={containerRef}
       className={styles.sceneWrapper}
       aria-hidden="true"
-      style={{ 
+      style={{
         willChange: "transform",
         visibility: isInView ? "visible" : "hidden"
       }}
     >
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {!showScene && !hasError && (
-          <motion.div 
+          <motion.div
             key="loader"
             className={styles.loadOverlay}
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className={styles.spotlightShimmer} />
           </motion.div>
@@ -172,20 +190,19 @@ export default function Hero3DScene({ scrollYProgress }: Hero3DSceneProps) {
         </div>
       ) : (
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ 
-            opacity: showScene ? 1 : 0, 
-            scale: showScene ? 1 : 0.97 
-          }}
-          transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showScene ? 1 : 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
           className={styles.splineCanvas}
         >
-          <Spline
-            scene="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode"
-            onLoad={onLoad}
-            onError={onError}
-            style={{ width: '100%', height: '100%' }}
-          />
+          {isClient && (
+            <Spline
+              scene="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode"
+              onLoad={onLoad}
+              onError={onError}
+              style={{ width: '100%', height: '100%' }}
+            />
+          )}
         </motion.div>
       )}
     </div>

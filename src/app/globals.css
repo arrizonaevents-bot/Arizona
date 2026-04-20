@@ -1,47 +1,80 @@
 :root {
-  /* Default/Dark Theme */
+  /* ── Dark Theme (default) ─────────────────────────── */
   --color-bg-main: #0a0a0a;
   --color-bg-offset: #111111;
   --color-bg-panel: rgba(25, 25, 30, 0.7);
-  --color-border-glass: rgba(255, 255, 255, 0.05);
+  --color-border-glass: rgba(255, 255, 255, 0.07);
   --color-overlay: rgba(0, 0, 0, 0.9);
   --shadow-main: rgba(0, 0, 0, 0.8);
   --shadow-light: rgba(0, 0, 0, 0.5);
-  --curtain-grad-l: linear-gradient(90deg, #2b0b0b 0%, #5c100c 90%, #8c1e16 100%);
-  --curtain-grad-r: linear-gradient(270deg, #2b0b0b 0%, #5c100c 90%, #8c1e16 100%);
   
   --color-text-main: #f5f5f5;
   --color-text-muted: #a0a0a0;
+  --color-text-dim: rgba(255, 255, 255, 0.45);
 
-  /* Accent invariant colors */
+  /* ── Fixed Tokens (Constant across themes for Always-Dark sections) ── */
+  --color-fixed-white: #ffffff;
+  --color-fixed-gold: #d4af37;
+  --color-fixed-black: #000000;
+
+  /* ── Adaptive Accent ─────────────────────────────── */
+  /* This shifts between vibrant gold (dark) and rich burnt gold (light) for contrast */
+  --color-gold: #d4af37;
+  --color-gold-adaptive: #d4af37;
+  --color-gold-rgb: 212, 175, 55;
+  
+  /* ── Component Backgrounds ────────────────────────── */
+  --color-badge-bg: rgba(0, 0, 0, 0.6);
+  --color-glass-bg: rgba(10, 10, 12, 0.4);
+  --color-card-border: rgba(255, 255, 255, 0.07);
+
+  /* ── Navigation tokens ─────────────────────────────── */
+  --color-nav-text: rgba(255, 255, 255, 0.55);
+  --color-nav-text-hover: rgba(255, 255, 255, 0.95);
+  --color-nav-bg-scrolled: rgba(6, 6, 10, 0.98);
+  --color-nav-border: rgba(255, 255, 255, 0.06);
+  
+  /* ── Accent invariant ──────────────────────────────── */
   --color-crimson: #9e1b1b;
   --color-crimson-bright: #c82424;
-  --color-gold: #d4af37;
-  --color-gold-light: #f3e5ab;
   --color-silver: #c0c0c0;
-  
-  /* Fonts */
+
+  /* ── Fonts ─────────────────────────────────────────── */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
 }
 
+/* ── Light Theme ────────────────────────────────────── */
 :root[data-theme='light'] {
-  --color-bg-main: #FFF8F0; /* Cream */
-  --color-bg-offset: #FDE8D8; /* Peach */
-  --color-bg-panel: rgba(255, 255, 255, 0.6);
-  --color-border-glass: rgba(167, 139, 250, 0.3); /* Lavender glass edge */
-  --color-overlay: rgba(253, 232, 216, 0.9); /* Peach overlay instead of dark */
-  --shadow-main: rgba(45, 27, 78, 0.2); /* Soft plum shadow */
+  --color-bg-main: #FFF8F0;
+  --color-bg-offset: #F5EDE0;
+  --color-bg-panel: rgba(255, 255, 255, 0.75);
+  --color-border-glass: rgba(100, 60, 20, 0.15);
+  --color-overlay: rgba(253, 232, 216, 0.9);
+  --shadow-main: rgba(45, 27, 78, 0.15);
   --shadow-light: rgba(45, 27, 78, 0.1);
-  --curtain-grad-l: linear-gradient(90deg, #FFF8F0 0%, #FDE8D8 90%, #F472B6 100%); /* Cream -> Peach -> Pink */
-  --curtain-grad-r: linear-gradient(270deg, #FFF8F0 0%, #FDE8D8 90%, #F472B6 100%);
-  
-  --color-text-main: #2D1B4E; /* Plum / Deep Purple */
-  --color-text-muted: #645585;
-  
-  /* Accents stay the same for elegance */
+
+  --color-text-main: #1D152D;    /* Replaced #2D1B4E with deeper plum-black for 7:1+ contrast */
+  --color-text-muted: #55416B;
+  --color-text-dim: #7C6892;
+
+  /* Adaptive Gold: Shift to a readable Burnt Gold/Bronze in Light theme */
+  --color-gold-adaptive: #916B19;
+  --color-gold-rgb: 145, 107, 25;
+
+  /* Component Backgrounds (Light) */
+  --color-badge-bg: rgba(45, 27, 78, 0.06);
+  --color-glass-bg: rgba(45, 27, 78, 0.04);
+  --color-card-border: rgba(45, 27, 78, 0.12);
+
+  /* Navigation tokens (light) */
+  --color-nav-text: rgba(45, 27, 78, 0.65);
+  --color-nav-text-hover: #0D0715;
+  --color-nav-bg-scrolled: rgba(255, 248, 240, 0.97);
+  --color-nav-border: rgba(45, 27, 78, 0.08);
 }
 
+/* ── Reset ─────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -49,6 +82,7 @@
   cursor: none; /* We use a completely custom cursor universally */
 }
 
+/* ── Body ─────────────────────────────────────────────── */
 body {
   background-color: var(--color-bg-main);
   /* Premium grain texture overlay — extremely cheap to render but adds high-end feel */
@@ -96,8 +130,8 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-bg-panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--color-border-glass);
+  box-shadow: 0 4px 30px var(--shadow-light);
 }
 
 /* Custom Scrollbar */

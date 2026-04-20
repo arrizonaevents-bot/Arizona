@@ -7,19 +7,18 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 40; /* Sit behind curtains and valance on load */
+  z-index: 40;
   padding: 1rem 5%;
-  transition: background 0.4s ease, padding 0.4s ease;
+  transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
   will-change: transform;
 }
 
 /* After scroll: condense and frost */
 .navbar.scrolled {
   padding: 0.5rem 5%;
-  background: rgba(6, 6, 10, 0.98);
-  /* Removed backdrop-filter for performance */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  background: var(--color-nav-bg-scrolled);
+  border-bottom: 1px solid var(--color-nav-border);
+  box-shadow: 0 4px 30px var(--shadow-main);
 }
 
 /* Inner row — 3-column grid for absolute centering of the nav links */
@@ -59,7 +58,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 3px;
-  color: var(--color-gold);
+  color: var(--color-fixed-gold);
   text-transform: uppercase;
 }
 
@@ -67,7 +66,7 @@
   font-size: 0.62rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.6); /* Fixed light text for brand over dark hero */
   font-family: var(--font-body);
 }
 
@@ -97,17 +96,22 @@
   font-weight: 600;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.7); /* Default light over dark hero */
   transition: color 0.2s ease;
   text-decoration: none;
 }
 
+/* Scrolled state: Use adaptive theme colors */
+.navbar.scrolled .navLink {
+  color: var(--color-nav-text);
+}
+
 .navLink:hover {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--color-nav-text-hover);
 }
 
 .navLink.active {
-  color: var(--color-gold);
+  color: var(--color-gold-adaptive);
 }
 
 /* Animated gold underline pip */
@@ -117,9 +121,9 @@
   left: 1.1rem;
   right: 1.1rem;
   height: 2px;
-  background: var(--color-gold);
+  background: var(--color-gold-adaptive);
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+  box-shadow: 0 0 8px rgba(var(--color-gold-rgb), 0.6);
 }
 
 /* ── Actions ────────────────────────────── */
@@ -132,8 +136,8 @@
 
 .iconBtn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -141,6 +145,11 @@
   align-items: center;
   justify-content: center;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.navbar.scrolled .iconBtn {
+  border-color: var(--color-nav-border);
+  color: var(--color-nav-text);
 }
 
 .iconBtn:hover {
@@ -181,8 +190,8 @@
   display: flex;
   align-items: center;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-mobile-toggle-border);
+  color: var(--color-mobile-toggle-text);
   border-radius: 8px;
   padding: 0.4rem 0.6rem;
   outline: none;
@@ -201,9 +210,8 @@
 /* ── Mobile drawer ──────────────────────── */
 .mobileDrawer {
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(6, 6, 10, 0.98);
-  /* Removed backdrop-filter for performance */
+  border-top: 1px solid var(--color-drawer-border);
+  background: var(--color-drawer-bg);
   margin-top: 0.5rem;
 }
 
@@ -222,15 +230,15 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-nav-mobile-text);
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
   text-decoration: none;
 }
 
 .mobileLink:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
+  background: var(--color-card-bg);
+  color: var(--color-nav-text-hover);
 }
 
 .mobileActive {

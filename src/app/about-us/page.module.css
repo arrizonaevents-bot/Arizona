@@ -15,7 +15,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid var(--color-separator);
 }
 
 .bgOverlay {
@@ -54,7 +54,7 @@
 .sectionTitle {
   font-family: var(--font-heading);
   font-size: 2.5rem;
-  color: white;
+  color: var(--color-text-main);
   margin-bottom: 1rem;
 }
 @media(min-width: 768px) { .sectionTitle { font-size: 3.5rem; } }
@@ -110,7 +110,7 @@
 .storyLeft { flex: 1.2; }
 
 .storyParas {
-  border-left: 1px solid rgba(255,255,255,0.1);
+  border-left: 1px solid var(--color-story-border);
   padding-left: 2rem;
   margin-top: 2rem;
 }
@@ -125,8 +125,8 @@
 .storyRight { flex: 1; }
 
 .quoteCard {
-  background: rgba(25, 25, 30, 0.85); /* Darkened slightly to compensate for blur loss */
-  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
   padding: 3rem;
   text-align: left;
 }
@@ -137,7 +137,7 @@
   font-family: var(--font-heading);
   font-size: 2rem;
   line-height: 1.4;
-  color: white;
+  color: var(--color-text-main);
   margin-bottom: 2rem;
 }
 
@@ -170,8 +170,8 @@
 
 .pivotCard {
   flex: 1;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
   padding: 4rem 3rem;
   text-align: center;
   transition: background 0.3s, border-color 0.3s;
@@ -220,7 +220,7 @@
 }
 
 .offeringsText strong {
-  color: white;
+  color: var(--color-text-main);
   font-weight: 600;
 }
 
@@ -235,7 +235,7 @@
   padding-left: 2.5rem;
   margin-bottom: 1.2rem;
   font-size: 1.05rem;
-  color: white;
+  color: var(--color-text-main);
 }
 
 .offeringsList li::before {
@@ -250,8 +250,8 @@
 }
 
 .highlightsCard {
-  background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
   padding: 4rem 3rem;
   text-align: center;
 }
@@ -277,7 +277,7 @@
 
 .highlightDivider {
   border: none;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid var(--color-separator);
   width: 50px;
   margin: 0 auto;
 }
@@ -314,8 +314,8 @@
 @media(min-width: 768px) { .teamGrid { grid-template-columns: repeat(2, 1fr); } }
 
 .teamCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
   padding: 3rem;
   height: 100%;
   text-align: center;
@@ -344,7 +344,7 @@
 /* 5. ACCOLADES */
 .accoladesSection {
   padding: 8rem 5%;
-  background: #050505;
+  background: var(--color-bg-offset);
 }
 
 .accoladesGrid {

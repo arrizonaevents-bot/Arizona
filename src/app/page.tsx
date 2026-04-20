@@ -18,8 +18,17 @@ import { Sparkles, Star, Target } from "lucide-react";
 const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
   ssr: false,
   loading: () => (
-    <div className={sceneStyles.sceneWrapper} aria-hidden="true" style={{ zIndex: 0 }}>
-      <div className={sceneStyles.loadOverlay}>
+    <div 
+      className={sceneStyles.sceneWrapper} 
+      aria-hidden="true" 
+      style={{ 
+        zIndex: 1, 
+        height: '100vh', 
+        width: '100vw', 
+        background: 'radial-gradient(circle at 50% -20%, #1a1a1a 0%, #000 70%)' 
+      }}
+    >
+      <div className={sceneStyles.loadOverlay} style={{ background: "transparent" }}>
         <div className={sceneStyles.spotlightShimmer} />
       </div>
     </div>
@@ -67,9 +76,9 @@ export default function Home() {
     offset: ["start start", "end start"],
   });
 
-  // Use MotionValues — never causes re-renders, runs entirely on compositor thread
-  const textY       = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  // Scroll-linked transforms removed as requested to undo 3D animation feel
+  const textY       = "0%";
+  const textOpacity = 1;
 
   const triggerConfetti = () => {
     confetti({
@@ -94,7 +103,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════
           1. HERO
       ══════════════════════════════════════════════════ */}
-      <section ref={heroRef} className={styles.heroSection} style={{ position: "relative" }}>
+      <section ref={heroRef} className={styles.heroSection} style={{ position: "relative", height: "100vh" }}>
 
         {/* Curtains removed for performance optimization 
         <motion.div
@@ -148,10 +157,8 @@ export default function Home() {
         </AnimatePresence>
         */}
 
-        {/* 3D Spline scene — pointer-events blocked, no scale effect */}
-        <div style={{ width: "100%", height: "100%", position: "absolute", inset: 0, zIndex: 1 }}>
-          <Hero3DScene scrollYProgress={scrollYProgress} />
-        </div>
+        {/* 3D Spline scene — no scroll sync */}
+        <Hero3DScene />
 
         {/* Spotlight */}
         <div className={styles.spotlightWrapper} aria-hidden="true">
@@ -167,20 +174,19 @@ export default function Home() {
           style={{ 
             y: textY, 
             opacity: textOpacity, 
-            willChange: "transform, opacity",
-            paddingTop: "280px" // Further increased offset for better framing
+            willChange: "transform, opacity"
           }}
         >
           <motion.div
             className={styles.heroCenter}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
           >
             <motion.span
               className={styles.heroBadge}
-              initial={{ opacity: 0, y: -15 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
               ✦ Arizona Institute of Performing Arts and Event Management ✦
@@ -235,8 +241,8 @@ export default function Home() {
         {/* Stats bar */}
         <motion.div
           className={styles.statsRow}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
