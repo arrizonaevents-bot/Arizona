@@ -21,11 +21,11 @@ function hasVariable(api: Record<string, unknown>, name: string): boolean {
 }
 
 export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
-  const MIN_OVERLAY_MS = 600; // Hyper-fast reveal
+  const MIN_OVERLAY_MS = 200; // Accelerated reveal
   const splineRef = useRef<Application | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const overlayStartRef = useRef<number>(Date.now());
-  
+
   const [canMountSpline, setCanMountSpline] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showScene, setShowScene] = useState(false);
@@ -37,26 +37,12 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
   useEffect(() => {
     setIsClient(true);
     overlayStartRef.current = Date.now();
-
-    // DELAY MOUNTING: Near-instant but non-blocking
-    const mountDelay = setTimeout(() => {
-      if (typeof window.requestIdleCallback === "function") {
-        window.requestIdleCallback(() => setCanMountSpline(true));
-      } else {
-        setCanMountSpline(true);
-      }
-    }, 100); 
-
-    return () => clearTimeout(mountDelay);
+    setCanMountSpline(true); // Mount immediately
   }, []);
 
   const onLoad = useCallback((app: Application) => {
     splineRef.current = app;
-    // Extra long settlement for high-performance entrance
-    const timeout = setTimeout(() => {
-      setIsLoaded(true);
-    }, 500);
-    return () => clearTimeout(timeout);
+    setIsLoaded(true); // Instant ready
   }, []);
 
   const onError = useCallback(() => setHasError(true), []);
@@ -66,14 +52,13 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
     if (!isClient) return;
 
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const lowCoreCount = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 8; 
     const navWithMemory = navigator as Navigator & { deviceMemory?: number };
     const navWithConnection = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
-    const lowMemory = typeof navWithMemory.deviceMemory === "number" && navWithMemory.deviceMemory <= 4;
+    const lowMemory = typeof navWithMemory.deviceMemory === "number" && navWithMemory.deviceMemory <= 2;
     const isDataSaver = navWithConnection.connection?.saveData === true;
-    const slowNetwork = /(^|[^a-z])(slow-2g|2g|3g)([^a-z]|$)/i.test(navWithConnection.connection?.effectiveType ?? "");
+    const slowNetwork = /(^|[^a-z])(slow-2g|2g)([^a-z]|$)/i.test(navWithConnection.connection?.effectiveType ?? "");
 
-    if (media.matches || lowCoreCount || lowMemory || isDataSaver || slowNetwork) {
+    if (media.matches || lowMemory || isDataSaver || slowNetwork) {
       setDisable3D(true);
     } else {
       setDisable3D(false);
@@ -90,7 +75,7 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.01, rootMargin: "50px" } 
+      { threshold: 0.01, rootMargin: "50px" }
     );
     observer.observe(container);
     return () => observer.disconnect();
@@ -130,7 +115,7 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
       {/* 2. Static Placeholder Layer — show while loading OR while culled (offscreen) */}
       {(!showScene || !isInView) && (
         <div className={styles.placeholderLayer}>
-             <div className={styles.placeholderGraphic} />
+          <div className={styles.placeholderGraphic} />
         </div>
       )}
 

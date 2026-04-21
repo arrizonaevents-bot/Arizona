@@ -34,6 +34,13 @@ const SCHOOL_LOGOS = [
 export default function Home() {
   const router  = useRouter();
   const [heroActive, setHeroActive] = useState(false);
+  const [contentVisible, setContentVisible] = useState(false);
+
+  useEffect(() => {
+    // Stage 1: Reveal primary text almost instantly (100ms)
+    const timer = setTimeout(() => setContentVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,7 +62,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════
           1. HERO
       ══════════════════════════════════════════════════ */}
-      <section className={styles.heroSection} style={{ position: "relative", height: "100vh" }}>
+      <section className={styles.heroSection}>
 
         {/* Optimized 3D hero background */}
         <div className={styles.heroSceneFrame} aria-hidden="true">
@@ -67,23 +74,39 @@ export default function Home() {
           <div className={styles.spotlightMain} />
         </div>
 
+        {/* Theatrical Curtains — Reveal the 3D background */}
+        <div className={styles.curtainLeft} data-active={heroActive ? "true" : "false"} />
+        <div className={styles.curtainRight} data-active={heroActive ? "true" : "false"} />
+        <div className={styles.curtainValance} />
+
         {/* Vignette */}
         <div className={styles.heroVignette} aria-hidden="true" />
 
-        {/* Hero copy — Staged Reveal Logic */}
+        {/* Hero copy — Two-Stage Reveal for Speed & Focus */}
         <div 
           className={styles.heroContent} 
-          data-active={heroActive ? "true" : "false"}
+          data-active={contentVisible ? "true" : "false"}
         >
           <div className={styles.heroCenter}>
-            <span className={styles.heroBadge}>
-              ✦ Arizona Institute of Performing Arts and Event Management ✦
-            </span>
+            {/* Secondary elements (Fade in after curtain) */}
+            <div 
+              style={{ 
+                opacity: heroActive ? 1 : 0, 
+                transform: heroActive ? "translateY(0)" : "translateY(-10px)",
+                transition: "all 0.8s ease-out 0.4s",
+                pointerEvents: heroActive ? "all" : "none"
+              }}
+            >
+              <span className={styles.heroBadge}>
+                ✦ Arizona Institute of Performing Arts and Event Management ✦
+              </span>
 
-            <div className={styles.verticals}>
-              CHOREOGRAPHY <span className={styles.divider}>|</span> THEATRE <span className={styles.divider}>|</span> MUSIC <span className={styles.divider}>|</span> ANNUAL SCHOOL FUNCTIONS
+              <div className={styles.verticals}>
+                CHOREOGRAPHY <span className={styles.divider}>|</span> THEATRE <span className={styles.divider}>|</span> MUSIC <span className={styles.divider}>|</span> ANNUAL SCHOOL FUNCTIONS
+              </div>
             </div>
 
+            {/* Primary elements (Instant arrival) */}
             <h1 className={styles.heroTitle}>
               We Bring Out <br />
               <span className={styles.goldText}>The Actor In You.</span>
@@ -93,7 +116,16 @@ export default function Home() {
               Discover your talent, build confidence, and shine on the grand stage with absolute brilliance.
             </p>
 
-            <div className={styles.heroBtns}>
+            {/* Secondary elements (Interaction phase) */}
+            <div 
+              className={styles.heroBtns}
+              style={{ 
+                opacity: heroActive ? 1 : 0, 
+                transform: heroActive ? "translateY(0)" : "translateY(10px)",
+                transition: "all 0.8s ease-out 0.6s",
+                pointerEvents: heroActive ? "all" : "none"
+              }}
+            >
               <Link href="/about-us" className={styles.btnPrimary}>
                 Explore The Stage
               </Link>
@@ -110,7 +142,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stats bar */}
+        {/* Stats bar — Reveals with background */}
         <div 
           className={styles.statsRow} 
           data-active={heroActive ? "true" : "false"}
