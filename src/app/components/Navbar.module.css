@@ -276,9 +276,7 @@
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  background: rgba(0, 0, 0, 0.95); /* Deeper solid black for contrast without blur */
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
+  background: var(--color-drawer-bg); /* Use theme-aware background */
   z-index: 200; 
   display: flex;
   flex-direction: column;
@@ -291,7 +289,7 @@
   .mobileDrawer {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: #050505; /* Black fallback */
+    /* No hardcoded background needed here as it inherits var(--color-drawer-bg) */
   }
 }
 
@@ -317,7 +315,7 @@
   font-weight: 300;
   letter-spacing: 5px; /* Elegant spacing */
   text-transform: uppercase;
-  color: #fff;
+  color: var(--color-nav-mobile-text); /* Use theme-aware text color */
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
@@ -348,9 +346,7 @@
   justify-content: center;
 }
 
-.navbar.scrolled .mobileDrawer {
-  background: var(--color-nav-bg-scrolled);
-}
+/* Remove redundant override that was breaking light mode visibility */
 
 /* Ensure toggle stays above drawer */
 .mobileToggle {
@@ -367,5 +363,5 @@
 }
 
 .mobileToggle.toggleOpen {
-  color: #fff; /* White against dark modal */
+  color: var(--color-nav-mobile-text); /* Use theme-aware color against the drawer bg */
 }
