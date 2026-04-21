@@ -8,11 +8,26 @@
 .heroSection {
   position: relative;
   height: 100svh;
-  min-height: 700px;
+  min-height: 600px;
   background-color: var(--color-bg-main);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    height: auto;
+    min-height: 100svh;
+    padding-bottom: 4rem;
+  }
+}
+
+.heroSceneFrame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateZ(0);
 }
 
 /* ── Theatrical Curtains ──────────────────────────────────────── */
@@ -124,7 +139,7 @@
   height: 150vh;
   background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
   transform-origin: top center;
-  animation: breathe 8s ease-in-out infinite alternate;
+  animation: none;
 }
 
 @keyframes breathe {
@@ -144,7 +159,35 @@
   z-index: 20;
   pointer-events: none;
   contain: layout size;
+
+  /* Staged Reveal State */
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
+
+@media (max-width: 768px) {
+  .heroContent {
+    position: relative; 
+    padding: 9rem 5% 2rem; /* Increased from 6rem to avoid navbar logo overlap */
+    min-height: 80svh;
+    justify-content: flex-start;
+  }
+}
+
+.heroContent[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered entrance for hero elements — Sharpened */
+.heroContent[data-active="true"] .heroBadge { transition-delay: 0.05s; }
+.heroContent[data-active="true"] .verticals { transition-delay: 0.1s; }
+.heroContent[data-active="true"] .heroTitle { transition-delay: 0.15s; }
+.heroContent[data-active="true"] .subtitle  { transition-delay: 0.2s; }
+.heroContent[data-active="true"] .heroBtns  { transition-delay: 0.25s; }
 
 /* Re-enable pointer events for the actual interactive buttons */
 .heroContent a,
@@ -163,6 +206,16 @@
   gap: 1.5rem;
   justify-content: center;
   margin-bottom: 3.5rem; /* Balanced spacing between buttons and stats bar */
+}
+
+@media (max-width: 768px) {
+  .heroBtns {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 2.5rem;
+    gap: 1rem;
+  }
 }
 
 /* ── Theatrical vignette so text is legible over the 3D scene ── */
@@ -192,7 +245,16 @@
   border-radius: 40px;
   margin-bottom: 2rem;
   background: var(--color-badge-bg);
-  /* Removed backdrop-filter for performance */
+  /* Use inheritance for transiton from parent [data-active] */
+}
+
+@media (max-width: 768px) {
+  .heroBadge {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* ── Verticals tagline ── */
@@ -204,6 +266,13 @@
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .verticals {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+  }
 }
 
 .divider {
@@ -311,8 +380,8 @@
 
 .btnPrimary:hover {
   background: var(--color-crimson-bright);
-  box-shadow: 0 0 40px rgba(158, 27, 27, 0.8), 0 0 80px rgba(158, 27, 27, 0.2);
-  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 20px rgba(158, 27, 27, 0.45);
+  transform: translateY(-1px);
 }
 
 .btnSecondary {
@@ -336,6 +405,33 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   z-index: 25;
+
+  /* Staged Reveal State — Sharpened */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.3s; /* Appear quickly after main content */
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px) {
+  .statsRow {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    background: transparent;
+    padding: 0 5% 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    transform: none;
+    opacity: 1; /* Always visible on mobile if container is active */
+  }
+}
+
+.statsRow[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media(min-width: 768px) {
@@ -354,7 +450,16 @@
 }
 
 .statLine h3 { font-family: var(--font-heading); font-size: 3rem; color: var(--color-fixed-gold); font-weight: normal; }
+
+@media (max-width: 768px) {
+  .statLine h3 { font-size: 2.2rem; }
+}
+
 .statLine span { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: rgba(255, 255, 255, 0.7); }
+
+@media (max-width: 768px) {
+  .statLine span { font-size: 0.7rem; letter-spacing: 2px; }
+}
 
 /* 2. VIDEO SECTION */
 .videoSection, .aboutTeaser, .workPreview, .achievements {
@@ -362,6 +467,12 @@
   background: var(--color-bg-main);
   content-visibility: auto;
   contain-intrinsic-size: 1000px;
+}
+
+@media (max-width: 768px) {
+  .videoSection, .aboutTeaser, .workPreview, .achievements {
+    padding: 4rem 5%;
+  }
 }
 
 .sectionHeader {
@@ -495,68 +606,70 @@
 
 .glowOrb {
   position: absolute;
-  width: 150px; height: 150px;
-  background: var(--color-crimson);
-  filter: blur(80px);
-  opacity: 0.5;
+  width: 200px; height: 200px;
+  background: #8b0000;
+  filter: blur(40px); /* Reduced from 60px for better performance */
+  opacity: 0.3;
 }
 
 .glassFrame {
   width: 100%; height: 100%;
-  border: 1px solid rgba(212,175,55,0.3);
-  background: rgba(10, 10, 12, 0.4); /* Solidified slightly to compensate for blur loss */
+  border: 1.5px solid rgba(212,175,55,0.4);
+  background: rgba(10, 2, 2, 0.85); /* Black with a hint of red */
   display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 40px rgba(139, 0, 0, 0.25);
 }
 
 /* 4. OUR WORK */
 .carouselWrapper {
   overflow: hidden;
   width: 100%;
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   border-top: 1px solid var(--color-separator);
   border-bottom: 1px solid var(--color-separator);
+  background: var(--color-bg-darker);
 }
 
 .carouselTrack {
   display: flex;
   width: max-content;
-  animation: scroll 120s linear infinite;
+  animation: scroll 60s linear infinite;
   will-change: transform;
 }
 
 .logoCard {
   width: 250px; 
   height: 120px;
-  margin: 0 1.5rem;
+  margin: 0 1rem;
   display: flex; 
   align-items: center; 
   justify-content: center;
-  background: white; /* Clean white background for logos */
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 1.5rem;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+  background: transparent;
+  border: none; /* Removed border as requested */
+  padding: 0.5rem; /* Reduced padding to scale up images */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
 .logoCard:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transform: scale(1.1); /* Subtle lift on the whole card */
 }
 
 .logoWrapper {
   position: relative;
   width: 100%;
   height: 100%;
+  transition: transform 0.4s ease;
+}
+
+.logoCard:hover .logoWrapper {
+  transform: scale(1.05); /* Extra scale for the logo itself */
 }
 
 .logoImage {
   object-fit: contain;
-  filter: grayscale(0.2);
-  transition: filter 0.3s;
-}
-
-.logoCard:hover .logoImage {
-  filter: grayscale(0);
+  filter: none;
+  transition: none;
 }
 
 /* 5. ACHIEVEMENTS */
@@ -566,6 +679,13 @@
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+@media(max-width: 768px) {
+  .masonryGrid { 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 
 @media(min-width: 768px) {
@@ -579,6 +699,12 @@
   border: 1px solid rgba(255,255,255,0.05);
 }
 
+@media (max-width: 768px) {
+  .photoFrame {
+    height: 220px;
+  }
+}
+
 .photoOverlay {
   position: absolute; bottom: 0; left: 0; width: 100%;
   padding: 2rem;
@@ -588,6 +714,13 @@
   font-size: 1.5rem;
   opacity: 0;
   transition: opacity 0.4s;
+}
+
+@media (max-width: 768px) {
+  .photoOverlay {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+  }
 }
 
 .photoFrame:hover .photoOverlay { opacity: 1; }
@@ -641,5 +774,21 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlightMain,
+  .scrollLine,
+  .carouselTrack {
+    animation: none !important;
+  }
+
+  .btnPrimary,
+  .btnSecondary,
+  .btnPrimaryLg,
+  .logoCard,
+  .statLine {
+    transition: none !important;
   }
 }

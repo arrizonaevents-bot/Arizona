@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   // Use raw motion values to bypass React render cycle completely
   const mouseX = useMotionValue(-100);
@@ -14,6 +15,16 @@ export default function CustomCursor() {
   const smoothY = useSpring(mouseY, { stiffness: 150, damping: 15, mass: 0.5 });
 
   useEffect(() => {
+    const canUseCustomCursor =
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!canUseCustomCursor) {
+      setEnabled(false);
+      return;
+    }
+    setEnabled(true);
+
     const updateMousePosition = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -36,14 +47,16 @@ export default function CustomCursor() {
       }
     };
 
-    window.addEventListener("mousemove", updateMousePosition);
-    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousemove", updateMousePosition, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
+
+  if (!enabled) return null;
 
   return (
     <>

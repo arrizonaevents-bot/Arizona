@@ -2,85 +2,45 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
-import sceneStyles from "./components/Hero3DScene.module.css";
-import confetti from "canvas-confetti";
+import Hero3DScene from "./components/Hero3DScene";
 import TiltCard from "./components/TiltCard";
-import { Sparkles, Star, Target } from "lucide-react";
-
-// Removed: Lenis (conflicts with Framer Motion scroll tracking),
-// Play icon (unused)
-
-const Hero3DScene = dynamic(() => import("./components/Hero3DScene"), {
-  ssr: false,
-  loading: () => (
-    <div 
-      className={sceneStyles.sceneWrapper} 
-      aria-hidden="true" 
-      style={{ 
-        zIndex: 1, 
-        height: '100vh', 
-        width: '100vw', 
-        background: 'radial-gradient(circle at 50% -20%, #1a1a1a 0%, #000 80%)' 
-      }}
-    >
-      <div className={sceneStyles.loadOverlay} style={{ background: "transparent" }}>
-        <div className={sceneStyles.spotlightShimmer} />
-      </div>
-    </div>
-  ),
-});
+import { Sparkles } from "lucide-react";
 
 const SCHOOL_LOGOS = [
-  "/school/DL-ns-5d81688b-3139-445c-a97f-39139f9312d9_GnpsLogo.jpeg",
-  "/school/app_icon.png",
-  "/school/channels4_profile.jpg",
-  "/school/images (1).jpg",
-  "/school/images (1).png",
-  "/school/images (2).jpg",
-  "/school/images (2).png",
-  "/school/images (3).png",
-  "/school/images (4).png",
-  "/school/images (5).png",
-  "/school/images (6).png",
-  "/school/images (7).png",
-  "/school/images.jpg",
-  "/school/images.png",
-  "/school/logo_head.png",
-  "/school/main-logo.png",
-  "/school/unnamed (1).png",
-  "/school/unnamed.png",
+  "/schllogos/1.png",
+  "/schllogos/2.png",
+  "/schllogos/3.png",
+  "/schllogos/4.png",
+  "/schllogos/5.jpg",
+  "/schllogos/6.png",
+  "/schllogos/7.png",
+  "/schllogos/9.jpg",
+  "/schllogos/10.jpg",
+  "/schllogos/11.png",
+  "/schllogos/12.png",
+  "/schllogos/13.png",
+  "/schllogos/14.jpg",
+  "/schllogos/15.png",
+  "/schllogos/16.jpg",
+  "/schllogos/17.png",
+  "/schllogos/18.png",
+  "/schllogos/19.png",
+  "/schllogos/20.jpg",
 ];
 
 export default function Home() {
-  const heroRef = useRef<HTMLElement>(null);
   const router  = useRouter();
-  const [sessionKey, setSessionKey] = useState(0);
+  const [heroActive, setHeroActive] = useState(false);
 
   useEffect(() => {
-    setSessionKey(Date.now());
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
     window.scrollTo(0, 0);
-    // Removed Lenis: it fights with Framer Motion's useScroll and causes jank.
-    // Native scroll is already smooth on modern browsers with CSS scroll-behavior.
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Scroll-linked transforms removed as requested to undo 3D animation feel
-  const textY       = "0%";
-  const textOpacity = 1;
-
-  const triggerConfetti = () => {
+  const triggerConfetti = async () => {
+    const { default: confetti } = await import("canvas-confetti");
     confetti({
       particleCount: 60,
       spread: 90,
@@ -89,76 +49,18 @@ export default function Home() {
     });
   };
 
-  // Simpler fadeUp — no scale/blur on scroll, just opacity+Y on viewport enter
-  const fadeUp = {
-    initial:     { opacity: 0, y: 40 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport:    { once: true, margin: "-80px" },
-    transition:  { duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  };
-
   return (
     <main className={styles.main}>
 
       {/* ══════════════════════════════════════════════════
           1. HERO
       ══════════════════════════════════════════════════ */}
-      <section ref={heroRef} className={styles.heroSection} style={{ position: "relative", height: "100vh" }}>
+      <section className={styles.heroSection} style={{ position: "relative", height: "100vh" }}>
 
-        {/* Curtains removed for performance optimization 
-        <motion.div
-          className={styles.curtainValance}
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 0.8, delay: 3.2 }}
-          aria-hidden="true"
-        />
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`curtain-left-${sessionKey}`}
-            className={styles.curtainLeft}
-            initial={{ scaleX: 1, x: 0, opacity: 1 }}
-            animate={{ 
-              scaleX: 0.2, 
-              x: "-40%",
-              opacity: 0
-            }}
-            transition={{
-              duration: 3,
-              ease: [0.45, 0, 0.55, 1],
-              delay: 0.5,
-              opacity: { delay: 2.8, duration: 0.2 }
-            }}
-            style={{ transformOrigin: "left center", willChange: "transform" }}
-            aria-hidden="true"
-          />
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`curtain-right-${sessionKey}`}
-            className={styles.curtainRight}
-            initial={{ scaleX: 1, x: 0, opacity: 1 }}
-            animate={{ 
-              scaleX: 0.2, 
-              x: "40%",
-              opacity: 0
-            }}
-            transition={{
-              duration: 3,
-              ease: [0.45, 0, 0.55, 1],
-              delay: 0.5,
-              opacity: { delay: 2.8, duration: 0.2 }
-            }}
-            style={{ transformOrigin: "right center", willChange: "transform" }}
-            aria-hidden="true"
-          />
-        </AnimatePresence>
-        */}
-
-        {/* 3D Spline scene — no scroll sync */}
-        <Hero3DScene />
+        {/* Optimized 3D hero background */}
+        <div className={styles.heroSceneFrame} aria-hidden="true">
+          <Hero3DScene onReady={() => setHeroActive(true)} />
+        </div>
 
         {/* Spotlight */}
         <div className={styles.spotlightWrapper} aria-hidden="true">
@@ -168,38 +70,19 @@ export default function Home() {
         {/* Vignette */}
         <div className={styles.heroVignette} aria-hidden="true" />
 
-        {/* Hero copy — GP-Ucomposited transform, no blur animation */}
-        <motion.div
-          className={styles.heroContent}
-          style={{ 
-            y: textY, 
-            opacity: textOpacity, 
-            willChange: "transform, opacity"
-          }}
+        {/* Hero copy — Staged Reveal Logic */}
+        <div 
+          className={styles.heroContent} 
+          data-active={heroActive ? "true" : "false"}
         >
-          <motion.div
-            className={styles.heroCenter}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-          >
-            <motion.span
-              className={styles.heroBadge}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
+          <div className={styles.heroCenter}>
+            <span className={styles.heroBadge}>
               ✦ Arizona Institute of Performing Arts and Event Management ✦
-            </motion.span>
+            </span>
 
-            <motion.div
-              className={styles.verticals}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.7 }}
-            >
+            <div className={styles.verticals}>
               CHOREOGRAPHY <span className={styles.divider}>|</span> THEATRE <span className={styles.divider}>|</span> MUSIC <span className={styles.divider}>|</span> ANNUAL SCHOOL FUNCTIONS
-            </motion.div>
+            </div>
 
             <h1 className={styles.heroTitle}>
               We Bring Out <br />
@@ -216,7 +99,7 @@ export default function Home() {
               </Link>
               <button
                 onClick={() => {
-                  triggerConfetti();
+                  void triggerConfetti();
                   setTimeout(() => router.push("/contact-us"), 600);
                 }}
                 className={styles.btnSecondary}
@@ -224,99 +107,46 @@ export default function Home() {
                 Inquire Now
               </button>
             </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll hint */}
-        <motion.div
-          className={styles.scrollHint}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
-        >
-          <span className={styles.scrollLine} />
-          <span className={styles.scrollLabel}>Scroll</span>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Stats bar */}
-        <motion.div
-          className={styles.statsRow}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
+        <div 
+          className={styles.statsRow} 
+          data-active={heroActive ? "true" : "false"}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
           <div className={styles.statLine}><h3>14</h3><span>Skills</span></div>
           <div className={styles.statLine}><h3>5+</h3><span>Years</span></div>
           <div className={styles.statLine}><h3>1000+</h3><span>Students</span></div>
-        </motion.div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════
-          2. VIDEO SECTION
-      ══════════════════════════════════════════════════ */}
-      <section className={styles.videoSection}>
-        <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <span className={styles.sectionLabel}>The Experience</span>
-          <h2>See The Magic Live</h2>
-        </motion.div>
-
-        <motion.div {...fadeUp}>
-          <TiltCard className={styles.videoEmbedWrapper}>
-            <div className={styles.videoEmbed}>
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
-                title="Welcome to Arizona Institute"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-                className={styles.iframeArea}
-              />
-            </div>
-          </TiltCard>
-        </motion.div>
-
-        <motion.div
-          className={styles.featureChips}
-          variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
-            <Sparkles size={18} className={styles.goldIcon} /> Fun Learning
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
-            <Star size={18} className={styles.goldIcon} /> Stage Performance
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className={styles.chip}>
-            <Target size={18} className={styles.goldIcon} /> Expert Mentors
-          </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════
           3. ABOUT TEASER
       ══════════════════════════════════════════════════ */}
       <section className={styles.aboutTeaser}>
-        <motion.div className={styles.aboutLeft} {...fadeUp}>
+        <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>About Us</span>
-          <h2>Where Talent Meets The Stage</h2>
+          <h2 className={styles.sectionTitle}>Where Academy Meets The Stage</h2>
           <div className={styles.aboutTextGroup}>
             <p>
-              At Arizona, we don’t just curate events—we craft experiences. From Sports Days to 
-              Annual Functions, we take complete ownership to ensure every moment is transformational, 
-              inspiring, and flawlessly delivered.
+              Arizona Institute is a leading event management partner for schools. We provide 
+              comprehensive support for major school events, taking care of everything from 
+              concept development to final stage execution. Our focus is on delivering 
+              professional, well-coordinated programs that reflect the school's standards.
             </p>
             <p>
-              With a repertoire of 50+ innovative themes and a team of professional practitioners, we 
-              empower students to discover their voice, build confidence, and become the storytellers of tomorrow.
+              By combining our theatrical expertise with practical project management, we 
+              help students find their confidence and voice. Our team of experienced 
+              choreographers and directors ensures that every annual day, sports event, 
+              or graduation is handled with precision and care.
             </p>
           </div>
           <Link href="/about-us" className={styles.btnOutlineGold}>Discover Our Story</Link>
-        </motion.div>
-        <motion.div className={styles.aboutRight} {...fadeUp}>
-          <TiltCard className="card-3d">
+        </div>
+        <div className={styles.aboutRight}>
+          <TiltCard className="card-3d" disabled>
             <div className={styles.abstractArt}>
               <div className={styles.glowOrb} />
               <div className={styles.glassFrame}>
@@ -324,17 +154,42 @@ export default function Home() {
               </div>
             </div>
           </TiltCard>
-        </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          5. ACHIEVEMENTS
+      ══════════════════════════════════════════════════ */}
+      <section className={styles.achievements}>
+        <div className={styles.sectionHeader}>
+          <h2>Accolades &amp; Recognition</h2>
+        </div>
+        <div className={styles.masonryGrid}>
+          {[1,2,3,4,5,6].map((i) => (
+            <div
+              key={i}
+              className={styles.masonryItem}
+            >
+              <TiltCard className="card-3d" style={{ width: "100%", height: "100%" }} disabled>
+                <div className={styles.photoFrame}>
+                  <div className={styles.photoOverlay}>
+                    <p>Excellence Award 20{15 + i}</p>
+                  </div>
+                </div>
+              </TiltCard>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════
           4. PARTNERS
       ══════════════════════════════════════════════════ */}
       <section className={styles.workPreview}>
-        <motion.div className={styles.sectionHeader} {...fadeUp}>
+        <div className={styles.sectionHeader}>
           <h2>Our Proud Partners</h2>
-        </motion.div>
-        <motion.div className={styles.carouselWrapper} {...fadeUp}>
+        </div>
+        <div className={styles.carouselWrapper}>
           <div className={styles.carouselTrack}>
             {[...SCHOOL_LOGOS, ...SCHOOL_LOGOS].map((logo, i) => (
               <div key={i} className={styles.logoCard}>
@@ -350,38 +205,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
           <Link href="/our-work" className={styles.btnOutlineGold}>View All Partners</Link>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════
-          5. ACHIEVEMENTS
-      ══════════════════════════════════════════════════ */}
-      <section className={styles.achievements}>
-        <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <h2>Accolades &amp; Recognition</h2>
-        </motion.div>
-        <div className={styles.masonryGrid}>
-          {[1,2,3,4,5,6].map((i) => (
-            <motion.div
-              key={i}
-              className={styles.masonryItem}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.07, duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <TiltCard className="card-3d" style={{ width: "100%", height: "100%" }}>
-                <div className={styles.photoFrame}>
-                  <div className={styles.photoOverlay}>
-                    <p>Excellence Award 20{15 + i}</p>
-                  </div>
-                </div>
-              </TiltCard>
-            </motion.div>
-          ))}
         </div>
       </section>
 
@@ -391,18 +217,17 @@ export default function Home() {
       <section className={styles.ctaSection}>
         <div className={styles.ambientGlow} />
         <div className={styles.ctaCard}>
-          <motion.h2 {...fadeUp}>Ready To Shine?</motion.h2>
-          <motion.p {...fadeUp}>Book a free consultation and let&apos;s discuss your journey.</motion.p>
-          <motion.button
-            {...fadeUp}
+          <h2>Ready To Shine?</h2>
+          <p>Book a free consultation and let&apos;s discuss your journey.</p>
+          <button
             className={styles.btnPrimaryLg}
             onClick={() => {
-              triggerConfetti();
+              void triggerConfetti();
               setTimeout(() => router.push("/contact-us"), 600);
             }}
           >
             Unlock The Stage
-          </motion.button>
+          </button>
         </div>
       </section>
     </main>

@@ -1,17 +1,35 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-export default function TiltCard({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+export default function TiltCard({
+  children,
+  className,
+  style,
+  disabled = false,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  disabled?: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
+  const [supportsTilt, setSupportsTilt] = useState(false);
+
+  useEffect(() => {
+    const enable =
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setSupportsTilt(enable && !disabled);
+  }, [disabled]);
 
   // Use MotionValues for smooth spring physics rather than raw state updates
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
 
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
@@ -27,11 +45,13 @@ export default function TiltCard({ children, className, style }: { children: Rea
   const glareVisible  = useTransform(isHoveringMV, [0, 1], [0, 1]);
 
   const handleMouseEnter = () => {
+    if (!supportsTilt) return;
     if (ref.current) cachedRect.current = ref.current.getBoundingClientRect();
     isHoveringMV.set(1);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!supportsTilt) return;
     const rect = cachedRect.current;
     if (!rect) return;
 
@@ -43,6 +63,7 @@ export default function TiltCard({ children, className, style }: { children: Rea
   };
 
   const handleMouseLeave = () => {
+    if (!supportsTilt) return;
     x.set(0);
     y.set(0);
     cachedRect.current = null;
@@ -60,8 +81,8 @@ export default function TiltCard({ children, className, style }: { children: Rea
         ...style,
         perspective: 1200,
         transformStyle: "preserve-3d",
-        rotateX,
-        rotateY,
+        rotateX: supportsTilt ? rotateX : "0deg",
+        rotateY: supportsTilt ? rotateY : "0deg",
         position: "relative",
         overflow: "hidden"
       }}
@@ -81,7 +102,7 @@ export default function TiltCard({ children, className, style }: { children: Rea
           pointerEvents: "none",
           zIndex: 10,
           mixBlendMode: "overlay",
-          visibility: glareVisible.get() > 0 ? "visible" : "hidden",
+          visibility: supportsTilt && glareVisible.get() > 0 ? "visible" : "hidden",
         }}
         animate={{ opacity: undefined }}
       />

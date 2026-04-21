@@ -3,7 +3,7 @@ import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import CustomCursor from './components/CustomCursor'
+import ChunkRecovery from './components/ChunkRecovery'
 import { ThemeProvider } from './context/ThemeContext'
 
 const playfair = Playfair_Display({ 
@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   },
 }
 
+import SmoothScroll from './components/SmoothScroll'
+
 export default function RootLayout({
   children,
 }: {
@@ -32,20 +34,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Manual high-priority preload for the 3D scene file to eliminate "black screen" delay */}
-        <link 
-          rel="preload" 
-          href="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode" 
-          as="fetch" 
-          crossOrigin="anonymous"
-        />
+        <link rel="dns-prefetch" href="https://prod.spline.design" />
+        <link rel="preconnect" href="https://prod.spline.design" crossOrigin="anonymous" />
+        <link rel="preload" href="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode" as="fetch" crossOrigin="anonymous" />
       </head>
       <body className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
         <ThemeProvider>
-          <CustomCursor />
-          <Navbar />
-          {children}
-          <Footer />
+          <SmoothScroll>
+            <ChunkRecovery />
+            <Navbar />
+            {children}
+            <Footer />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

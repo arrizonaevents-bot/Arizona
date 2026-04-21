@@ -33,6 +33,9 @@
   --color-nav-text-hover: rgba(255, 255, 255, 0.95);
   --color-nav-bg-scrolled: rgba(6, 6, 10, 0.98);
   --color-nav-border: rgba(255, 255, 255, 0.06);
+  --color-drawer-bg: rgba(10, 10, 12, 0.98);
+  --color-drawer-border: rgba(255, 255, 255, 0.1);
+  --color-nav-mobile-text: rgba(255, 255, 255, 0.9);
   
   /* ── Accent invariant ──────────────────────────────── */
   --color-crimson: #9e1b1b;
@@ -72,6 +75,9 @@
   --color-nav-text-hover: #0D0715;
   --color-nav-bg-scrolled: rgba(255, 248, 240, 0.97);
   --color-nav-border: rgba(45, 27, 78, 0.08);
+  --color-drawer-bg: #FFF8F0;
+  --color-drawer-border: rgba(45, 27, 78, 0.1);
+  --color-nav-mobile-text: #1D152D;
 }
 
 /* ── Reset ─────────────────────────────────────────────── */
@@ -79,15 +85,11 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  cursor: none; /* We use a completely custom cursor universally */
 }
 
 /* ── Body ─────────────────────────────────────────────── */
 body {
   background-color: var(--color-bg-main);
-  /* Premium grain texture overlay — extremely cheap to render but adds high-end feel */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-attachment: fixed;
   opacity: 1;
   color: var(--color-text-main);
   font-family: var(--font-body);
@@ -107,11 +109,11 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
-  cursor: none; /* Hide default pointer over links for custom cursor */
+  cursor: pointer;
 }
 
 button {
-  cursor: none;
+  cursor: pointer;
 }
 
 img, video {

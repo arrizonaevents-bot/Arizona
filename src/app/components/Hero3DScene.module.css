@@ -9,70 +9,126 @@
   z-index: 1;
   overflow: hidden;
   contain: strict;
-  will-change: transform;
-  background: radial-gradient(circle at 50% -20%, #1a1a1a 0%, #000 80%);
+  background: #000;
 }
 
-/* ── Spline canvas — above the loadOverlay so it dissolves in over solid black ─────── */
-.splineCanvas {
+/* 1. Base Layer — subtle depth behind everything */
+.baseLayer {
   position: absolute;
   inset: 0;
-  z-index: 20;           /* above loadOverlay (z-index 10) */
+  background: radial-gradient(circle at 50% -20%, #1a1a1a 0%, #000 80%);
+  z-index: 1;
+}
+
+/* 2. Placeholder Layer — show immediately, fade out when Spline is ready */
+.placeholderLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.placeholderGraphic {
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/hero-placeholder.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6;
+  filter: blur(2px); /* Reduced blur for performance */
+}
+
+/* ── Spline canvas — Grand Entrance — SCALE + FADE ─────── */
+.splineCanvas {
+  position: absolute;
+  /* Make canvas larger than container to allow for zoom-out scale 
+     while still covering the full bleed and cropping the bottom. */
+  width: 120%; 
+  height: 140%;
+  left: -10%; 
+  top: -5%; /* Tilt slightly up to prioritize top/center content */
+  z-index: 20;
   pointer-events: auto;
-  /* No contain here — Spline needs free layout to size its canvas */
+  opacity: 0;
+  transform: scale(0.95); /* Initial scale state */
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity;
+  transform-origin: top center;
+}
+
+.splineCanvas[data-loaded="true"] {
+  opacity: 1;
+  /* Scale down (zoom out) while keeping visual height covering the container + crop */
+  transform: scale(0.82); 
+}
+
+@media (max-width: 768px) {
+  .splineCanvas {
+    width: 140%; /* Wider on mobile for extreme zoom out */
+    height: 150%;
+    left: -20%;
+    top: -2%;
+  }
+  .splineCanvas[data-loaded="true"] {
+    transform: scale(0.72); /* Even more zoomed out on mobile */
+  }
 }
 
 /* Theatrical spotlight shimmer for loading */
 .loadOverlay {
   position: absolute;
   inset: 0;
-  z-index: 10;           /* below splineCanvas — scene dissolves in on top of this */
-  background: transparent !important;      /* Use sceneWrapper background */
+  z-index: 30;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.6s ease; /* Snappier fade */
+  pointer-events: none;
+}
+
+.loadOverlay[data-loaded="true"] {
+  opacity: 0;
 }
 
 .spotlightShimmer {
   position: relative;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, transparent 75%) !important;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 75%);
   border-radius: 50%;
-  filter: blur(40px);
-  animation: shimmerPulse 3s ease-in-out infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.spotlightShimmer::after {
-  content: "✦";
-  color: var(--color-gold);
-  font-size: 3rem;
-  opacity: 0.4;
-  animation: iconBreathe 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+  filter: blur(10px); /* Reduced blur */
+  animation: shimmerPulse 1.4s ease-in-out infinite;
 }
 
 @keyframes shimmerPulse {
-  0%, 100% { transform: scale(1);   opacity: 0.3; filter: blur(25px); }
-  50%       { transform: scale(1);   opacity: 0.8; filter: blur(35px); }
-}
-
-@keyframes iconBreathe {
-  0%, 100% { transform: scale(0.9); opacity: 0.1; }
-  50%       { transform: scale(1.1); opacity: 0.5; }
+  0%, 100% { transform: scale(0.98); opacity: 0.35; }
+  50%      { transform: scale(1.05); opacity: 0.75; }
 }
 
 /* ── Error / fallback ────────────────────────────────────────────── */
 .fallback {
   position: absolute;
   inset: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 6rem;
   color: var(--color-gold);
   opacity: 0.15;
+  background: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlightShimmer,
+  .spotlightShimmer::after,
+  .splineCanvas {
+    animation: none !important;
+    transition: none !important;
+  }
 }

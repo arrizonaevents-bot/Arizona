@@ -114,29 +114,30 @@ export default function AboutUs() {
       <section className={styles.offeringsSection}>
         <motion.div className={styles.offeringsHeader} {...fadeUp}>
            <span className={styles.sectionLabel}>Our Reach</span>
-           <h2 className={styles.sectionTitle}>More Than <span className={styles.goldText}>Just Events</span></h2>
+           <h2 className={styles.sectionTitle}>A Comprehensive <span className={styles.goldText}>Arts Curriculum</span></h2>
         </motion.div>
         
         <div className={styles.offeringsGrid}>
           <motion.div className={styles.offeringsText} {...fadeUp}>
             <p>
-              Arizona’s influence extends far beyond event management. We conduct structured 
-              theatre and performing arts programs integrated directly within **school timetables**, 
-              **after-school clubs**, **studio sessions**, and specialized **workshops**.
+              Beside event management, Arizona offers structured performing arts programs 
+              designed for longevity. We work directly with schools to integrate theatre, music, 
+              and dance into <strong>school timetables</strong>, <strong>after-school clubs</strong>, 
+              and specialized <strong>workshops</strong>.
             </p>
             <p>
-              Each session is meticulously designed to ensure holistic development in a 
-              stress-free environment, integrating:
+              Each program is developed to support student growth in a supportive and 
+              encouraging environment, focusing on practical performance skills:
             </p>
             <ul className={styles.offeringsList}>
-              <li>Actively engaging Dialogue Delivery & Voice Modulation</li>
-              <li>Imaginative Creative Writing & Improvisation</li>
-              <li>Body Movement & Strategic Stage Presence</li>
+              <li>Developing Dialogue Delivery & Voice Modulation</li>
+              <li>Encouraging Creative Writing and Improvisational Skills</li>
+              <li>Improving Body Movement & Strategic Stage Presence</li>
             </ul>
             <p>
-              Through our **play-production-oriented approach**, even our youngest learners 
-              gain the confidence to perform live, connect with audiences, and embrace 
-              the timeless art of storytelling.
+              Our <strong>production-focused approach</strong> ensures that students of all ages 
+              gain the confidence to perform for live audiences, learning the fundamentals of 
+              stagecraft and storytelling along the way.
             </p>
           </motion.div>
           <motion.div className={styles.offeringsVisual} {...fadeUp}>

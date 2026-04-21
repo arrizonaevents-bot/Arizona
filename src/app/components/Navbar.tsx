@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import styles from "./Navbar.module.css";
 import { Menu, X, Sun, Moon } from "lucide-react";
@@ -17,10 +17,10 @@ export default function Navbar() {
 
   const { scrollY } = useScroll();
 
-  // Optimized scroll tracking using Motion's internal RAF
+  // Keep nav updates minimal and avoid stale closure state.
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 40 && !scrolled) setScrolled(true);
-    if (latest <= 40 && scrolled) setScrolled(false);
+    const nextScrolled = latest > 40;
+    setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
   });
 
   const links = [
@@ -120,17 +120,34 @@ export default function Navbar() {
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
           >
             <ul className={styles.mobileNav}>
-              {links.map((link) => (
-                <li key={link.name}>
+              {links.map((link, idx) => (
+                <motion.li 
+                  key={link.name}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 + idx * 0.05, duration: 0.4 }}
+                >
                   <Link
                     href={link.path}
                     className={`${styles.mobileLink} ${pathname === link.path ? styles.mobileActive : ""}`}
                     onClick={() => setIsOpen(false)}
                   >
+                    <span style={{ fontSize: '0.65rem', marginRight: '1rem', opacity: 0.5 }}>{`0${idx + 1}`}</span>
                     {link.name}
                   </Link>
-                </li>
+                </motion.li>
               ))}
+              
+              <motion.li
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                style={{ marginTop: '2rem' }}
+              >
+                <Link href="/contact-us" className={styles.ctaBtn} style={{ display: 'block' }} onClick={() => setIsOpen(false)}>
+                  Book Now
+                </Link>
+              </motion.li>
             </ul>
           </motion.div>
         )}

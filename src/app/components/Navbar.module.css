@@ -7,10 +7,16 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 40;
+  z-index: 100; /* Ensure it stays above everything */
   padding: 1rem 5%;
   transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
   will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 4%;
+  }
 }
 
 /* After scroll: condense and frost */
@@ -21,6 +27,12 @@
   box-shadow: 0 4px 30px var(--shadow-main);
 }
 
+@media (max-width: 768px) {
+  .navbar.scrolled {
+    padding: 0.5rem 4%;
+  }
+}
+
 /* Inner row — 3-column grid for absolute centering of the nav links */
 .inner {
   display: grid;
@@ -28,6 +40,13 @@
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 /* ── Brand ──────────────────────────────── */
@@ -47,6 +66,13 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 768px) {
+  .logoImgWrap {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 .brandText {
   display: flex;
   flex-direction: column;
@@ -62,12 +88,39 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 768px) {
+  .brandName {
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .brandName {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+}
+
 .brandSub {
   font-size: 0.62rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6); /* Fixed light text for brand over dark hero */
   font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .brandSub {
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 400px) {
+  .brandSub {
+    display: none; /* Hide subtext on very narrow screens to prevent wrapping */
+  }
 }
 
 /* ── Desktop nav ────────────────────────── */
@@ -96,7 +149,7 @@
   font-weight: 600;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7); /* Default light over dark hero */
+  color: rgba(255, 255, 255, 0.85); /* Increased contrast */
   transition: color 0.2s ease;
   text-decoration: none;
 }
@@ -134,10 +187,16 @@
   justify-content: flex-end;
 }
 
+@media (max-width: 768px) {
+  .actions {
+    gap: 0.5rem;
+  }
+}
+
 .iconBtn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Increased contrast */
+  color: rgba(255, 255, 255, 0.9); /* Increased contrast */
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -190,12 +249,13 @@
   display: flex;
   align-items: center;
   background: none;
-  border: 1px solid var(--color-mobile-toggle-border);
-  color: var(--color-mobile-toggle-text);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Match iconBtn style */
+  color: #fff; /* Maximum visibility */
   border-radius: 8px;
   padding: 0.4rem 0.6rem;
   outline: none;
   transition: border-color 0.2s, color 0.2s;
+  margin-left: 0.25rem; /* Ensure some spacing if actions are tight */
 }
 
 .mobileToggle:hover {
@@ -207,41 +267,60 @@
   .mobileToggle { display: none; }
 }
 
-/* ── Mobile drawer ──────────────────────── */
+/* ── Mobile drawer (Premium Overlap) ─────── */
 .mobileDrawer {
-  overflow: hidden;
-  border-top: 1px solid var(--color-drawer-border);
-  background: var(--color-drawer-bg);
-  margin-top: 0.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Full screen immersive */
+  background: rgba(8, 8, 10, 0.98);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  z-index: -1; /* Behind the top bar but covering hero */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
 }
 
 .mobileNav {
   list-style: none;
-  padding: 1rem 5%;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 1.5rem;
+  align-items: flex-start; /* Professional left alignment */
 }
 
 .mobileLink {
   display: block;
-  padding: 0.9rem 1.2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 1.5rem; /* Large but thin for premium feel */
+  font-weight: 300;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--color-nav-mobile-text);
-  border-radius: 8px;
-  transition: background 0.2s, color 0.2s;
+  color: #fff;
   text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 0;
 }
 
 .mobileLink:hover {
-  background: var(--color-card-bg);
-  color: var(--color-nav-text-hover);
+  color: var(--color-gold);
+  transform: translateX(10px);
 }
 
 .mobileActive {
   color: var(--color-gold) !important;
-  background: rgba(212, 175, 55, 0.08) !important;
+}
+
+.mobileActive::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1px;
+  background: var(--color-gold);
 }

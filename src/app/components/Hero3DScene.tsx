@@ -3,10 +3,12 @@
 import { useRef, useCallback, useEffect, useState } from "react";
 import Spline from "@splinetool/react-spline";
 import type { Application } from "@splinetool/runtime";
-import { motion, AnimatePresence, MotionValue } from "framer-motion";
 import styles from "./Hero3DScene.module.css";
 
-interface Hero3DSceneProps {}
+interface Hero3DSceneProps {
+  onReady?: () => void;
+}
+const SCENE_URL = "https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode";
 
 function hasVariable(api: Record<string, unknown>, name: string): boolean {
   try {
@@ -18,204 +20,147 @@ function hasVariable(api: Record<string, unknown>, name: string): boolean {
   return false;
 }
 
-export default function Hero3DScene({}: Hero3DSceneProps) {
-  const splineRef    = useRef<Application | null>(null);
+export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
+  const MIN_OVERLAY_MS = 600; // Hyper-fast reveal
+  const splineRef = useRef<Application | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded]   = useState(false);
+  const overlayStartRef = useRef<number>(Date.now());
+  
+  const [canMountSpline, setCanMountSpline] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [showScene, setShowScene] = useState(false);
-  const [hasError, setHasError]   = useState(false);
-  const [isInView, setIsInView]   = useState(true);
-
-  // Checks if we are on the client to avoid hydration mismatch
+  const [hasError, setHasError] = useState(false);
+  const [disable3D, setDisable3D] = useState(false);
+  const [isInView, setIsInView] = useState(true);
   const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
     setIsClient(true);
+    overlayStartRef.current = Date.now();
+
+    // DELAY MOUNTING: Near-instant but non-blocking
+    const mountDelay = setTimeout(() => {
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(() => setCanMountSpline(true));
+      } else {
+        setCanMountSpline(true);
+      }
+    }, 100); 
+
+    return () => clearTimeout(mountDelay);
   }, []);
-
-  // Refs — never cause re-renders
-  const varsChecked = useRef(false);
-  const hasAnyVar   = useRef(false);
-  const hasMX       = useRef(false);
-  const hasMY       = useRef(false);
-  const hasSY       = useRef(false);
-  const rawMouse    = useRef({ x: 0, y: 0 });
-  const smoothMouse = useRef({ x: 0, y: 0 });
-  const lastSent    = useRef({ mx: -999, my: -999, sy: -999 });
-
-  const cachedRect = useRef<DOMRect | null>(null);
 
   const onLoad = useCallback((app: Application) => {
     splineRef.current = app;
-    setIsLoaded(true);
-    // Smoothly reveal the scene once loaded
-    setShowScene(true);
+    // Extra long settlement for high-performance entrance
+    const timeout = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+    return () => clearTimeout(timeout);
   }, []);
 
   const onError = useCallback(() => setHasError(true), []);
 
-  // Check variables once after load
+  // Detect low-end devices more aggressively
   useEffect(() => {
-    if (!isLoaded || varsChecked.current) return;
-    const api = splineRef.current as unknown as Record<string, unknown>;
-    if (!api) return;
-    hasMX.current = hasVariable(api, "mouseX");
-    hasMY.current = hasVariable(api, "mouseY");
-    hasSY.current = hasVariable(api, "scrollY");
-    hasAnyVar.current = hasMX.current || hasMY.current || hasSY.current;
-    varsChecked.current = true;
-  }, [isLoaded]);
+    if (!isClient) return;
 
-  // Viewport and Interaction tracking
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const lowCoreCount = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 8; 
+    const navWithMemory = navigator as Navigator & { deviceMemory?: number };
+    const navWithConnection = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
+    const lowMemory = typeof navWithMemory.deviceMemory === "number" && navWithMemory.deviceMemory <= 4;
+    const isDataSaver = navWithConnection.connection?.saveData === true;
+    const slowNetwork = /(^|[^a-z])(slow-2g|2g|3g)([^a-z]|$)/i.test(navWithConnection.connection?.effectiveType ?? "");
+
+    if (media.matches || lowCoreCount || lowMemory || isDataSaver || slowNetwork) {
+      setDisable3D(true);
+    } else {
+      setDisable3D(false);
+    }
+  }, [isClient]);
+
+  // STRICT CULLING: unmount Spline immediately when scrolled away
   useEffect(() => {
+    if (!isClient) return;
     const container = containerRef.current;
     if (!container) return;
 
-    const onEnter = () => {
-      cachedRect.current = container.getBoundingClientRect();
-    };
-    const onMove = (e: MouseEvent) => {
-      const r = cachedRect.current ?? container.getBoundingClientRect();
-      rawMouse.current = {
-        x:  ((e.clientX - r.left) / r.width)  * 2 - 1,
-        y: -((e.clientY - r.top)  / r.height) * 2 + 1,
-      };
-    };
-    const onResize = () => { cachedRect.current = null; };
-
     const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.1 }
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.01, rootMargin: "50px" } 
     );
     observer.observe(container);
+    return () => observer.disconnect();
+  }, [isClient]);
 
-    container.addEventListener("mouseenter", onEnter, { passive: true });
-    container.addEventListener("mousemove",  onMove,  { passive: true });
-    window.addEventListener("resize", onResize, { passive: true });
+  const shouldMountSpline = isClient && !disable3D && isInView && canMountSpline;
 
-    const blockWheel = (e: WheelEvent) => e.stopPropagation();
-    container.addEventListener("wheel", blockWheel, { capture: true, passive: true });
-
-    return () => {
-      observer.disconnect();
-      container.removeEventListener("mouseenter", onEnter);
-      container.removeEventListener("mousemove",  onMove);
-      container.removeEventListener("wheel", blockWheel, { capture: true });
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-
-  // RAF loop
+  // Keep loader visible long enough to mask 3D startup jank.
   useEffect(() => {
     if (!isLoaded) return;
 
-    const LERP = 0.12;
-    let rafId: number | null = null;
+    const elapsed = Date.now() - overlayStartRef.current;
+    const wait = Math.max(0, MIN_OVERLAY_MS - elapsed);
+    const timeout = window.setTimeout(() => {
+      setShowScene(true);
+      if (typeof onReady === "function") onReady();
+    }, wait);
 
-    const tick = () => {
-      if (!isInView) return;
-      if (varsChecked.current && !hasAnyVar.current) return;
+    return () => window.clearTimeout(timeout);
+  }, [isLoaded, onReady]);
 
-      smoothMouse.current.x += (rawMouse.current.x - smoothMouse.current.x) * LERP;
-      smoothMouse.current.y += (rawMouse.current.y - smoothMouse.current.y) * LERP;
-
-      if (varsChecked.current && hasAnyVar.current) {
-        const api = splineRef.current as unknown as Record<string, unknown>;
-        if (api && typeof api.setVariable === "function") {
-          const set = api.setVariable as Function;
-          try {
-            if (hasMX.current && Math.abs(lastSent.current.mx - smoothMouse.current.x) > 0.002) {
-              set("mouseX", smoothMouse.current.x);
-              lastSent.current.mx = smoothMouse.current.x;
-            }
-            if (hasMY.current && Math.abs(lastSent.current.my - smoothMouse.current.y) > 0.002) {
-              set("mouseY", smoothMouse.current.y);
-              lastSent.current.my = smoothMouse.current.y;
-            }
-          } catch {
-            hasAnyVar.current = false;
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(tick);
-    };
-
-    const start = () => {
-      if (isInView && rafId === null) rafId = requestAnimationFrame(tick);
-    };
-    const stop = () => {
-      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
-    };
-
-    const onVisibilityChange = () => {
-      document.hidden ? stop() : (isInView && start());
-    };
-
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    start();
-
-    return () => {
-      stop();
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, [isLoaded, isInView]);
+  useEffect(() => {
+    if (!hasError && !disable3D) return;
+    setShowScene(true);
+    if (typeof onReady === "function") onReady();
+  }, [hasError, disable3D, onReady]);
 
   return (
     <div
       ref={containerRef}
       className={styles.sceneWrapper}
       aria-hidden="true"
-      style={{
-        willChange: "transform",
-        visibility: isInView ? "visible" : "hidden"
-      }}
     >
-      <AnimatePresence mode="wait">
-        {!showScene && !hasError && (
-          <motion.div
-            key="loader"
-            className={styles.loadOverlay}
-            initial={{ opacity: 1, scale: 1 }}
-            exit={{ 
-              opacity: 0, 
-              scale: 1.4,
-              filter: "blur(20px)"
-            }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={styles.spotlightShimmer} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* 1. Base Layer — subtle depth behind everything */}
+      <div className={styles.baseLayer} />
 
-      {hasError ? (
+      {/* 2. Static Placeholder Layer — show while loading OR while culled (offscreen) */}
+      {(!showScene || !isInView) && (
+        <div className={styles.placeholderLayer}>
+             <div className={styles.placeholderGraphic} />
+        </div>
+      )}
+
+      {/* 3. Spline Canvas (The Grand Reveal) */}
+      {!hasError && !disable3D && shouldMountSpline && (
+        <div
+          className={styles.splineCanvas}
+          data-loaded={showScene && isInView ? "true" : "false"}
+        >
+          <Spline
+            scene={SCENE_URL}
+            onLoad={onLoad}
+            onError={onError}
+            style={{ width: "100%", height: "100%", pointerEvents: "none" }}
+          />
+        </div>
+      )}
+
+      {/* 4. Overlay & Fallback */}
+      {(hasError || disable3D) ? (
         <div className={styles.fallback}>
           <span>✦</span>
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0, scale: 1.15 }}
-          animate={{ 
-            opacity: showScene ? 1 : 0,
-            scale: showScene ? 1 : 1.15,
-            filter: showScene ? "blur(0px)" : "blur(10px)"
-          }}
-          transition={{ 
-            duration: 1.6, 
-            ease: [0.16, 1, 0.3, 1],
-            opacity: { duration: 1 } 
-          }}
-          className={styles.splineCanvas}
+        <div
+          className={styles.loadOverlay}
+          data-loaded={showScene && isInView ? "true" : "false"}
         >
-          {isClient && (
-            <Spline
-              scene="https://prod.spline.design/pwitNlNftLusscoe/scene.splinecode"
-              onLoad={onLoad}
-              onError={onError}
-              style={{ width: '100%', height: '100%' }}
-            />
-          )}
-        </motion.div>
+          <div className={styles.spotlightShimmer} />
+        </div>
       )}
     </div>
   );

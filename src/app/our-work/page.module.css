@@ -25,6 +25,7 @@
   font-size: 3rem;
   color: var(--color-text-main);
 }
+@media(max-width: 768px) { .sectionHeader h2 { font-size: 2.5rem; } .sectionHeader { margin-bottom: 3rem; } }
 @media(min-width: 768px) { .sectionHeader h2 { font-size: 4rem; } }
 
 
@@ -55,9 +56,13 @@
 
 .heroContent h1 {
   font-family: var(--font-heading);
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   color: var(--color-text-main);
+}
+
+@media(min-width: 768px) {
+  .heroContent h1 { font-size: 5rem; }
 }
 
 @media(min-width: 768px) {
@@ -71,6 +76,10 @@
   padding: 4rem 5%;
   background: var(--color-bg-offset);
   border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+@media(max-width: 768px) {
+  .statsBar { padding: 3rem 5%; }
 }
 
 .statsContainer {
@@ -92,6 +101,10 @@
   background-color: var(--color-bg-main);
 }
 
+@media(max-width: 768px) {
+  .schoolsSection { padding: 4rem 5%; }
+}
+
 .schoolsGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -101,14 +114,18 @@
 }
 
 @media(min-width: 500px) {
-  .schoolsGrid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  .schoolsGrid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+}
+
+@media(max-width: 500px) {
+  .schoolsGrid { grid-template-columns: 1fr; }
 }
 
 .schoolCard {
   background: white; /* Clean white background for logos */
   border: 1px solid rgba(255,255,255,0.1);
   padding: 2.5rem 1.5rem;
-  cursor: none; /* custom cursor will show */
+  cursor: pointer;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -245,6 +262,10 @@
   background: var(--color-bg-offset);
 }
 
+@media(max-width: 768px) {
+  .deliverySection { padding: 4rem 5%; }
+}
+
 .stepContainer {
   display: flex;
   flex-direction: column;
@@ -283,6 +304,10 @@
 .skillsSection {
   padding: 8rem 5%;
   background-color: var(--color-bg-main);
+}
+
+@media(max-width: 768px) {
+  .skillsSection { padding: 4rem 5%; }
 }
 
 .skillsGrid {
