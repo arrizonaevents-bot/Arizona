@@ -23,10 +23,17 @@
   --color-gold-adaptive: #d4af37;
   --color-gold-rgb: 212, 175, 55;
   
+  /* ── Fluid Spacing & Typography Foundations ───────────────── */
+  /* Scales based on viewport: Small (360px) -> Large (1440px) */
+  --space-hero-top: clamp(6rem, 12vh, 10rem);
+  --space-hero-bottom: clamp(2rem, 5vh, 4rem);
+  --section-padding-v: clamp(4rem, 8vw, 10rem);
+  --section-padding-h: clamp(1rem, 5vw, 4rem);
+  --font-size-h1: clamp(2.4rem, 10vw, 6rem);
+  --font-size-h2: clamp(1.8rem, 6vw, 4rem);
+  --font-size-body: clamp(0.9rem, 1.2vw, 1.1rem);
+  
   /* ── Component Backgrounds ────────────────────────── */
-  --color-badge-bg: rgba(0, 0, 0, 0.6);
-  --color-glass-bg: rgba(10, 10, 12, 0.4);
-  --color-card-border: rgba(255, 255, 255, 0.07);
 
   /* ── Navigation tokens ─────────────────────────────── */
   --color-nav-text: rgba(255, 255, 255, 0.55);
@@ -127,13 +134,21 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.5px;
 }
 
-/* Glassmorphism Util */
+/* Glassmorphism Util — Optimized for mobile */
 .glass-panel {
   background: var(--color-bg-panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--color-border-glass);
   box-shadow: 0 4px 30px var(--shadow-light);
+}
+
+@media (max-width: 768px) {
+  .glass-panel {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(15, 15, 20, 0.92); /* Solid fallback for mobile GPU */
+  }
 }
 
 /* Custom Scrollbar */

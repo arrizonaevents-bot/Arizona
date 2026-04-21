@@ -38,7 +38,8 @@
   background-size: cover;
   background-position: center;
   opacity: 0.6;
-  filter: blur(2px); /* Reduced blur for performance */
+  filter: blur(2px);
+  /* Reduced blur for performance */
 }
 
 /* ── Spline canvas — Grand Entrance — SCALE + FADE ─────── */
@@ -46,35 +47,64 @@
   position: absolute;
   /* Make canvas larger than container to allow for zoom-out scale 
      while still covering the full bleed and cropping the bottom. */
-  width: 120%; 
+  width: 120%;
   height: 140%;
-  left: -10%; 
-  top: -5%; /* Tilt slightly up to prioritize top/center content */
+  left: -10%;
+  top: -5%;
+  /* Tilt slightly up to prioritize top/center content */
   z-index: 20;
   pointer-events: auto;
   opacity: 0;
-  transform: scale(0.95); /* Initial scale state */
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(0.9);
+  /* Slight baseline scale */
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: transform, opacity;
-  transform-origin: top center;
+  transform-origin: center center;
 }
 
 .splineCanvas[data-loaded="true"] {
   opacity: 1;
-  /* Scale down (zoom out) while keeping visual height covering the container + crop */
-  transform: scale(0.82); 
+  transform: scale(0.85);
+  /* Modern desktop zoom */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .splineCanvas {
-    width: 140%; /* Wider on mobile for extreme zoom out */
-    height: 150%;
-    left: -20%;
-    top: -2%;
+    width: 150%;
+    height: 160%;
+    left: -25%;
+    top: -10%;
+  }
+
+  .splineCanvas[data-loaded="true"] {
+    transform: scale(0.65);
+    /* Tablet zoom out */
+  }
+}
+
+@media (max-width: 480px) {
+  .splineCanvas {
+    width: 125%;
+    height: 140%;
+    left: -12.5%;
+    top: -8%;
+    contain: strict;
   }
   .splineCanvas[data-loaded="true"] {
-    transform: scale(0.72); /* Even more zoomed out on mobile */
+    transform: scale(0.85);
+  }
+}
+
+@media (max-width: 360px) {
+  .splineCanvas {
+    width: 120%;
+    height: 120%;
+    left: -10%;
+    top: -5%;
+  }
+  .splineCanvas[data-loaded="true"] {
+    transform: scale(0.8);
   }
 }
 
@@ -87,7 +117,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.6s ease; /* Snappier fade */
+  transition: opacity 0.6s ease;
+  /* Snappier fade */
   pointer-events: none;
 }
 
@@ -101,30 +132,46 @@
   height: 180px;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 75%);
   border-radius: 50%;
-  filter: blur(10px); /* Reduced blur */
+  filter: blur(10px);
   animation: shimmerPulse 1.4s ease-in-out infinite;
 }
 
+@media (max-width: 768px) {
+  .spotlightShimmer {
+    filter: none !important; /* Extremely heavy for mobile GPUs */
+    opacity: 0.4;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 80%);
+  }
+}
+
 @keyframes shimmerPulse {
-  0%, 100% { transform: scale(0.98); opacity: 0.35; }
-  50%      { transform: scale(1.05); opacity: 0.75; }
+
+  0%,
+  100% {
+    transform: scale(0.98);
+    opacity: 0.35;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.75;
+  }
 }
 
 /* ── Error / fallback ────────────────────────────────────────────── */
 .fallback {
   position: absolute;
   inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 6rem;
-  color: var(--color-gold);
-  opacity: 0.15;
-  background: #000;
+  z-index: 10;
+  /* Floor Spotlight Effect — elegant pool of light where characters would stand */
+  background: 
+    radial-gradient(ellipse at 50% 90%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 50% -20%, rgba(139, 0, 0, 0.15) 0%, transparent 80%),
+    #000;
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .spotlightShimmer,
   .spotlightShimmer::after,
   .splineCanvas {

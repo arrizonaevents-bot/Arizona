@@ -35,11 +35,19 @@ export default function Home() {
   const router  = useRouter();
   const [heroActive, setHeroActive] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
+  const [stagedReveal, setStagedReveal] = useState(false);
 
   useEffect(() => {
-    // Stage 1: Reveal primary text almost instantly (100ms)
+    // Stage 1: Reveal primary text instantly for maximum impact
     const timer = setTimeout(() => setContentVisible(true), 100);
-    return () => clearTimeout(timer);
+    
+    // Stage 2: Trigger the theatrical opening after a reading delay (1200ms)
+    const stage2Timer = setTimeout(() => setStagedReveal(true), 1400);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(stage2Timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -75,8 +83,8 @@ export default function Home() {
         </div>
 
         {/* Theatrical Curtains — Reveal the 3D background */}
-        <div className={styles.curtainLeft} data-active={heroActive ? "true" : "false"} />
-        <div className={styles.curtainRight} data-active={heroActive ? "true" : "false"} />
+        <div className={styles.curtainLeft} data-active={(heroActive && stagedReveal) ? "true" : "false"} />
+        <div className={styles.curtainRight} data-active={(heroActive && stagedReveal) ? "true" : "false"} />
         <div className={styles.curtainValance} />
 
         {/* Vignette */}
@@ -90,12 +98,9 @@ export default function Home() {
           <div className={styles.heroCenter}>
             {/* Secondary elements (Fade in after curtain) */}
             <div 
-              style={{ 
-                opacity: heroActive ? 1 : 0, 
-                transform: heroActive ? "translateY(0)" : "translateY(-10px)",
-                transition: "all 0.8s ease-out 0.4s",
-                pointerEvents: heroActive ? "all" : "none"
-              }}
+              className={styles.secondaryGroup}
+              data-reveal={(heroActive && stagedReveal) ? "true" : "false"}
+              style={{ transitionDelay: "0.2s" }}
             >
               <span className={styles.heroBadge}>
                 ✦ Arizona Institute of Performing Arts and Event Management ✦
@@ -118,13 +123,9 @@ export default function Home() {
 
             {/* Secondary elements (Interaction phase) */}
             <div 
-              className={styles.heroBtns}
-              style={{ 
-                opacity: heroActive ? 1 : 0, 
-                transform: heroActive ? "translateY(0)" : "translateY(10px)",
-                transition: "all 0.8s ease-out 0.6s",
-                pointerEvents: heroActive ? "all" : "none"
-              }}
+              className={`${styles.heroBtns} ${styles.secondaryGroup}`}
+              data-reveal={(heroActive && stagedReveal) ? "true" : "false"}
+              style={{ transitionDelay: "0.4s" }}
             >
               <Link href="/about-us" className={styles.btnPrimary}>
                 Explore The Stage
@@ -145,7 +146,7 @@ export default function Home() {
         {/* Stats bar — Reveals with background */}
         <div 
           className={styles.statsRow} 
-          data-active={heroActive ? "true" : "false"}
+          data-active={(heroActive && stagedReveal) ? "true" : "false"}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
           <div className={styles.statLine}><h3>14</h3><span>Skills</span></div>
@@ -228,10 +229,11 @@ export default function Home() {
                 <div className={styles.logoWrapper}>
                   <Image 
                     src={logo} 
-                    alt={`Partner School ${i + 1}`}
+                    alt={`Partner School Logo ${i + 1}`}
                     fill
-                    sizes="200px"
+                    sizes="(max-width: 768px) 150px, 200px"
                     className={styles.logoImage}
+                    priority={i < 8}
                   />
                 </div>
               </div>

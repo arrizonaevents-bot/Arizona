@@ -9,6 +9,9 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
@@ -17,7 +20,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 0, // Disable Lenis on touch to use native smooth scrolling (better performance)
+      touchMultiplier: 0, 
       infinite: false,
     });
 

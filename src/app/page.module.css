@@ -7,17 +7,22 @@
 /* 1. HERO */
 .heroSection {
   position: relative;
+  height: 100vh;
   height: 100svh;
-  min-height: 600px;
+  min-height: 640px;
+  /* Increased to ensure enough space for characters */
   background-color: var(--color-bg-main);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  contain: layout size;
+  /* Performance isolation */
 }
 
 @media (max-width: 768px) {
   .heroSection {
-    height: 100svh; /* Force full screen stage */
+    height: 100svh;
+    /* Force full screen stage */
     min-height: 100svh;
     padding-bottom: 0;
     overflow: hidden;
@@ -47,19 +52,31 @@
   /* Professional Velvet Texture — High-fidelity pleats & depth */
   background:
     /* 1. Top lighting sheen */
-    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 70%),
-    /* 2. Vertical Pleats */
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.12) 0%, transparent 60%),
+    /* 2. Vertical Pleat Deep Shadows */
     linear-gradient(90deg,
       #1a0404 0%,
-      #350808 10%,
-      #6a1210 18%,
-      #350808 28%,
-      #1a0404 42%,
-      #350808 56%,
-      #7a1412 68%,
-      #350808 82%,
+      #3a0808 12%,
+      #6a1210 22%,
+      #3a0808 32%,
+      #1a0404 45%,
+      #2a0404 55%,
+      #6a1210 72%,
+      #3a0808 85%,
       #1a0404 100%);
-  background-size: 100% 100%, 260px 100%;
+  background-size: 100% 100%, 280px 100%;
+}
+
+@media (max-width: 768px) {
+  .curtainLeft,
+  .curtainRight {
+    background:
+      /* 1. Subtle lighting sheen */
+      radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.06) 0%, transparent 60%),
+      /* 2. Simplified repeating pleats for texture */
+      linear-gradient(90deg, #1a0404 0%, #3a0808 25%, #6a1210 50%, #3a0808 75%, #1a0404 100%);
+    background-size: 100% 100%, 180px 100%;
+  }
 }
 
 .curtainLeft {
@@ -100,6 +117,15 @@
     linear-gradient(180deg, #150303 0%, #2d0909 100%);
   border-bottom: 2px solid var(--color-gold);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+  .curtainValance {
+    height: 60px;
+    background:
+      radial-gradient(circle at 50% 90px, transparent 45px, #1a0404 46px) -30px 0 / 60px 60px repeat-x,
+      linear-gradient(180deg, #150303 0%, #2d0909 100%);
+  }
 }
 
 /* Gold Fringe */
@@ -184,24 +210,41 @@
   z-index: 50;
   /* Always on top of curtains */
   pointer-events: none;
-  contain: layout size;
+  contain: layout size pait;
+  transform: translate3d(0, 15px, 0);
+  /* Force GPU */
 
   /* Staged Reveal State */
   opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
 @media (max-width: 768px) {
   .heroContent {
     position: relative;
-    padding: 9rem 5% 2rem;
-    /* Increased from 6rem to avoid navbar logo overlap */
-    min-height: 80svh;
-    justify-content: flex-start;
+    padding: var(--space-hero-top) var(--section-padding-h) var(--space-hero-bottom);
+    min-height: 85svh;
+    justify-content: center;
+    /* Center vertically on mobile */
+    pointer-events: none;
   }
+}
+
+/* Secondary Group Reveal (Two-Stage) */
+.secondaryGroup {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.secondaryGroup[data-reveal="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
 }
 
 .heroContent[data-active="true"] {
@@ -370,10 +413,9 @@
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 8vw, 6rem);
-  /* Fluid typography */
+  font-size: var(--font-size-h1);
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: var(--color-fixed-white);
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.6);
 }
@@ -393,14 +435,15 @@
 }
 
 .subtitle {
-  font-size: clamp(0.95rem, 4vw, 1.5rem);
-  margin-bottom: 2.5rem;
+  font-size: clamp(0.9rem, 1.1rem, 1.2rem);
+  margin-bottom: 2rem;
   color: var(--color-fixed-white);
   opacity: 0.9;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
 }
 
 @media(min-width: 768px) {
@@ -458,21 +501,19 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-  padding: 2rem 5% 1.5rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 80%, transparent 100%);
+  padding: 1.5rem var(--section-padding-h) 1rem;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  /* Default desktop */
   gap: 1.5rem;
   z-index: 25;
 
   /* Staged Reveal State — Sharpened */
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 0.3s;
-  /* Appear quickly after main content */
-  will-change: transform, opacity;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
 }
 
 @media (max-width: 768px) {
@@ -482,10 +523,12 @@
     left: auto;
     right: auto;
     background: transparent;
-    padding: 0 5% 2rem;
+    padding: 0 5% 2.5rem;
+    /* Smoother bottom gap */
     grid-template-columns: repeat(2, 1fr);
     transform: none;
     opacity: 1;
+    gap: 1rem;
     /* Always visible on mobile if container is active */
   }
 }
@@ -514,19 +557,15 @@
   font-family: var(--font-heading);
   font-size: 3rem;
   color: var(--color-fixed-gold);
-  font-weight: normal;
-}
-
-@media (max-width: 768px) {
-  .statLine h3 {
-    font-size: 2.2rem;
-  }
+  font-size: clamp(1.2rem, 3vw, 2.5rem);
+  color: var(--color-gold);
+  margin-bottom: 0.2rem;
 }
 
 .statLine span {
-  font-size: 0.9rem;
+  font-size: clamp(0.6rem, 1vw, 0.82rem);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.7);
 }
 

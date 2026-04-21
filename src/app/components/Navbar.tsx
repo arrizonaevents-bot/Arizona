@@ -95,58 +95,72 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className={styles.mobileToggle}
+            className={`${styles.mobileToggle} ${isOpen ? styles.toggleOpen : ""}`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
-            <motion.div animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.2 }}>
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
             </motion.div>
           </button>
         </div>
       </div>
 
-      {/* ── Mobile Drawer ── */}
+      {/* ── Mobile Drawer (Theatrical Modal) ── */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            className={styles.mobileDrawer}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <ul className={styles.mobileNav}>
-              {links.map((link, idx) => (
-                <motion.li 
-                  key={link.name}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 + idx * 0.05, duration: 0.4 }}
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div 
+              className={styles.mobileBackdrop}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+            />
+
+            <motion.div
+              className={styles.mobileDrawer}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <ul className={styles.mobileNav}>
+                {links.map((link, idx) => (
+                  <motion.li 
+                    key={link.name}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 + idx * 0.05, duration: 0.4 }}
+                  >
+                    <Link
+                      href={link.path}
+                      className={`${styles.mobileLink} ${pathname === link.path ? styles.mobileActive : ""}`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                ))}
+                
+                <motion.li
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                  className={styles.mobileCtaLi}
                 >
-                  <Link
-                    href={link.path}
-                    className={`${styles.mobileLink} ${pathname === link.path ? styles.mobileActive : ""}`}
+                  <Link 
+                    href="/contact-us" 
+                    className={styles.ctaBtn} 
                     onClick={() => setIsOpen(false)}
                   >
-                    <span style={{ fontSize: '0.65rem', marginRight: '1rem', opacity: 0.5 }}>{`0${idx + 1}`}</span>
-                    {link.name}
+                    Book Now
                   </Link>
                 </motion.li>
-              ))}
-              
-              <motion.li
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                style={{ marginTop: '2rem' }}
-              >
-                <Link href="/contact-us" className={styles.ctaBtn} style={{ display: 'block' }} onClick={() => setIsOpen(false)}>
-                  Book Now
-                </Link>
-              </motion.li>
-            </ul>
-          </motion.div>
+              </ul>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>

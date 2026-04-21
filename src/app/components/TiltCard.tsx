@@ -33,16 +33,16 @@ export default function TiltCard({
 
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-  
-  const glareX        = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
-  const glareY        = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
-  const glareOpacity  = useTransform(mouseXSpring, [-0.5, 0, 0.5], [0.3, 0, 0.3]);
+
+  const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const glareOpacity = useTransform(mouseXSpring, [-0.5, 0, 0.5], [0.3, 0, 0.3]);
 
   // ─── Cached rect: read once on mouseenter, not every pixel of movement ───
-  const cachedRect  = useRef<DOMRect | null>(null);
+  const cachedRect = useRef<DOMRect | null>(null);
   // Track hover state in a ref to avoid re-renders — use motionValue for glare
   const isHoveringMV = useMotionValue(0);
-  const glareVisible  = useTransform(isHoveringMV, [0, 1], [0, 1]);
+  const glareVisible = useTransform(isHoveringMV, [0, 1], [0, 1]);
 
   const handleMouseEnter = () => {
     if (!supportsTilt) return;
@@ -55,8 +55,8 @@ export default function TiltCard({
     const rect = cachedRect.current;
     if (!rect) return;
 
-    const xPct = (e.clientX - rect.left) / rect.width  - 0.5;
-    const yPct = (e.clientY - rect.top)  / rect.height - 0.5;
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
 
     x.set(xPct);
     y.set(yPct);

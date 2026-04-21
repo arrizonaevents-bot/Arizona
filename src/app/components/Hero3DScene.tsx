@@ -47,18 +47,19 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
 
   const onError = useCallback(() => setHasError(true), []);
 
-  // Detect low-end devices more aggressively
+  // Detect mobile viewports to disable heavy 3D as requested
   useEffect(() => {
     if (!isClient) return;
 
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const navWithMemory = navigator as Navigator & { deviceMemory?: number };
     const navWithConnection = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
-    const lowMemory = typeof navWithMemory.deviceMemory === "number" && navWithMemory.deviceMemory <= 2;
     const isDataSaver = navWithConnection.connection?.saveData === true;
-    const slowNetwork = /(^|[^a-z])(slow-2g|2g)([^a-z]|$)/i.test(navWithConnection.connection?.effectiveType ?? "");
+    const slowNetwork = /(^|[^a-z])(slow-2g|2g|3g)([^a-z]|$)/i.test(navWithConnection.connection?.effectiveType ?? "");
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
 
-    if (media.matches || lowMemory || isDataSaver || slowNetwork) {
+    // Disable 3D on mobile viewports to eliminate lag, as requested.
+    // Also disable on confirmed slow networks (2G/3G) or data-saver mode.
+    if (media.matches || isMobile || isDataSaver || slowNetwork) {
       setDisable3D(true);
     } else {
       setDisable3D(false);
@@ -87,8 +88,12 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
   useEffect(() => {
     if (!isLoaded) return;
 
+    // Adaptive buffer: 1200ms for mobile (gating), 300ms for Desktop
+    const buffer = typeof window !== 'undefined' && window.innerWidth < 768 ? 1200 : 300;
+
     const elapsed = Date.now() - overlayStartRef.current;
-    const wait = Math.max(0, MIN_OVERLAY_MS - elapsed);
+    const wait = Math.max(0, buffer - elapsed);
+
     const timeout = window.setTimeout(() => {
       setShowScene(true);
       if (typeof onReady === "function") onReady();
@@ -136,9 +141,7 @@ export default function Hero3DScene({ onReady }: Hero3DSceneProps) {
 
       {/* 4. Overlay & Fallback */}
       {(hasError || disable3D) ? (
-        <div className={styles.fallback}>
-          <span>✦</span>
-        </div>
+        <div className={styles.fallback} />
       ) : (
         <div
           className={styles.loadOverlay}
