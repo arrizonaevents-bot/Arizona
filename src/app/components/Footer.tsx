@@ -7,7 +7,7 @@ export default function Footer() {
       <div className={styles.curtainBorder}></div>
       <div className={styles.content}>
         <div className={styles.brand}>
-          <h2>ARIZONA INSTITUTE</h2>
+          <h2>ARIZONA ARTS</h2>
           <p style={{fontSize: "0.8rem", letterSpacing: "2px", textTransform: "uppercase", color: "var(--color-gold)", marginBottom: "1rem"}}>
             Choreography | Theatre | Music | Annual School Functions
           </p>
@@ -27,8 +27,9 @@ export default function Footer() {
         <div className={styles.contact}>
           <h3>Contact Info</h3>
           <p>📞 +91 99158 48400</p>
-          <p>📍 Chandigarh, Punjab, INDIA</p>
-          <p>✉️ hello@arizonainstitute.art</p>
+          <p>📍 All-India Bookings Accepted</p>
+          <p>✉️ arti@arizonaarts.in</p>
+          <p>📸 @arizonaarts.official</p>
         </div>
       </div>
       <div className={styles.bottom}>

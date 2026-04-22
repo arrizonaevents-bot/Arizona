@@ -37,7 +37,7 @@ export default function ContactUs() {
         >
           <div className={styles.label}>Connect</div>
           <h1>Let's Create <span className={styles.goldText}>Together</span></h1>
-          <p>Reach out to for school partnerships, exclusive studio classes, or grand events.</p>
+          <p>School bookings for 2026 are now open. Reserve your slot for Annual Days, Sports Meets, and Cultural Programs.</p>
         </motion.div>
       </section>
 
@@ -87,9 +87,10 @@ export default function ContactUs() {
               <div className={styles.infoCard}>
                 <h3>Direct Lines</h3>
                 <ul>
-                  <li>📞 +91 99158 48400</li>
-                  <li>👤 Director: Aarti Dang</li>
-                  <li>✨ Choreography | Theatre | Music | Annual Productions</li>
+                  <li>📧 arti@arizonaarts.in</li>
+                  <li>📸 @arizonaarts.official</li>
+                  <li>📍 All-India Bookings Accepted</li>
+                  <li>👤 Director: Arti Arizona</li>
                 </ul>
                 <div className={styles.note}>
                   * High-priority responses reserved for direct school inquiries.

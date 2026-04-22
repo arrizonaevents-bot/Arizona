@@ -112,7 +112,7 @@ export default function Home() {
               style={{ transitionDelay: "0.2s" }}
             >
               <span className={styles.heroBadge}>
-                ✦ Arizona Institute of Performing Arts and Event Management ✦
+                ✦ Every Style. Every Emotion. One Grand Stage. ✦
               </span>
 
               <div className={styles.verticals}>
@@ -157,10 +157,10 @@ export default function Home() {
           className={styles.statsRow}
           data-active={(heroActive && stagedReveal) ? "true" : "false"}
         >
-          <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
-          <div className={styles.statLine}><h3>14</h3><span>Skills</span></div>
-          <div className={styles.statLine}><h3>5+</h3><span>Years</span></div>
-          <div className={styles.statLine}><h3>1000+</h3><span>Students</span></div>
+          <div className={styles.statLine}><h3>200+</h3><span>Schools</span></div>
+          <div className={styles.statLine}><h3>18</h3><span>States</span></div>
+          <div className={styles.statLine}><h3>9</h3><span>Disciplines</span></div>
+          <div className={styles.statLine}><h3>10,000+</h3><span>Students</span></div>
         </div>
       </section>
 
@@ -169,20 +169,20 @@ export default function Home() {
       ══════════════════════════════════════════════════ */}
       <section className={styles.aboutTeaser}>
         <div className={styles.aboutLeft}>
-          <span className={styles.sectionLabel}>About Us</span>
-          <h2 className={styles.sectionTitle}>Where Academy Meets The Stage</h2>
+          <span className={styles.sectionLabel}>Who We Are</span>
+          <h2 className={styles.sectionTitle}>Redefining the art of school performance across India</h2>
           <div className={styles.aboutTextGroup}>
             <p>
-              Arizona Institute is a leading event management partner for schools. We provide
-              comprehensive support for major school events, taking care of everything from
-              concept development to final stage execution. Our focus is on delivering
-              professional, well-coordinated programs that reflect the school's standards.
+              Arizona Arts is a premier artist-driven choreography and performing arts institute 
+              dedicated to transforming school events into extraordinary cultural experiences. 
+              From the mountains of Kashmir to the shores of Kanyakumari, we bring disciplined 
+              artistry, cinematic storytelling, and boundless creativity to Annual Days, Sports Meets, 
+              and Academic Seminars.
             </p>
             <p>
-              By combining our theatrical expertise with practical project management, we
-              help students find their confidence and voice. Our team of experienced
-              choreographers and directors ensures that every annual day, sports event,
-              or graduation is handled with precision and care.
+              "We do not merely choreograph performances — we architect moments that students carry for a lifetime." 
+              Our methodology seamlessly integrates technical precision with emotional intelligence, nurturing 
+              not only skilled performers but also confident young individuals.
             </p>
           </div>
           <Link href="/about-us" className={styles.btnOutlineGold}>Discover Our Story</Link>
@@ -269,7 +269,7 @@ export default function Home() {
         <div className={styles.ambientGlow} />
         <div className={styles.ctaCard}>
           <h2>Ready To Shine?</h2>
-          <p>Book a free consultation and let&apos;s discuss your journey.</p>
+          <p>School bookings for 2026 are now open. Dates fill quickly — we encourage early enquiries.</p>
           <button
             className={styles.btnPrimaryLg}
             onClick={() => {
@@ -277,7 +277,7 @@ export default function Home() {
               setTimeout(() => router.push("/contact-us"), 600);
             }}
           >
-            Unlock The Stage
+            Reserve Your 2026 Slot
           </button>
         </div>
       </section>
