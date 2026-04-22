@@ -31,8 +31,17 @@ const SCHOOL_LOGOS = [
   "/schllogos/20.jpg",
 ];
 
+const AWARD_IMAGES = [
+  { src: "/awards/236.png", title: "Excellence in Choreography" },
+  { src: "/awards/238.png", title: "Outstanding Stage Presence" },
+  { src: "/awards/240.png", title: "Creative Direction Award" },
+  { src: "/awards/242.png", title: "Best Theatrical Production" },
+  { src: "/awards/244.png", title: "Holistic Arts Education" },
+  { src: "/awards/246.png", title: "Community Impact Recognition" },
+];
+
 export default function Home() {
-  const router  = useRouter();
+  const router = useRouter();
   const [heroActive, setHeroActive] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const [stagedReveal, setStagedReveal] = useState(false);
@@ -40,7 +49,7 @@ export default function Home() {
   useEffect(() => {
     // Stage 1: Reveal primary text instantly for maximum impact
     const timer = setTimeout(() => setContentVisible(true), 100);
-    
+
     // Stage 2: Trigger the theatrical opening after a reading delay (1200ms)
     const stage2Timer = setTimeout(() => setStagedReveal(true), 1400);
 
@@ -91,13 +100,13 @@ export default function Home() {
         <div className={styles.heroVignette} aria-hidden="true" />
 
         {/* Hero copy — Two-Stage Reveal for Speed & Focus */}
-        <div 
-          className={styles.heroContent} 
+        <div
+          className={styles.heroContent}
           data-active={contentVisible ? "true" : "false"}
         >
           <div className={styles.heroCenter}>
             {/* Secondary elements (Fade in after curtain) */}
-            <div 
+            <div
               className={styles.secondaryGroup}
               data-reveal={(heroActive && stagedReveal) ? "true" : "false"}
               style={{ transitionDelay: "0.2s" }}
@@ -122,7 +131,7 @@ export default function Home() {
             </p>
 
             {/* Secondary elements (Interaction phase) */}
-            <div 
+            <div
               className={`${styles.heroBtns} ${styles.secondaryGroup}`}
               data-reveal={(heroActive && stagedReveal) ? "true" : "false"}
               style={{ transitionDelay: "0.4s" }}
@@ -144,8 +153,8 @@ export default function Home() {
         </div>
 
         {/* Stats bar — Reveals with background */}
-        <div 
-          className={styles.statsRow} 
+        <div
+          className={styles.statsRow}
           data-active={(heroActive && stagedReveal) ? "true" : "false"}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
@@ -164,15 +173,15 @@ export default function Home() {
           <h2 className={styles.sectionTitle}>Where Academy Meets The Stage</h2>
           <div className={styles.aboutTextGroup}>
             <p>
-              Arizona Institute is a leading event management partner for schools. We provide 
-              comprehensive support for major school events, taking care of everything from 
-              concept development to final stage execution. Our focus is on delivering 
+              Arizona Institute is a leading event management partner for schools. We provide
+              comprehensive support for major school events, taking care of everything from
+              concept development to final stage execution. Our focus is on delivering
               professional, well-coordinated programs that reflect the school's standards.
             </p>
             <p>
-              By combining our theatrical expertise with practical project management, we 
-              help students find their confidence and voice. Our team of experienced 
-              choreographers and directors ensures that every annual day, sports event, 
+              By combining our theatrical expertise with practical project management, we
+              help students find their confidence and voice. Our team of experienced
+              choreographers and directors ensures that every annual day, sports event,
               or graduation is handled with precision and care.
             </p>
           </div>
@@ -198,15 +207,23 @@ export default function Home() {
           <h2>Accolades &amp; Recognition</h2>
         </div>
         <div className={styles.masonryGrid}>
-          {[1,2,3,4,5,6].map((i) => (
+          {AWARD_IMAGES.map((award, i) => (
             <div
               key={i}
               className={styles.masonryItem}
             >
               <TiltCard className="card-3d" style={{ width: "100%", height: "100%" }} disabled>
                 <div className={styles.photoFrame}>
+                  <Image
+                    src={award.src}
+                    alt={award.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className={styles.awardImage}
+                    loading="lazy"
+                  />
                   <div className={styles.photoOverlay}>
-                    <p>Excellence Award 20{15 + i}</p>
+                    <p>{award.title}</p>
                   </div>
                 </div>
               </TiltCard>
@@ -227,8 +244,8 @@ export default function Home() {
             {[...SCHOOL_LOGOS, ...SCHOOL_LOGOS].map((logo, i) => (
               <div key={i} className={styles.logoCard}>
                 <div className={styles.logoWrapper}>
-                  <Image 
-                    src={logo} 
+                  <Image
+                    src={logo}
                     alt={`Partner School Logo ${i + 1}`}
                     fill
                     sizes="(max-width: 768px) 150px, 200px"
