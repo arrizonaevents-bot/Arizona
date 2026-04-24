@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { MapPin, Presentation, Briefcase, Zap, Play } from "lucide-react";
 import TiltCard from "../components/TiltCard";
+import TheaterMasksBackground from "../components/TheaterMasksBackground";
 
 export default function ContactUs() {
   const triggerConfetti = (e: React.MouseEvent) => {
@@ -28,6 +29,7 @@ export default function ContactUs() {
     <main className={styles.main}>
       {/* 1. PAGE HERO */}
       <section className={styles.heroSection}>
+        <TheaterMasksBackground opacity={0.18} position="left" offsetX="15vw" />
         <div className={styles.ambientGlow}></div>
         <motion.div 
           initial={{ opacity: 0, y: 30 }}

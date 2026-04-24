@@ -1,0 +1,49 @@
+.maskContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.maskWrapper {
+  position: absolute;
+  opacity: var(--mask-base-opacity);
+  transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.masksSvg {
+  width: auto;
+  height: clamp(200px, 35vh, 500px);
+}
+
+.maskCrimson {
+  color: var(--mask-color-red);
+}
+
+.maskGold {
+  color: var(--mask-color-gold);
+}
+
+.ribbon {
+  color: var(--color-text-dim);
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .maskWrapper {
+    opacity: 0.05;
+  }
+  .masksSvg {
+    height: 280px;
+  }
+}

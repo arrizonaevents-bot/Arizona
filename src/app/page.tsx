@@ -7,6 +7,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Hero3DScene from "./components/Hero3DScene";
 import TiltCard from "./components/TiltCard";
+import TheaterMasksBackground from "./components/TheaterMasksBackground";
 import { Sparkles } from "lucide-react";
 
 const SCHOOL_LOGOS = [
@@ -122,8 +123,8 @@ export default function Home() {
 
             {/* Primary elements (Instant arrival) */}
             <h1 className={styles.heroTitle}>
-              We Bring Out <br />
-              <span className={styles.goldText}>The Actor In You.</span>
+              Where Every Student <br />
+              <span className={styles.goldText}>Finds Their Stage.</span>
             </h1>
 
             <p className={styles.subtitle}>
@@ -157,7 +158,7 @@ export default function Home() {
           className={styles.statsRow}
           data-active={(heroActive && stagedReveal) ? "true" : "false"}
         >
-          <div className={styles.statLine}><h3>200+</h3><span>Schools</span></div>
+          <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
           <div className={styles.statLine}><h3>18</h3><span>States</span></div>
           <div className={styles.statLine}><h3>9</h3><span>Disciplines</span></div>
           <div className={styles.statLine}><h3>10,000+</h3><span>Students</span></div>
@@ -168,6 +169,7 @@ export default function Home() {
           3. ABOUT TEASER
       ══════════════════════════════════════════════════ */}
       <section className={styles.aboutTeaser}>
+        <TheaterMasksBackground opacity={0.18} position="left" offsetX="10vw" />
         <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>Who We Are</span>
           <h2 className={styles.sectionTitle}>Redefining the art of school performance across India</h2>
@@ -203,6 +205,7 @@ export default function Home() {
           5. ACHIEVEMENTS
       ══════════════════════════════════════════════════ */}
       <section className={styles.achievements}>
+        <TheaterMasksBackground position="right" opacity={0.18} offsetX="-10vw" />
         <div className={styles.sectionHeader}>
           <h2>Accolades &amp; Recognition</h2>
         </div>
@@ -236,6 +239,7 @@ export default function Home() {
           4. PARTNERS
       ══════════════════════════════════════════════════ */}
       <section className={styles.workPreview}>
+        <TheaterMasksBackground position="left" opacity={0.15} offsetX="5vw" offsetY="-10px" scale={0.9} />
         <div className={styles.sectionHeader}>
           <h2>Our Proud Partners</h2>
         </div>
@@ -266,6 +270,7 @@ export default function Home() {
           6. CTA
       ══════════════════════════════════════════════════ */}
       <section className={styles.ctaSection}>
+        <TheaterMasksBackground position="right" opacity={0.15} offsetX="-5vw" offsetY="10px" scale={0.8} />
         <div className={styles.ambientGlow} />
         <div className={styles.ctaCard}>
           <h2>Ready To Shine?</h2>

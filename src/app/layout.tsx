@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <head>
         <link rel="dns-prefetch" href="https://prod.spline.design" />
         <link rel="preconnect" href="https://prod.spline.design" crossOrigin="anonymous" />

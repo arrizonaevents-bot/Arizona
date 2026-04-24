@@ -303,6 +303,65 @@
   opacity: 0.4;
 }
 
+.founderSection {
+  max-width: 1200px;
+  margin: 0 auto 6rem;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.founderContent {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media(min-width: 900px) {
+  .founderContent {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+.founderText {
+  flex: 2;
+}
+
+.founderVisual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.founderName {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--color-text-main);
+  margin-bottom: 1.5rem;
+}
+
+.founderBio {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.avatarPlaceholderLarge {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  background: rgba(212,175,55,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .teamGrid {
   display: grid;
   grid-template-columns: 1fr;

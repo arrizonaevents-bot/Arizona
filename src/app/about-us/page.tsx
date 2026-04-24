@@ -4,24 +4,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import styles from "./page.module.css";
 import TiltCard from "../components/TiltCard";
+import TheaterMasksBackground from "../components/TheaterMasksBackground";
 import { Compass, Flame, Users, Quote } from "lucide-react";
 
 export default function AboutUs() {
   const team = [
     {
-      name: "Arti Dang",
-      role: "Masters in Theatre, Punjab University",
-      bio: "A visionary founder bringing a refined creative vision where professionalism meets passion."
-    },
-    {
       name: "Gurmeet Singh Mitwa",
       role: "Actor & Theatre Director, 30+ Bollywood films",
       bio: "An industry veteran enriching every project with real-world exposure to television, film, and stage."
-    },
-    {
-      name: "Darshan Singh",
-      role: "Scriptwriter & Theatre Director, 20+ stage plays",
-      bio: "Expert in stage dynamics and storytelling, turning potential challenges into perfectly executed moments."
     },
     {
       name: "Krishan Kant Dang",
@@ -29,6 +20,12 @@ export default function AboutUs() {
       bio: "Guided by strong media expertise to help students connect with audiences and embrace storytelling."
     }
   ];
+
+  const founder = {
+    name: "Arti Dang",
+    role: "Founder & Creative Director | Masters in Theatre, Punjab University",
+    bio: "A visionary founder bringing a refined creative vision where professionalism meets passion. With a deep academic background in theatre and years of hands-on experience in stagecraft, Arti has pioneered a methodology that transforms traditional school events into cinematic experiences. Her vision is to build confidence in every student through the power of performing arts, ensuring that Arizona Arts remains the gold standard for artistic excellence in educational institutions across India."
+  };
 
   const fadeUp = {
     initial: { opacity: 0, y: 50 },
@@ -41,6 +38,7 @@ export default function AboutUs() {
     <main className={styles.main}>
       {/* 1. PAGE HERO */}
       <section className={styles.heroSection}>
+        <TheaterMasksBackground opacity={0.15} position="left" offsetX="15vw" offsetY="20px" />
         <div className={styles.bgOverlay}></div>
         <div className={styles.heroContent}>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
@@ -161,9 +159,28 @@ export default function AboutUs() {
       {/* 5. TEAM */}
       <section className={styles.teamSection}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <span className={styles.sectionLabel}>The Directors</span>
+          <span className={styles.sectionLabel}>The Leadership</span>
           <h2 className={styles.sectionTitle}>Meet The Visionaries</h2>
         </motion.div>
+
+        {/* Founder Section */}
+        <motion.div className={styles.founderSection} {...fadeUp}>
+          <div className={styles.founderContent}>
+            <div className={styles.founderText}>
+              <div className={styles.rolePill}>{founder.role}</div>
+              <h3 className={styles.founderName}>{founder.name}</h3>
+              <p className={styles.founderBio}>{founder.bio}</p>
+            </div>
+            <div className={styles.founderVisual}>
+              <TiltCard className="card-3d">
+                <div className={styles.avatarPlaceholderLarge}>
+                  <Users className={styles.avatarIcon} size={60} />
+                </div>
+              </TiltCard>
+            </div>
+          </div>
+        </motion.div>
+
         <div className={styles.teamGrid}>
           {team.map((member, i) => (
             <motion.div
@@ -188,7 +205,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 5. ACCOLADES */}
+      {/* 6. ACCOLADES */}
       <section className={styles.accoladesSection}>
         <motion.h2 className={styles.centerTitle} {...fadeUp}>Accolades</motion.h2>
         <div className={styles.accoladesGrid}>

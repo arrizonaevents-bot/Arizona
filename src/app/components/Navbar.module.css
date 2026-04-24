@@ -349,19 +349,21 @@
 /* Remove redundant override that was breaking light mode visibility */
 
 /* Ensure toggle stays above drawer */
-.mobileToggle {
-  position: relative;
-  z-index: 300;
-  background: transparent;
-  border: none;
-  color: var(--color-nav-text-hover);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  transition: transform 0.3s ease;
-}
+@media (max-width: 900px) {
+  .mobileToggle {
+    position: relative;
+    z-index: 300;
+    background: transparent;
+    border: none;
+    color: var(--color-nav-text-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: transform 0.3s ease;
+  }
 
-.mobileToggle.toggleOpen {
-  color: var(--color-nav-mobile-text); /* Use theme-aware color against the drawer bg */
+  .mobileToggle.toggleOpen {
+    color: var(--color-nav-mobile-text); /* Use theme-aware color against the drawer bg */
+  }
 }

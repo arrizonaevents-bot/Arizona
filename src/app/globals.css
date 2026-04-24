@@ -52,6 +52,16 @@
   /* ── Fonts ─────────────────────────────────────────── */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
+
+  /* ── Hero Specific Tokens ── */
+  --hero-vignette-core: rgba(0, 0, 0, 0.3);
+  --hero-vignette-mid: rgba(0, 0, 0, 0.55);
+  --hero-vignette-edge: rgba(0, 0, 0, 0.85);
+
+  --mask-base-opacity: 0.2;
+  --mask-color-red: #9e1b1b;
+  --mask-color-gold: #d4af37;
+  --mask-fill-opacity: 0.15;
 }
 
 /* ── Light Theme ────────────────────────────────────── */
@@ -85,6 +95,16 @@
   --color-drawer-bg: #FFF8F0;
   --color-drawer-border: rgba(45, 27, 78, 0.1);
   --color-nav-mobile-text: #1D152D;
+
+  /* Light Theme Hero Adjustments (Softer/Lighter) */
+  --hero-vignette-core: rgba(0, 0, 0, 0.15);
+  --hero-vignette-mid: rgba(0, 0, 0, 0.35);
+  --hero-vignette-edge: rgba(0, 0, 0, 0.65);
+
+  --mask-base-opacity: 0.7; /* Significantly darker for high contrast in light mode */
+  --mask-color-red: #7a0000;  /* Deep Dark Red */
+  --mask-color-gold: #916b19; /* Rich Dark Gold */
+  --mask-fill-opacity: 0.65;  /* Significantly more 'filled' in light mode */
 }
 
 /* ── Reset ─────────────────────────────────────────────── */

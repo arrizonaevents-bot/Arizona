@@ -103,17 +103,29 @@
 
 @media(max-width: 768px) {
   .statsBar {
-    padding: 3rem 5%;
+    padding: 2rem 5%;
+  }
+}
+
+@media(max-width: 400px) {
+  .statsBar {
+    padding: 1.5rem 5%;
   }
 }
 
 .statsContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+@media(max-width: 400px) {
+  .statsContainer {
+    gap: 1rem;
+  }
 }
 
 .statBlock {
@@ -122,10 +134,10 @@
 
 .statBlock h3 {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: clamp(2rem, 8vw, 3rem);
   color: var(--color-gold);
   font-weight: normal;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .statBlock p {
