@@ -121,7 +121,8 @@
 .inputField {
   background: rgba(255,255,255,0.02);
   border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.6);
+  box-shadow: 0 1px 0 rgba(212, 175, 55, 0.1);
   padding: 1rem 1rem 1rem 0;
   color: var(--color-text-main);
   font-family: var(--font-body);
@@ -162,6 +163,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  /* Stretch to match form column height */
+  justify-content: flex-start;
 }
 
 .infoCard {
@@ -220,6 +223,20 @@
 .socialCircle:hover {
   border-color: var(--color-gold);
   color: var(--color-gold);
+}
+
+.contactLogoWrap {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.3s;
+  padding: 3rem 0;
+}
+
+.contactLogoWrap:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 /* 3. MODES REMINDER */

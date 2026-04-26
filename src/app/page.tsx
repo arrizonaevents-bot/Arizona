@@ -159,8 +159,8 @@ export default function Home() {
           data-active={(heroActive && stagedReveal) ? "true" : "false"}
         >
           <div className={styles.statLine}><h3>100+</h3><span>Schools</span></div>
-          <div className={styles.statLine}><h3>18</h3><span>States</span></div>
-          <div className={styles.statLine}><h3>9</h3><span>Disciplines</span></div>
+          <div className={styles.statLine}><h3>14</h3><span>Skills</span></div>
+          <div className={styles.statLine}><h3>10+</h3><span>Years</span></div>
           <div className={styles.statLine}><h3>10,000+</h3><span>Students</span></div>
         </div>
       </section>
@@ -169,7 +169,6 @@ export default function Home() {
           3. ABOUT TEASER
       ══════════════════════════════════════════════════ */}
       <section className={styles.aboutTeaser}>
-        <TheaterMasksBackground opacity={0.18} position="left" offsetX="10vw" />
         <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>Who We Are</span>
           <h2 className={styles.sectionTitle}>Redefining the art of school performance across India</h2>
@@ -241,7 +240,7 @@ export default function Home() {
       <section className={styles.workPreview}>
         <TheaterMasksBackground position="left" opacity={0.15} offsetX="5vw" offsetY="-10px" scale={0.9} />
         <div className={styles.sectionHeader}>
-          <h2>Our Proud Partners</h2>
+          <h2>Our Work With Schools</h2>
         </div>
         <div className={styles.carouselWrapper}>
           <div className={styles.carouselTrack}>
@@ -250,7 +249,7 @@ export default function Home() {
                 <div className={styles.logoWrapper}>
                   <Image
                     src={logo}
-                    alt={`Partner School Logo ${i + 1}`}
+                    alt={`School Logo ${i + 1}`}
                     fill
                     sizes="(max-width: 768px) 150px, 200px"
                     className={styles.logoImage}
@@ -262,7 +261,7 @@ export default function Home() {
           </div>
         </div>
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          <Link href="/our-work" className={styles.btnOutlineGold}>View All Partners</Link>
+          <Link href="/our-work" className={styles.btnOutlineGold}>View All Schools</Link>
         </div>
       </section>
 

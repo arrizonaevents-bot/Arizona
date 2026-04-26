@@ -82,13 +82,13 @@ export default function OurWork() {
             <h3>100+</h3><p>Schools</p>
           </motion.div>
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} className={styles.statBlock}>
-            <h3>14+</h3><p>Disciplines</p>
+            <h3>14</h3><p>Skills</p>
           </motion.div>
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} className={styles.statBlock}>
-            <h3>1000+</h3><p>Artists</p>
+            <h3>10+</h3><p>Years</p>
           </motion.div>
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} className={styles.statBlock}>
-            <h3>5+</h3><p>Years</p>
+            <h3>10,000+</h3><p>Students</p>
           </motion.div>
         </motion.div>
       </section>
@@ -96,7 +96,7 @@ export default function OurWork() {
       {/* 3. SCHOOLS GRID */}
       <section className={styles.schoolsSection}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <h2>Our Partners</h2>
+          <h2>Our Work With Schools</h2>
         </motion.div>
         <div className={styles.schoolsGrid}>
           {schools.map((school, i) => (

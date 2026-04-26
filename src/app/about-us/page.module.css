@@ -351,6 +351,14 @@
   font-size: 1.1rem;
 }
 
+.bioPara {
+  margin-bottom: 1.5rem;
+}
+
+.bioPara:last-child {
+  margin-bottom: 0;
+}
+
 .avatarPlaceholderLarge {
   width: 150px;
   height: 150px;
@@ -409,30 +417,75 @@
 .accoladesGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-@media(min-width: 500px) { .accoladesGrid { grid-template-columns: repeat(2, 1fr); } }
-@media(min-width: 900px) { .accoladesGrid { grid-template-columns: repeat(4, 1fr); } }
+@media(max-width: 768px) {
+  .accoladesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media(min-width: 768px) {
+  .accoladesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
 
 .accoladePhoto {
-  background-color: var(--color-bg-offset);
-  height: 300px;
-  border: 1px solid rgba(255,255,255,0.05);
+  height: 400px;
+  background: var(--color-bg-offset);
   position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
 }
 
-.photoOverlay {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--color-overlay);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.3s;
+@media (max-width: 768px) {
+  .accoladePhoto {
+    height: 220px;
+  }
 }
 
-.accoladePhoto:hover .photoOverlay { opacity: 1; }
+.awardImage {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accoladePhoto:hover .awardImage {
+  transform: scale(1.1);
+}
+
+.photoOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  color: var(--color-gold);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .photoOverlay {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+  }
+}
+
+.accoladePhoto:hover .photoOverlay {
+  opacity: 1;
+}
 
 .photoOverlay p {
   color: var(--color-gold);

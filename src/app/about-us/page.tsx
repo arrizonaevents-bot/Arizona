@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./page.module.css";
 import TiltCard from "../components/TiltCard";
@@ -8,23 +9,27 @@ import TheaterMasksBackground from "../components/TheaterMasksBackground";
 import { Compass, Flame, Users, Quote } from "lucide-react";
 
 export default function AboutUs() {
-  const team = [
-    {
-      name: "Gurmeet Singh Mitwa",
-      role: "Actor & Theatre Director, 30+ Bollywood films",
-      bio: "An industry veteran enriching every project with real-world exposure to television, film, and stage."
-    },
-    {
-      name: "Krishan Kant Dang",
-      role: "Celebrity Anchor, Newsreader, Zee Punjabi/PTC",
-      bio: "Guided by strong media expertise to help students connect with audiences and embrace storytelling."
-    }
+  const team = [];
+
+  const AWARD_IMAGES = [
+    { src: "/awards/236.png", title: "Excellence in Choreography" },
+    { src: "/awards/238.png", title: "Outstanding Stage Presence" },
+    { src: "/awards/240.png", title: "Creative Direction Award" },
+    { src: "/awards/242.png", title: "Best Theatrical Production" },
+    { src: "/awards/244.png", title: "Holistic Arts Education" },
+    { src: "/awards/246.png", title: "Community Impact Recognition" },
   ];
 
   const founder = {
     name: "Arti Dang",
-    role: "Founder & Creative Director | Masters in Theatre, Punjab University",
-    bio: "A visionary founder bringing a refined creative vision where professionalism meets passion. With a deep academic background in theatre and years of hands-on experience in stagecraft, Arti has pioneered a methodology that transforms traditional school events into cinematic experiences. Her vision is to build confidence in every student through the power of performing arts, ensuring that Arizona Arts remains the gold standard for artistic excellence in educational institutions across India."
+    role: "Founder & Director",
+    bio: [
+      "Arti is the creative force and Founding Director of Arizona Institute of Performing Arts & Event Management—redefining the scope of school productions. Backed by a Master’s in Theatre from Punjab University, along with a B.Ed and a Master’s in English Literature from the University of Jammu, she brings a strong blend of academic rigor and artistic vision.",
+      "With over a decade of experience across classical Indian dance, contemporary performance, and cinematic storytelling, she has conceptualized and directed 150+ large-scale school productions across North India—each balancing artistic excellence with meaningful student impact.",
+      "Trained in Theatre and Performing Arts, Arti uses choreography and theatre as tools for self-expression, enabling students to explore their inner worlds and move beyond performance into self-discovery.",
+      "A committed educator and mentor, she is known for building confidence, discipline, and creativity in young performers. Under her leadership, the institute has become synonymous with productions that are not just impressive, but transformative."
+    ],
+    quote: "A great performance is not measured by the applause at the end—it is measured by the confidence a student carries for the rest of their life."
   };
 
   const fadeUp = {
@@ -79,8 +84,8 @@ export default function AboutUs() {
           <TiltCard className="card-3d">
             <div className={styles.quoteCard}>
               <Quote className={styles.quoteIcon} size={40} />
-              <p>"Every stage is a canvas, every student is a storyteller, and every event is an opportunity to create something extraordinary."</p>
-              <div className={styles.quoteAuthor}>— Our Creative Philosophy</div>
+              <p>"{founder.quote}"</p>
+              <div className={styles.quoteAuthor}>— Arti, Founder & Director</div>
             </div>
           </TiltCard>
         </motion.div>
@@ -169,7 +174,11 @@ export default function AboutUs() {
             <div className={styles.founderText}>
               <div className={styles.rolePill}>{founder.role}</div>
               <h3 className={styles.founderName}>{founder.name}</h3>
-              <p className={styles.founderBio}>{founder.bio}</p>
+              <div className={styles.founderBio}>
+                {founder.bio.map((para, i) => (
+                  <p key={i} className={styles.bioPara}>{para}</p>
+                ))}
+              </div>
             </div>
             <div className={styles.founderVisual}>
               <TiltCard className="card-3d">
@@ -181,35 +190,14 @@ export default function AboutUs() {
           </div>
         </motion.div>
 
-        <div className={styles.teamGrid}>
-          {team.map((member, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              viewport={{ once: true, margin: "-50px" }}
-            >
-              <TiltCard className="card-3d" style={{ height: '100%' }}>
-                <div className={styles.teamCard}>
-                  <div className={styles.avatarPlaceholder}>
-                    <Users className={styles.avatarIcon} size={40} />
-                  </div>
-                  <h3 className={styles.memberName}>{member.name}</h3>
-                  <div className={styles.rolePill}>{member.role}</div>
-                  <p className={styles.memberBio}>{member.bio}</p>
-                </div>
-              </TiltCard>
-            </motion.div>
-          ))}
-        </div>
+
       </section>
 
       {/* 6. ACCOLADES */}
       <section className={styles.accoladesSection}>
         <motion.h2 className={styles.centerTitle} {...fadeUp}>Accolades</motion.h2>
         <div className={styles.accoladesGrid}>
-          {[1, 2, 3, 4].map((i) => (
+          {AWARD_IMAGES.map((award, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -217,11 +205,22 @@ export default function AboutUs() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               viewport={{ once: true, margin: "-50px" }}
             >
-              <div className={styles.accoladePhoto}>
-                <div className={styles.photoOverlay}>
-                  <p>Excellence Award 20{15 + i}</p>
+              <TiltCard className="card-3d" style={{ width: "100%", height: "100%" }} disabled>
+                <div className={styles.accoladePhoto}>
+                  <Image
+                    src={award.src}
+                    alt={award.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className={styles.awardImage}
+                    loading="lazy"
+                    style={{ objectFit: "cover" }}
+                  />
+                  <div className={styles.photoOverlay}>
+                    <p>{award.title}</p>
+                  </div>
                 </div>
-              </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

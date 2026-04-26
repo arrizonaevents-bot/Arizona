@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -7,11 +8,25 @@ export default function Footer() {
       <div className={styles.curtainBorder}></div>
       <div className={styles.content}>
         <div className={styles.brand}>
-          <h2>ARIZONA ARTS</h2>
-          <p style={{fontSize: "0.8rem", letterSpacing: "2px", textTransform: "uppercase", color: "var(--color-gold)", marginBottom: "1rem"}}>
+          <div className={styles.brandMain}>
+            <div className={styles.logoWrap}>
+              <Image 
+                src="/img/LOGO.png" 
+                alt="Arizona Institute Logo" 
+                width={70} 
+                height={70} 
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+            <div className={styles.brandText}>
+              <h2 className={styles.footerBrandName}>ARIZONA</h2>
+              <p className={styles.fullName}>Institute of Performing Arts and Event Management</p>
+            </div>
+          </div>
+          <p className={styles.services}>
             Choreography | Theatre | Music | Annual School Functions
           </p>
-          <p>Every stage is a canvas. Every student is a storyteller.</p>
+          <p className={styles.tagline}>Every stage is a canvas. Every student is a storyteller.</p>
         </div>
         
         <div className={styles.links}>

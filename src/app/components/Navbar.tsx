@@ -51,7 +51,7 @@ export default function Navbar() {
           </div>
           <div className={styles.brandText}>
             <span className={styles.brandName}>ARIZONA</span>
-            <span className={styles.brandSub}>Institute of Performing Arts</span>
+            <span className={styles.brandSub}>Institute of Performing Arts and Event Management</span>
           </div>
         </Link>
 

@@ -3,6 +3,7 @@
 import styles from "./page.module.css";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
+import Image from "next/image";
 import { MapPin, Presentation, Briefcase, Zap, Play } from "lucide-react";
 import TiltCard from "../components/TiltCard";
 import TheaterMasksBackground from "../components/TheaterMasksBackground";
@@ -67,6 +68,7 @@ export default function ContactUs() {
                   <label>Inquiry Type</label>
                   <select className={styles.inputField} defaultValue="Parent">
                     <option value="School Principal" className={styles.opt}>School Principal</option>
+                    <option value="School Coordinator" className={styles.opt}>School Coordinator</option>
                     <option value="Parent" className={styles.opt}>Parent</option>
                     <option value="Individual" className={styles.opt}>Individual</option>
                     <option value="Other" className={styles.opt}>Other</option>
@@ -106,6 +108,16 @@ export default function ContactUs() {
               <a href="#" className={styles.socialCircle}>YT</a>
               <a href="#" className={styles.socialCircle}>WA</a>
             </div>
+
+            <div className={styles.contactLogoWrap}>
+              <Image 
+                src="/img/LOGO.png" 
+                alt="Arizona Institute Logo" 
+                width={300} 
+                height={300} 
+                style={{ objectFit: "contain" }}
+              />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -140,7 +152,7 @@ export default function ContactUs() {
         <motion.h2 className={styles.sectionTitleCenter} {...fadeUp}>The Headquarters</motion.h2>
         <motion.div className={styles.mapEmbed} {...fadeUp}>
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d219416.71191599373!2d76.65860718610534!3d30.73506263593361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fed0be66ec96b%3A0xa5ff67f9527319fe!2sChandigarh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109741.02912912445!2d75.76073748232204!3d30.90047395027585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a837461643975%3A0x1338d15197825442!2sLudhiana%2C%20Punjab!5e0!3m2!1sen!2sin!4v1714154400000!5m2!1sen!2sin" 
             width="100%" 
             height="400" 
             style={{ border: 0, filter: "grayscale(100%) invert(90%) contrast(1.2)" }} 
@@ -153,7 +165,7 @@ export default function ContactUs() {
           <MapPin size={30} className={styles.pinIcon} />
           <div>
             <strong>Base of Operations</strong>
-            <p>Chandigarh, Punjab, INDIA</p>
+            <p>Ludhiana, Punjab, INDIA</p>
           </div>
         </motion.div>
       </section>
