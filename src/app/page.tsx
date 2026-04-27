@@ -201,8 +201,89 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════
-          5. ACHIEVEMENTS
+          4. WHAT WE DO (VISION & MISSION)
       ══════════════════════════════════════════════════ */}
+      <section className={styles.whatWeDoSection}>
+        <div className={styles.whatWeDoContainer}>
+          <div className={styles.whatWeDoHeader}>
+            <span className={styles.sectionLabel}>The Arizona Ethos</span>
+            <h2 className={styles.sectionTitle}>Where Talent Meets <span className={styles.goldText}>Opportunity</span></h2>
+            <p className={styles.sectionSubtitle}>
+              "We transform school events into extraordinary cultural experiences."
+            </p>
+          </div>
+
+          <div className={styles.modernEthosLayout}>
+            {/* Background Accent — Cinematic Light */}
+            <div className={styles.ethosLightBlur} aria-hidden="true" />
+            
+            <div className={styles.ethosCardWrapper}>
+              {/* Mission Card — Elevated Glass */}
+              <div className={styles.ethosGlassCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIndicator}>01</div>
+                  <h3>Our Mission</h3>
+                </div>
+                <div className={styles.cardBody}>
+                  <p>
+                    We provide a professional stage where every child's unique spark ignites into a 
+                    lifelong passion for excellence and artistic expression.
+                  </p>
+                  <div className={styles.featureList}>
+                    <div className={styles.featureItem}>
+                      <span className={styles.featureDot} />
+                      <div>
+                        <strong>Immersive Learning</strong>
+                        <p>Stress-free development through professional theatrical play.</p>
+                      </div>
+                    </div>
+                    <div className={styles.featureItem}>
+                      <span className={styles.featureDot} />
+                      <div>
+                        <strong>The Art of Wit</strong>
+                        <p>Mastering impromptu wittiness and dynamic stage presence.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Vision Card — Overlapping Glass */}
+              <div className={`${styles.ethosGlassCard} ${styles.visionCardOffset}`}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIndicator}>02</div>
+                  <h3>Our Vision</h3>
+                </div>
+                <div className={styles.cardBody}>
+                  <p>
+                    To empower the next generation with boundless imagination through a cultural 
+                    revolution in performing arts excellence.
+                  </p>
+                  <div className={styles.featureList}>
+                    <div className={styles.featureItem}>
+                      <span className={styles.featureDotGold} />
+                      <div>
+                        <strong>Global Standards</strong>
+                        <p>Preparing students for international stages of performance.</p>
+                      </div>
+                    </div>
+                    <div className={styles.featureItem}>
+                      <span className={styles.featureDotGold} />
+                      <div>
+                        <strong>Creative Leadership</strong>
+                        <p>Fostering the next generation of directors and thinkers.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.premiumQuote}>
+                    "We build the creators, thinkers, and leaders of tomorrow."
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className={styles.achievements}>
         <TheaterMasksBackground position="right" opacity={0.18} offsetX="-10vw" />
         <div className={styles.sectionHeader}>

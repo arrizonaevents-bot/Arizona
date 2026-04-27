@@ -8,15 +8,68 @@ import { MapPin, Presentation, Briefcase, Zap, Play } from "lucide-react";
 import TiltCard from "../components/TiltCard";
 import TheaterMasksBackground from "../components/TheaterMasksBackground";
 
+import { useState } from "react";
+
+import { AnimatePresence } from "framer-motion";
+import { CheckCircle, AlertCircle, Sparkles } from "lucide-react";
+
 export default function ContactUs() {
-  const triggerConfetti = (e: React.MouseEvent) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    inquiry: "Parent",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error" | null; message: string | null }>({
+    type: null,
+    message: null
+  });
+
+  const showNotification = (type: "success" | "error", message: string) => {
+    setStatus({ type, message });
+    setTimeout(() => setStatus({ type: null, message: null }), 5000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    confetti({
-      particleCount: 80,
-      spread: 100,
-      origin: { y: 0.6 },
-      colors: ['#D4AF37', '#FFF', '#8C7323', '#C0C0C0'] 
-    });
+    setIsSubmitting(true);
+
+    try {
+      const result = await submitContactForm(formData);
+
+      if (result.success) {
+        showNotification("success", "Success! Your message has been sent to Arizona Arts. We will get back to you shortly.");
+        
+        confetti({
+          particleCount: 100,
+          spread: 120,
+          origin: { y: 0.6 },
+          colors: ['#D4AF37', '#FFF', '#8C7323', '#C0C0C0'] 
+        });
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          inquiry: "Parent",
+          message: ""
+        });
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      showNotification("error", "Oops! Something went wrong. Please try again or contact us via email.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fadeUp = {
@@ -28,6 +81,20 @@ export default function ContactUs() {
 
   return (
     <main className={styles.main}>
+      {/* Custom Notification Toast */}
+      <AnimatePresence>
+        {status.type && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20, x: "-50%", scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, x: "-50%", scale: 1 }}
+            exit={{ opacity: 0, y: -20, x: "-50%", scale: 0.9 }}
+            className={`${styles.notification} ${styles[status.type]}`}
+          >
+            {status.type === "success" ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
+            <span>{status.message}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* 1. PAGE HERO */}
       <section className={styles.heroSection}>
         <TheaterMasksBackground opacity={0.18} position="left" offsetX="15vw" />
@@ -51,22 +118,51 @@ export default function ContactUs() {
           {/* Left: Form */}
           <motion.div className={styles.formCol} {...fadeUp}>
             <div className={styles.formBorderLayer}>
-              <form className={styles.formContainer}>
+              <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <div className={styles.inputGroup}>
                   <label>Full Name</label>
-                  <input type="text" placeholder="Your Name" className={styles.inputField} />
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name" 
+                    className={styles.inputField} 
+                    required 
+                  />
                 </div>
                 <div className={styles.inputGroup}>
                   <label>Email</label>
-                  <input type="email" placeholder="your@email.com" className={styles.inputField} />
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com" 
+                    className={styles.inputField} 
+                    required 
+                  />
                 </div>
                 <div className={styles.inputGroup}>
                   <label>Phone Number</label>
-                  <input type="tel" placeholder="+91 XXXXX XXXXX" className={styles.inputField} />
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+91 XXXXX XXXXX" 
+                    className={styles.inputField} 
+                    required 
+                  />
                 </div>
                 <div className={styles.inputGroup}>
                   <label>Inquiry Type</label>
-                  <select className={styles.inputField} defaultValue="Parent">
+                  <select 
+                    name="inquiry"
+                    value={formData.inquiry}
+                    onChange={handleChange}
+                    className={styles.inputField}
+                  >
                     <option value="School Principal" className={styles.opt}>School Principal</option>
                     <option value="School Coordinator" className={styles.opt}>School Coordinator</option>
                     <option value="Parent" className={styles.opt}>Parent</option>
@@ -76,10 +172,22 @@ export default function ContactUs() {
                 </div>
                 <div className={styles.inputGroup}>
                   <label>Message</label>
-                  <textarea rows={5} placeholder="Detail your specific requirement..." className={styles.inputField}></textarea>
+                  <textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={5} 
+                    placeholder="Detail your specific requirement..." 
+                    className={styles.inputField} 
+                    required
+                  ></textarea>
                 </div>
-                <button onClick={triggerConfetti} className={styles.submitBtn}>
-                  Send Transmission
+                <button 
+                  type="submit" 
+                  className={styles.submitBtn} 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Transmitting..." : "Send Transmission"}
                 </button>
               </form>
             </div>

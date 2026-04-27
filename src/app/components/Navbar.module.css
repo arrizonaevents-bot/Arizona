@@ -152,9 +152,13 @@
   font-weight: 600;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85); /* Increased contrast */
+  color: var(--color-nav-text);
   transition: color 0.2s ease;
   text-decoration: none;
+}
+
+:global([data-theme='light']) .navLink {
+  color: rgba(45, 27, 78, 0.8); /* Deeper plum for contrast when transparent */
 }
 
 /* Scrolled state: Use adaptive theme colors */
@@ -198,15 +202,20 @@
 
 .iconBtn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Increased contrast */
-  color: rgba(255, 255, 255, 0.9); /* Increased contrast */
+  border: 1px solid var(--color-nav-border);
+  color: var(--color-nav-text);
   border-radius: 50%;
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  transition: all 0.2s ease;
+}
+
+:global([data-theme='light']) .iconBtn {
+  border-color: rgba(45, 27, 78, 0.2);
+  color: rgba(45, 27, 78, 0.8);
 }
 
 .navbar.scrolled .iconBtn {
@@ -252,13 +261,18 @@
   display: flex;
   align-items: center;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Match iconBtn style */
-  color: #fff; /* Maximum visibility */
+  border: 1px solid var(--color-nav-border);
+  color: var(--color-nav-text);
   border-radius: 8px;
   padding: 0.4rem 0.6rem;
   outline: none;
-  transition: border-color 0.2s, color 0.2s;
-  margin-left: 0.25rem; /* Ensure some spacing if actions are tight */
+  transition: all 0.2s ease;
+  margin-left: 0.25rem;
+}
+
+:global([data-theme='light']) .mobileToggle {
+  border-color: rgba(45, 27, 78, 0.2);
+  color: rgba(45, 27, 78, 0.8);
 }
 
 .mobileToggle:hover {
