@@ -9,6 +9,7 @@ import TiltCard from "../components/TiltCard";
 import TheaterMasksBackground from "../components/TheaterMasksBackground";
 
 import { useState } from "react";
+import { submitContactForm } from "../actions/contact";
 
 import { AnimatePresence } from "framer-motion";
 import { CheckCircle, AlertCircle, Sparkles } from "lucide-react";
