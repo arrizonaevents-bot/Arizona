@@ -330,11 +330,11 @@ export default function Home() {
                 <div className={styles.logoWrapper}>
                   <Image
                     src={logo}
-                    alt={`School Logo ${i + 1}`}
+                    alt={`School Logo ${(i % SCHOOL_LOGOS.length) + 1}`}
                     fill
                     sizes="(max-width: 768px) 150px, 200px"
                     className={styles.logoImage}
-                    priority={i < 8}
+                    priority={i < SCHOOL_LOGOS.length}
                   />
                 </div>
               </div>

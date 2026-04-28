@@ -17,10 +17,52 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Arizona Institute of Performing Arts and Event Management',
-  description: 'A platform to discover talent, build confidence, and shine on the grand stage.',
+  metadataBase: new URL('https://arrizona.in'),
+  title: {
+    default: 'Arizona Institute of Performing Arts and Event Management',
+    template: '%s | Arizona Institute',
+  },
+  description: 'A premium platform to discover talent, build confidence, and shine on the grand stage. We specialize in choreography, theatre arts, and large-scale school events across India.',
+  keywords: ['Arizona Institute', 'Performing Arts', 'Event Management', 'Choreography', 'Theatre', 'School Events', 'India', 'Method Acting'],
+  authors: [{ name: 'Arizona Institute' }],
+  creator: 'Arizona',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://arrizona.in',
+    title: 'Arizona Institute of Performing Arts and Event Management',
+    description: 'A premium platform to discover talent, build confidence, and shine on the grand stage.',
+    siteName: 'Arizona Institute',
+    images: [
+      {
+        url: '/img/LOGO.png',
+        width: 800,
+        height: 600,
+        alt: 'Arizona Institute Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Arizona Institute of Performing Arts and Event Management',
+    description: 'A premium platform to discover talent, build confidence, and shine on the grand stage.',
+    images: ['/img/LOGO.png'],
+  },
   icons: {
     icon: '/img/LOGO.png',
+    shortcut: '/img/LOGO.png',
+    apple: '/img/LOGO.png',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

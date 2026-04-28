@@ -10,13 +10,12 @@
   height: 100vh;
   height: 100svh;
   min-height: 640px;
-  /* Increased to ensure enough space for characters */
   background-color: var(--color-bg-main);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  contain: layout size;
-  /* Performance isolation */
+  contain: layout size style;
+  isolation: isolate;
 }
 
 @media (max-width: 768px) {
@@ -194,7 +193,9 @@
   height: 150vh;
   background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
   transform-origin: top center;
+  transform: translateZ(0);
   animation: none;
+  will-change: opacity;
 }
 
 @keyframes breathe {
@@ -217,18 +218,15 @@
   align-items: center;
   justify-content: center;
   padding: 8rem 5% 4rem;
-
   z-index: 50;
-  /* Always on top of curtains */
   pointer-events: none;
-  contain: layout size pait;
+  contain: layout style;
   transform: translate3d(0, 15px, 0);
-  /* Force GPU */
 
   /* Staged Reveal State */
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
@@ -635,7 +633,8 @@
   padding: 8rem 5%;
   background: var(--color-bg-main);
   content-visibility: auto;
-  contain-intrinsic-size: 1000px;
+  contain-intrinsic-size: 0 800px;
+  contain: layout style;
 }
 
 @media (max-width: 768px) {
@@ -806,9 +805,10 @@
   width: 200px;
   height: 200px;
   background: #8b0000;
-  filter: blur(40px);
-  /* Reduced from 60px for better performance */
-  opacity: 0.3;
+  filter: blur(24px);
+  opacity: 0.25;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .glassFrame {
@@ -829,6 +829,9 @@
   background: var(--color-bg-main);
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 900px;
+  contain: layout style;
 }
 
 .whatWeDoContainer {
@@ -870,13 +873,14 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(0);
   width: 60vw;
   height: 60vw;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-  filter: blur(80px);
+  filter: blur(20px);
   z-index: 0;
   pointer-events: none;
+  will-change: transform;
 }
 
 .ethosCardWrapper {
@@ -898,20 +902,21 @@
 
 .ethosGlassCard {
   background: var(--color-bg-panel);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--color-border-glass);
   padding: 4rem;
   border-radius: 24px;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   flex: 1;
+  transform: translateZ(0);
 }
 
 .ethosGlassCard:hover {
-  transform: translateY(-20px) scale(1.02);
+  transform: translateY(-10px) scale(1.01) translateZ(0);
   border-color: var(--color-gold-adaptive);
-  box-shadow: 0 60px 120px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .visionCardOffset {
@@ -1121,6 +1126,8 @@
   width: max-content;
   animation: scroll 60s linear infinite;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .logoCard {
@@ -1201,7 +1208,10 @@
 
 .awardImage {
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .photoFrame:hover .awardImage {
@@ -1241,18 +1251,21 @@
   display: flex;
   justify-content: center;
   content-visibility: auto;
-  contain-intrinsic-size: 800px;
+  contain-intrinsic-size: 0 700px;
+  contain: layout style;
 }
 
 .ambientGlow {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(0);
   width: 60vw;
   height: 60vw;
   background: radial-gradient(circle, rgba(158, 27, 27, 0.15) 0%, transparent 60%);
   z-index: 0;
+  will-change: transform;
+  pointer-events: none;
 }
 
 .ctaCard {
