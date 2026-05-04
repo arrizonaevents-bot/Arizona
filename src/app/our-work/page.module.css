@@ -184,7 +184,7 @@
   /* Clean white background for logos */
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 2.5rem 1.5rem;
-  cursor: pointer;
+  cursor: default;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -196,7 +196,7 @@
 }
 
 .schoolCard:hover {
-  transform: translateY(-8px);
+  /* removed hover transform */
   border-color: var(--color-gold);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }

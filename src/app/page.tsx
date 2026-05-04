@@ -341,9 +341,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          <Link href="/our-work" className={styles.btnOutlineGold}>View All Schools</Link>
-        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════

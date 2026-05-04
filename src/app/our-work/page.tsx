@@ -110,7 +110,6 @@ export default function OurWork() {
               <TiltCard className="card-3d" style={{ height: '100%' }}>
                 <div
                   className={styles.schoolCard}
-                  onClick={() => setSelectedSchool(school.id)}
                 >
                   <div className={styles.logoWrapper}>
                     <Image
@@ -130,43 +129,6 @@ export default function OurWork() {
           ))}
         </div>
       </section>
-
-      {/* MODAL */}
-      <AnimatePresence>
-        {selectedSchool !== null && (
-          <div className={styles.modalOverlay} onClick={() => setSelectedSchool(null)}>
-            <motion.div
-              className={styles.modalContent}
-              initial={{ x: '100%', opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '100%', opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              onClick={e => e.stopPropagation()}
-            >
-              <div className={styles.modalHeader}>
-                <h2>{schools[selectedSchool].name}</h2>
-                <button className={styles.closeBtn} onClick={() => setSelectedSchool(null)}>
-                  <X size={28} />
-                </button>
-              </div>
-              <div className={styles.modalBody}>
-                <div className={styles.modalPhotoGrid}>
-                  <div className={styles.photoBox}>Stage View</div>
-                  <div className={styles.photoBox}>Backstage</div>
-                </div>
-                <div className={styles.modalDesc}>
-                  <p>{schools[selectedSchool].description}</p>
-                </div>
-                <div className={styles.impactBadges}>
-                  {schools[selectedSchool].impact.map(tag => (
-                    <span key={tag} className={styles.badge}>{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
       {/* 4. DELIVERY MODULES */}
       <section className={styles.deliverySection}>
