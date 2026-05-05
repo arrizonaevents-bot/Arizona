@@ -37,15 +37,15 @@ export default function OurWork() {
     name: s.name,
     logo: s.logo,
     city: `${s.area}, ${s.city}, ${s.state}`,
-    description: `We conducted bespoke theatre sessions at ${s.name}, intensely training ${120 + i * 15} students in method acting, dialogue delivery, and stage presence.`,
-    impact: ["Drama Masterclass", "Annual Production", "Voice Workshop"]
+    description: `We delivered massive annual productions at ${s.name}, coordinating comprehensive event execution and talent grooming for ${120 + i * 15} students.`,
+    impact: ["End-to-End Execution", "Stage Management", "Talent Grooming"]
   }));
 
   const skills = [
-    "Method Acting", "Dialogue Delivery", "Stage Presence",
-    "Improvisation", "Body Movement", "Classical Mime", "Structured Speech",
-    "Ensemble Work", "Creative Writing",
-    "Voice Modulation", "Character Study", "Set Navigation"
+    "Event Planning", "Stage & Concept Design", "School Annual Days",
+    "Talent Grooming", "Production Management", "Thematic Costumes", "Choreography",
+    "Showstopper Props", "Sound & Lighting",
+    "Backstage Coordination", "Experiential Programs", "Media Collaborations"
   ];
 
   const fadeUp = {
@@ -66,7 +66,7 @@ export default function OurWork() {
           className={styles.heroContent}
         >
           <div className={styles.label}>The Portfolio</div>
-          <h1>Stages We've <span style={{ color: 'var(--color-gold)', fontStyle: 'italic' }}>Transformed</span></h1>
+          <h1>Stages We&apos;ve <span style={{ color: 'var(--color-gold)', fontStyle: 'italic' }}>Transformed</span></h1>
           <p>Collaborating with 100+ premier institutions.</p>
         </motion.div>
       </section>
@@ -137,10 +137,10 @@ export default function OurWork() {
         </motion.div>
         <div className={styles.stepContainer}>
           {[
-            { num: "01", title: 'Curriculum Integration', desc: 'Seamlessly embedded into regular timetables.', icon: <Briefcase size={30} className={styles.stepIcon} /> },
-            { num: "02", title: 'After School Studios', desc: 'Deep-dive intensive theatre sessions.', icon: <Play size={30} className={styles.stepIcon} /> },
-            { num: "03", title: 'Masterclasses', desc: 'Specialized focus on precise disciplines.', icon: <Zap size={30} className={styles.stepIcon} /> },
-            { num: "04", title: 'Grand Productions', desc: 'Directing full-scale Annual Day Events.', icon: <Zap size={30} className={styles.stepIcon} /> }
+            { num: "01", title: 'Creative Ideation', desc: 'Developing bespoke thematic concepts.', icon: <Briefcase size={30} className={styles.stepIcon} /> },
+            { num: "02", title: 'Talent Grooming', desc: 'Intensive performance preparation for students.', icon: <Play size={30} className={styles.stepIcon} /> },
+            { num: "03", title: 'Stage & Tech Setup', desc: 'Handling all stage, sound, and lighting needs.', icon: <Zap size={30} className={styles.stepIcon} /> },
+            { num: "04", title: 'Grand Execution', desc: 'Directing full-scale flawless Annual Day Events.', icon: <Zap size={30} className={styles.stepIcon} /> }
           ].map((mode, i) => (
             <motion.div
               key={mode.num}
@@ -166,7 +166,7 @@ export default function OurWork() {
       {/* 5. SKILLS OFFERED */}
       <section className={styles.skillsSection}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <h2>Disciplines</h2>
+          <h2>Our Expertise</h2>
         </motion.div>
         <div className={styles.skillsGrid}>
           {skills.map((skill, index) => (

@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 import Hero3DScene from "./components/Hero3DScene";
 import TiltCard from "./components/TiltCard";
 import TheaterMasksBackground from "./components/TheaterMasksBackground";
-import { Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const SCHOOL_LOGOS = [
   "/schllogos/1.png",
@@ -37,7 +37,7 @@ const AWARD_IMAGES = [
   { src: "/awards/238.png", title: "Outstanding Stage Presence" },
   { src: "/awards/240.png", title: "Creative Direction Award" },
   { src: "/awards/242.png", title: "Best Theatrical Production" },
-  { src: "/awards/244.png", title: "Holistic Arts Education" },
+  { src: "/awards/244.png", title: "Holistic Event Execution" },
   { src: "/awards/246.png", title: "Community Impact Recognition" },
 ];
 
@@ -113,22 +113,22 @@ export default function Home() {
               style={{ transitionDelay: "0.2s" }}
             >
               <span className={styles.heroBadge}>
-                ✦ Every Style. Every Emotion. One Grand Stage. ✦
+                ✦ A Decade of Excellence in Event Innovation ✦
               </span>
 
               <div className={styles.verticals}>
-                CHOREOGRAPHY <span className={styles.divider}>|</span> THEATRE <span className={styles.divider}>|</span> MUSIC <span className={styles.divider}>|</span> ANNUAL SCHOOL FUNCTIONS
+                EVENT PLANNING <span className={styles.divider}>|</span> SCHOOL EVENTS <span className={styles.divider}>|</span> CREATIVE CONCEPTS <span className={styles.divider}>|</span> ANNUAL PRODUCTIONS
               </div>
             </div>
 
             {/* Primary elements (Instant arrival) */}
             <h1 className={styles.heroTitle}>
-              Where Every Student <br />
-              <span className={styles.goldText}>Finds Their Stage.</span>
+              Unleashing Talent, <br />
+              <span className={styles.goldText}>Creating Stars.</span>
             </h1>
 
             <p className={styles.subtitle}>
-              Discover your talent, build confidence, and shine on the grand stage with absolute brilliance.
+              Arizona is a dynamic and experienced event organizing company with over a decade of excellence in curating impactful and memorable experiences.
             </p>
 
             {/* Secondary elements (Interaction phase) */}
@@ -138,7 +138,7 @@ export default function Home() {
               style={{ transitionDelay: "0.4s" }}
             >
               <Link href="/about-us" className={styles.btnPrimary}>
-                Explore The Stage
+                Explore Our Events
               </Link>
               <button
                 onClick={() => {
@@ -171,29 +171,182 @@ export default function Home() {
       <section className={styles.aboutTeaser}>
         <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>Who We Are</span>
-          <h2 className={styles.sectionTitle}>Redefining the art of school performance across India</h2>
+          <h2 className={styles.sectionTitle}>Crafting Unforgettable Experiences Since 10 Years</h2>
+          <div className={styles.aboutTextGroup} style={{ borderLeft: "none", paddingLeft: 0, marginTop: "2rem" }}>
+            <p style={{ fontSize: "1.2rem", fontWeight: 500, color: "var(--color-text-main)", marginBottom: "2rem", lineHeight: 1.6 }}>
+              Arizona is a dynamic event organizing company with over a decade of excellence in curating impactful and memorable experiences.
+            </p>
+            
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", marginBottom: "2.5rem" }}>
+              <div style={{ padding: "1.5rem", background: "rgba(212, 175, 55, 0.03)", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+                <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Trusted Industry Expertise</h4>
+                <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+                  Over 10 years established as a trusted name in designing and managing events that inspire creativity, confidence, and self-expression.
+                </p>
+              </div>
+              <div style={{ padding: "1.5rem", background: "rgba(212, 175, 55, 0.03)", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+                <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Flawless Professional Execution</h4>
+                <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+                  Every event is thoughtfully planned, seamlessly managed, and emotionally engaging, creating dynamic platforms for young performers to shine.
+                </p>
+              </div>
+            </div>
+          </div>
+          <Link href="/about-us" className={styles.btnOutlineGold} style={{ border: "1px solid var(--color-gold)", padding: "1rem 2.5rem", borderRadius: "30px", fontSize: "1rem", fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", display: "inline-block", background: "linear-gradient(90deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%)" }}>
+            Discover Our Story
+          </Link>
+        </div>
+        <div className={styles.aboutRight} style={{ position: "relative" }}>
+          <TiltCard className="card-3d" disabled style={{ width: "100%" }}>
+            <div className={styles.photoFrame} style={{ height: "550px", width: "100%", position: "relative", borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.2)", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+              <Image
+                src="/img/event_vertical.png"
+                alt="Grand Event Production"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+              {/* Gradient Overlay & Text */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "4rem 2rem 2rem", background: "linear-gradient(to top, rgba(0,0,0,0.95), transparent)" }}>
+                <h3 style={{ color: "white", margin: 0, fontSize: "1.5rem" }}>A Decade of Excellence</h3>
+                <p style={{ color: "var(--color-gold)", margin: "0.5rem 0 0 0", fontSize: "1rem", letterSpacing: "1px" }}>Curating Memorable Experiences</p>
+              </div>
+            </div>
+          </TiltCard>
+
+          {/* Floating Stats Badge */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            style={{ 
+              position: "absolute", 
+              bottom: "10%", 
+              right: "-5%", 
+              background: "var(--color-bg-main)", 
+              padding: "1.5rem", 
+              borderRadius: "12px", 
+              boxShadow: "0 15px 30px rgba(0,0,0,0.1)",
+              border: "1px solid var(--color-gold)",
+              zIndex: 10,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center"
+            }}
+          >
+            <span style={{ fontSize: "2.5rem", fontWeight: "bold", color: "var(--color-gold)", lineHeight: 1 }}>150+</span>
+            <span style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "1px", color: "var(--color-text-main)", marginTop: "0.5rem", fontWeight: 600 }}>Large-Scale<br/>School Events</span>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          3.5 VISION & MISSION
+      ══════════════════════════════════════════════════ */}
+      <section className={styles.whatWeDoSection} style={{ background: "var(--color-bg-darker)", padding: "6rem 5%" }}>
+        <div className={styles.whatWeDoContainer}>
+          <div className={styles.modernEthosLayout} style={{ flexDirection: "column", gap: "4rem", padding: 0 }}>
+            
+            <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+              <span className={styles.sectionLabel}>The Arizona Ethos</span>
+              <h2 className={styles.sectionTitle}>Vision <span className={styles.goldText}>&amp;</span> Mission</h2>
+            </div>
+
+            <div className={styles.ethosCardWrapper}>
+              <div className={styles.ethosGlassCard}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIndicator}>01</div>
+                  <h3>Our Vision</h3>
+                </div>
+                <div className={styles.cardBody}>
+                  <p>
+                    Arizona envisions a world where every child is empowered to explore their imagination and express their creativity with confidence. By integrating the power of performance and storytelling, Arizona strives to nurture young minds, helping them discover their unique voice and build the self-belief needed to shine both on and off the stage.
+                  </p>
+                </div>
+              </div>
+
+              <div className={`${styles.ethosGlassCard} ${styles.visionCardOffset}`} style={{ marginTop: 0 }}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIndicator}>02</div>
+                  <h3>Our Mission</h3>
+                </div>
+                <div className={styles.cardBody}>
+                  <p>
+                    Arizona&apos;s mission is to cultivate confident, expressive, and thoughtful individuals through the transformative experience of performance. The company is dedicated to providing a stress-free and engaging learning environment where children can develop essential life skills. By blending elements of wordplay, spontaneity, body movement, and theatrical techniques, Arizona fosters creativity while instilling confidence, communication skills, and excellence in every participant.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          3.6 WHAT WE DELIVER
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: "clamp(4rem, 10vw, 8rem) 5%", background: "var(--color-bg-alt)" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "clamp(2rem, 5vw, 4rem)" }}>
+            <span className={styles.sectionLabel}>Our Offerings</span>
+            <h2 className={styles.sectionTitle}>What Arizona Delivers</h2>
+          </div>
+          
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1.5rem" }}>
+            {[
+              { title: "End-to-End Event Planning", desc: "Complete event execution from creative concept to final applause." },
+              { title: "School Annual Days", desc: "Comprehensive production management for massive school events." },
+              { title: "Stage & Concept Design", desc: "Creative thematic development and theatrical stage setups." },
+              { title: "Talent Grooming", desc: "Performance curation and intensive training for young stars." },
+              { title: "Experiential Programs", desc: "Interactive workshops and engaging short-term programs." },
+              { title: "Media Collaborations", desc: "Working seamlessly with industry and media professionals." },
+              { title: "Customized Events", desc: "Tailored private events for schools, institutions & groups." },
+              { title: "High Production Standards", desc: "Seamless coordination ensuring premium quality delivery." }
+            ].map((item, idx) => (
+              <div key={idx} style={{ background: "var(--color-bg)", padding: "1.5rem", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.2)", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
+                <h4 style={{ color: "var(--color-gold)", marginBottom: "0.5rem", fontSize: "1.1rem" }}>{item.title}</h4>
+                <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          3.7 EXPERTISE
+      ══════════════════════════════════════════════════ */}
+      <section className={styles.aboutTeaser} style={{ padding: "clamp(4rem, 10vw, 8rem) 5%", background: "var(--color-bg)" }}>
+        <div className={styles.aboutLeft}>
+          <span className={styles.sectionLabel}>Driven by Expertise</span>
+          <h2 className={styles.sectionTitle} style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)" }}>Crafting Performers, Creating Experiences</h2>
           <div className={styles.aboutTextGroup}>
             <p>
-              Arizona Arts is a premier artist-driven choreography and performing arts institute 
-              dedicated to transforming school events into extraordinary cultural experiences. 
-              From the mountains of Kashmir to the shores of Kanyakumari, we bring disciplined 
-              artistry, cinematic storytelling, and boundless creativity to Annual Days, Sports Meets, 
-              and Academic Seminars.
+              At Arizona, we go beyond event management—we create transformative performance experiences for young talent. With a strong foundation in event production, we design and deliver engaging programs for children aged 5–15, seamlessly integrating learning with live event execution. Our structured sessions are carefully curated to develop essential performance skills such as acting, improvisation, dialogue delivery, and stage presence.
             </p>
+            <div style={{ padding: "1.5rem", borderLeft: "4px solid var(--color-gold)", background: "rgba(212, 175, 55, 0.05)", borderRadius: "0 8px 8px 0", margin: "1.5rem 0" }}>
+              <p style={{ margin: 0, fontStyle: "italic", color: "var(--color-gold-adaptive)", fontSize: "1rem", lineHeight: 1.6 }}>
+                &quot;Within a short span of one month, participants undergo intensive, hands-on training that prepares them to confidently perform live in front of an audience.&quot;
+              </p>
+            </div>
             <p>
-              "We do not merely choreograph performances — we architect moments that students carry for a lifetime." 
-              Our methodology seamlessly integrates technical precision with emotional intelligence, nurturing 
-              not only skilled performers but also confident young individuals.
+              Our strength lies in our people—a team of highly experienced, energetic, and dedicated professionals who bring creativity and direction to every event we execute. Our faculty and mentors are deeply committed to inspiring young talent, working tirelessly to nurture skills, build confidence, and deliver exceptional performance outcomes.
             </p>
           </div>
-          <Link href="/about-us" className={styles.btnOutlineGold}>Discover Our Story</Link>
         </div>
+        
         <div className={styles.aboutRight}>
-          <TiltCard className="card-3d" disabled>
-            <div className={styles.abstractArt}>
-              <div className={styles.glowOrb} />
-              <div className={styles.glassFrame}>
-                <Sparkles size={80} strokeWidth={1} color="var(--color-gold)" />
+          <TiltCard className="card-3d" disabled style={{ width: "100%" }}>
+            <div className={styles.photoFrame} style={{ height: "min(600px, 70vh)", width: "100%", position: "relative", borderRadius: "12px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.2)" }}>
+              <Image
+                src="/img/school_team.png"
+                alt="Professional Event Team Backstage"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "3rem 1.5rem 1.5rem", background: "linear-gradient(to top, rgba(10,10,10,0.95), transparent)" }}>
+                <h3 style={{ color: "white", margin: 0, fontSize: "1.5rem" }}>Expert Mentorship</h3>
+                <p style={{ color: "rgba(255,255,255,0.8)", margin: "0.25rem 0 0 0", fontSize: "0.9rem" }}>Guiding young talent to the spotlight.</p>
               </div>
             </div>
           </TiltCard>
@@ -201,15 +354,15 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════
-          4. WHAT WE DO (VISION & MISSION)
+          4. WHY CHOOSE US
       ══════════════════════════════════════════════════ */}
       <section className={styles.whatWeDoSection}>
         <div className={styles.whatWeDoContainer}>
           <div className={styles.whatWeDoHeader}>
-            <span className={styles.sectionLabel}>The Arizona Ethos</span>
+            <span className={styles.sectionLabel}>Why Choose Arizona</span>
             <h2 className={styles.sectionTitle}>Where Talent Meets <span className={styles.goldText}>Opportunity</span></h2>
             <p className={styles.sectionSubtitle}>
-              "We transform school events into extraordinary cultural experiences."
+              &quot;Delivering Memorable Experiences that Inspire &amp; Impress&quot;
             </p>
           </div>
 
@@ -218,70 +371,109 @@ export default function Home() {
             <div className={styles.ethosLightBlur} aria-hidden="true" />
             
             <div className={styles.ethosCardWrapper}>
-              {/* Mission Card — Elevated Glass */}
+              {/* Card 1 — Elevated Glass */}
               <div className={styles.ethosGlassCard}>
                 <div className={styles.cardHeader}>
                   <div className={styles.cardIndicator}>01</div>
-                  <h3>Our Mission</h3>
+                  <h3>Expertise & Execution</h3>
                 </div>
                 <div className={styles.cardBody}>
                   <p>
-                    We provide a professional stage where every child's unique spark ignites into a 
-                    lifelong passion for excellence and artistic expression.
+                    Our <strong>professional choreographer team</strong> and <strong>theatre experts</strong> bring over 10+ years of event management excellence, handling large-scale youth events.
                   </p>
                   <div className={styles.featureList}>
                     <div className={styles.featureItem}>
                       <span className={styles.featureDot} />
                       <div>
-                        <strong>Immersive Learning</strong>
-                        <p>Stress-free development through professional theatrical play.</p>
+                        <strong>Flawless Execution</strong>
+                        <p>We provide <strong>customised costume and creative and showstoppers props with excellent team stage and do</strong> everything necessary to <strong>make the event memorable</strong>.</p>
                       </div>
                     </div>
                     <div className={styles.featureItem}>
                       <span className={styles.featureDot} />
                       <div>
-                        <strong>The Art of Wit</strong>
-                        <p>Mastering impromptu wittiness and dynamic stage presence.</p>
+                        <strong>Creative & Innovative</strong>
+                        <p>Impact-driven event concepts that focus on quality, creativity, and high audience engagement.</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Vision Card — Overlapping Glass */}
+              {/* Card 2 — Overlapping Glass */}
               <div className={`${styles.ethosGlassCard} ${styles.visionCardOffset}`}>
                 <div className={styles.cardHeader}>
                   <div className={styles.cardIndicator}>02</div>
-                  <h3>Our Vision</h3>
+                  <h3>Transformative Results</h3>
                 </div>
                 <div className={styles.cardBody}>
                   <p>
-                    To empower the next generation with boundless imagination through a cultural 
-                    revolution in performing arts excellence.
+                    <strong>Each student confident vibrate wt energy due to well trained professionals amazing transferring skills with in less span of days students show great results on stage.</strong>
                   </p>
                   <div className={styles.featureList}>
                     <div className={styles.featureItem}>
                       <span className={styles.featureDotGold} />
                       <div>
-                        <strong>Global Standards</strong>
-                        <p>Preparing students for international stages of performance.</p>
+                        <strong>Confident Performers</strong>
+                        <p>We foster self-belief, ensuring every young talent shines brightly and finds their true voice.</p>
                       </div>
                     </div>
                     <div className={styles.featureItem}>
                       <span className={styles.featureDotGold} />
                       <div>
-                        <strong>Creative Leadership</strong>
-                        <p>Fostering the next generation of directors and thinkers.</p>
+                        <strong>Real Stage Exposure</strong>
+                        <p>Providing platforms where students don’t just perform—they express, evolve, and shine.</p>
                       </div>
                     </div>
                   </div>
                   <div className={styles.premiumQuote}>
-                    "We build the creators, thinkers, and leaders of tomorrow."
+                    &quot;With Arizona, every session leads to a stage, and every stage creates a star.&quot;
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          
+          {/* Backstage & Performance Gallery */}
+          <div className={styles.featureChips} style={{ marginTop: "6rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem", width: "100%" }}>
+              
+              {/* Card 1 */}
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+                <div style={{ position: "relative", height: "300px", width: "100%" }}>
+                  <Image src="/why-choose-us/performance.png" alt="Vibrant Stage Performances" fill style={{ objectFit: "cover" }} />
+                </div>
+                <div style={{ padding: "2rem" }}>
+                  <h3 style={{ color: "var(--color-gold)", marginBottom: "1rem", fontSize: "1.5rem" }}>Dynamic Performances</h3>
+                  <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6 }}>We transform students into confident performers, perfectly coordinating high-energy acts that captivate parents and audiences alike.</p>
+                </div>
+              </div>
+              
+              {/* Card 2 */}
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+                <div style={{ position: "relative", height: "300px", width: "100%" }}>
+                  <Image src="/why-choose-us/props.png" alt="Customised Costumes" fill style={{ objectFit: "cover" }} />
+                </div>
+                <div style={{ padding: "2rem" }}>
+                  <h3 style={{ color: "var(--color-gold)", marginBottom: "1rem", fontSize: "1.5rem" }}>Customised Costumes & Props</h3>
+                  <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Every event features exclusive, customized costumes and highly creative showstopper props, bringing grand concepts to life on stage.</p>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+                <div style={{ position: "relative", height: "300px", width: "100%" }}>
+                  <Image src="/img/school_team.png" alt="Professional Backstage Management" fill style={{ objectFit: "cover" }} />
+                </div>
+                <div style={{ padding: "2rem" }}>
+                  <h3 style={{ color: "var(--color-gold)", marginBottom: "1rem", fontSize: "1.5rem" }}>Professional Stage Management</h3>
+                  <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Our dedicated team of experts orchestrates every detail seamlessly behind the scenes, ensuring flawless execution from start to finish.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </section>
       <section className={styles.achievements}>

@@ -42,7 +42,7 @@ export default function Navbar() {
           <div className={styles.logoImgWrap}>
             <Image
               src="/img/LOGO.png"
-              alt="Arizona Institute of Performing Arts Logo"
+              alt="Arizona Event Management Logo"
               fill
               sizes="44px"
               priority
@@ -51,7 +51,7 @@ export default function Navbar() {
           </div>
           <div className={styles.brandText}>
             <span className={styles.brandName}>ARIZONA</span>
-            <span className={styles.brandSub}>Institute of Performing Arts and Event Management</span>
+            <span className={styles.brandSub}>Event Management</span>
           </div>
         </Link>
 

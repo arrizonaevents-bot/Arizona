@@ -46,7 +46,7 @@ export default function ContactUs() {
       const result = await submitContactForm(formData);
 
       if (result.success) {
-        showNotification("success", "Success! Your message has been sent to Arizona Arts. We will get back to you shortly.");
+        showNotification("success", "Success! Your message has been sent to Arizona. We will get back to you shortly.");
         
         confetti({
           particleCount: 100,
@@ -107,7 +107,7 @@ export default function ContactUs() {
           className={styles.heroContent}
         >
           <div className={styles.label}>Connect</div>
-          <h1>Let's Create <span className={styles.goldText}>Together</span></h1>
+          <h1>Let&apos;s Create <span className={styles.goldText}>Together</span></h1>
           <p>School bookings for 2026 are now open. Reserve your slot for Annual Days, Sports Meets, and Cultural Programs.</p>
         </motion.div>
       </section>
@@ -200,8 +200,8 @@ export default function ContactUs() {
               <div className={styles.infoCard}>
                 <h3>Direct Lines</h3>
                 <ul>
-                  <li>📧 arti@arizonaarts.in</li>
-                  <li>📸 @arizonaarts.official</li>
+                  <li>📧 arti@arizonaevents.in</li>
+                  <li>📸 @arizonaevents.official</li>
                   <li>📍 All-India Bookings Accepted</li>
                   <li>👤 Director: Arti Arizona</li>
                 </ul>
@@ -282,7 +282,7 @@ export default function ContactUs() {
       {/* 5. FINAL CTA */}
       <section className={styles.finalCta}>
         <motion.div className={styles.ctaContent} {...fadeUp}>
-          <h2 className={styles.quote}>"Every child is a star waiting for their spotlight."</h2>
+          <h2 className={styles.quote}>&quot;Every child is a star waiting for their spotlight.&quot;</h2>
           <div className={styles.actionBtns}>
             <a href="#" className={styles.btnOutlineGold}>Message on WhatsApp</a>
             <a href="#" className={styles.btnPrimaryLg}>Direct Dial</a>

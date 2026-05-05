@@ -20,7 +20,7 @@ export default function Footer() {
             </div>
             <div className={styles.brandText}>
               <h2 className={styles.footerBrandName}>ARIZONA</h2>
-              <p className={styles.fullName}>Institute of Performing Arts and Event Management</p>
+              <p className={styles.fullName}>Event Management</p>
             </div>
           </div>
           <p className={styles.services}>
@@ -43,12 +43,12 @@ export default function Footer() {
           <h3>Contact Info</h3>
           <p>📞 +91 99158 48400</p>
           <p>📍 All-India Bookings Accepted</p>
-          <p>✉️ arti@arizonaarts.in</p>
-          <p>📸 @arizonaarts.official</p>
+          <p>✉️ arti@arizonaevents.in</p>
+          <p>📸 @arizonaevents.official</p>
         </div>
       </div>
       <div className={styles.bottom}>
-        <p>&copy; 2024 Arizona Institute of Performing Arts & Event Management</p>
+        <p>&copy; 2024 Arizona Event Management</p>
       </div>
     </footer>
   );

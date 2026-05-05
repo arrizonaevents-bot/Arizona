@@ -16,7 +16,7 @@ export default function AboutUs() {
     { src: "/awards/238.png", title: "Outstanding Stage Presence" },
     { src: "/awards/240.png", title: "Creative Direction Award" },
     { src: "/awards/242.png", title: "Best Theatrical Production" },
-    { src: "/awards/244.png", title: "Holistic Arts Education" },
+    { src: "/awards/244.png", title: "Holistic Event Execution" },
     { src: "/awards/246.png", title: "Community Impact Recognition" },
   ];
 
@@ -24,9 +24,9 @@ export default function AboutUs() {
     name: "Arti Dang",
     role: "Founder & Director",
     bio: [
-      "Arti is the creative force and Founding Director of Arizona Institute of Performing Arts & Event Management—redefining the scope of school productions. Backed by a Master’s in Theatre from Punjab University, along with a B.Ed and a Master’s in English Literature from the University of Jammu, she brings a strong blend of academic rigor and artistic vision.",
+      "Arti is the creative force and Founding Director of Arizona Event Management—redefining the scope of school productions. Backed by a Master’s in Theatre from Punjab University, along with a B.Ed and a Master’s in English Literature from the University of Jammu, she brings a strong blend of academic rigor and artistic vision.",
       "With over a decade of experience across classical Indian dance, contemporary performance, and cinematic storytelling, she has conceptualized and directed 150+ large-scale school productions across North India—each balancing artistic excellence with meaningful student impact.",
-      "Trained in Theatre and Performing Arts, Arti uses choreography and theatre as tools for self-expression, enabling students to explore their inner worlds and move beyond performance into self-discovery.",
+      "With a strong foundation in event production, Arti uses choreography and performance as tools for self-expression, enabling students to explore their inner worlds and move beyond performance into self-discovery.",
       "A committed educator and mentor, she is known for building confidence, discipline, and creativity in young performers. Under her leadership, the institute has become synonymous with productions that are not just impressive, but transformative."
     ],
     quote: "A great performance is not measured by the applause at the end—it is measured by the confidence a student carries for the rest of their life."
@@ -61,11 +61,11 @@ export default function AboutUs() {
           <h2 className={styles.sectionTitle}>Where <span className={styles.goldText}>Talent</span> Meets The Stage</h2>
           <div className={styles.storyParas}>
             <p>
-              At Arizona Institute of Performing Arts & Event Management, we believe that
+              At Arizona Event Management, we believe that
               every stage is more than just a platform—it is a space where confidence is built,
               creativity finds its voice, and stories come alive. Led by a visionary Director with a
-              deep-rooted passion for the performing arts, Arizona reflects a unique blend of
-              artistic excellence, discipline, and imaginative expression.
+              deep-rooted passion for premium event production, Arizona reflects a unique blend of
+              excellence, discipline, and imaginative expression.
             </p>
             <p>
               From Sports Days and Annual Functions to Graduation Ceremonies, we take complete
@@ -117,13 +117,13 @@ export default function AboutUs() {
       <section className={styles.offeringsSection}>
         <motion.div className={styles.offeringsHeader} {...fadeUp}>
           <span className={styles.sectionLabel}>Our Reach</span>
-          <h2 className={styles.sectionTitle}>A Comprehensive <span className={styles.goldText}>Arts Curriculum</span></h2>
+          <h2 className={styles.sectionTitle}>A Comprehensive <span className={styles.goldText}>Event Curriculum</span></h2>
         </motion.div>
 
         <div className={styles.offeringsGrid}>
           <motion.div className={styles.offeringsText} {...fadeUp}>
             <p>
-              Beside event management, Arizona offers structured performing arts programs
+              Beside event management, Arizona offers structured performance grooming programs
               designed for longevity. We work directly with schools to integrate theatre, music,
               and dance into <strong>school timetables</strong>, <strong>after-school clubs</strong>,
               and specialized <strong>workshops</strong>.
@@ -152,7 +152,7 @@ export default function AboutUs() {
                 </div>
                 <hr className={styles.highlightDivider} />
                 <div className={styles.highlightItem}>
-                  <div className={styles.highlightNumber}>Artistry</div>
+                  <div className={styles.highlightNumber}>Execution</div>
                   <div className={styles.highlightLabel}>Beyond Performance</div>
                 </div>
               </div>

@@ -19,18 +19,18 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://arrizona.in'),
   title: {
-    default: 'Arizona Institute of Performing Arts and Event Management',
-    template: '%s | Arizona Institute',
+    default: 'Arizona Event Management',
+    template: '%s | Arizona',
   },
-  description: 'A premium platform to discover talent, build confidence, and shine on the grand stage. We specialize in choreography, theatre arts, and large-scale school events across India.',
-  keywords: ['Arizona Institute', 'Performing Arts', 'Event Management', 'Choreography', 'Theatre', 'School Events', 'India', 'Method Acting'],
+  description: 'A premium platform to discover talent, build confidence, and shine on the grand stage. We specialize in end-to-end event planning and large-scale school events across India.',
+  keywords: ['Arizona', 'Event Management', 'School Events', 'India', 'Stage Design', 'Annual Day Production'],
   authors: [{ name: 'Arizona Institute' }],
   creator: 'Arizona',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: 'https://arrizona.in',
-    title: 'Arizona Institute of Performing Arts and Event Management',
+    title: 'Arizona Event Management',
     description: 'A premium platform to discover talent, build confidence, and shine on the grand stage.',
     siteName: 'Arizona Institute',
     images: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Arizona Institute of Performing Arts and Event Management',
+    title: 'Arizona Event Management',
     description: 'A premium platform to discover talent, build confidence, and shine on the grand stage.',
     images: ['/img/LOGO.png'],
   },
