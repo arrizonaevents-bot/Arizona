@@ -179,13 +179,15 @@ export default function OurWork() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: index * 0.05, duration: 0.4 }}
-                animate={isHighlighted ? { 
-                  boxShadow: ["0 0 0px rgba(212,175,55,0)", "0 0 15px rgba(212,175,55,0.6)", "0 0 0px rgba(212,175,55,0)"],
-                  borderColor: ["rgba(212,175,55,0.2)", "rgba(212,175,55,1)", "rgba(212,175,55,0.2)"],
-                  color: ["var(--color-text-secondary)", "var(--color-gold)", "var(--color-text-secondary)"]
+                style={isHighlighted ? {
+                  borderTop: "3px solid var(--color-gold)",
+                  borderColor: "rgba(212,175,55,0.3)",
+                  color: "var(--color-gold)",
+                  fontWeight: "700",
+                  boxShadow: "0 8px 25px rgba(212,175,55,0.15)"
                 } : {}}
-                {...(isHighlighted ? { transition: { duration: 2, repeat: Infinity } } : {})}
               >
+                {isHighlighted && <span style={{ marginRight: '6px' }}>✦</span>}
                 {skill}
               </motion.div>
             );
