@@ -24,7 +24,7 @@ export default function AboutUs() {
     name: "Arti Dang",
     role: "Founder & Director",
     bio: [
-      "Arti is the creative force and Founding Director of Arizona Event Management—redefining the scope of school productions. Backed by a Master’s in Theatre from Punjab University, along with a B.Ed and a Master’s in English Literature from the University of Jammu, she brings a strong blend of academic rigor and artistic vision.",
+      "Arti is the creative force and Founding Director of Arizona Institute of Performing Arts and Event Management—redefining the scope of school productions. Backed by a Master’s in Theatre from Punjab University, along with a B.Ed and a Master’s in English Literature from the University of Jammu, she brings a strong blend of academic rigor and artistic vision.",
       "With over a decade of experience across classical Indian dance, contemporary performance, and cinematic storytelling, she has conceptualized and directed 150+ large-scale school productions across North India—each balancing artistic excellence with meaningful student impact.",
       "With a strong foundation in event production, Arti uses choreography and performance as tools for self-expression, enabling students to explore their inner worlds and move beyond performance into self-discovery.",
       "A committed educator and mentor, she is known for building confidence, discipline, and creativity in young performers. Under her leadership, the institute has become synonymous with productions that are not just impressive, but transformative."
@@ -61,7 +61,7 @@ export default function AboutUs() {
           <h2 className={styles.sectionTitle}>Where <span className={styles.goldText}>Talent</span> Meets The Stage</h2>
           <div className={styles.storyParas}>
             <p>
-              At Arizona Event Management, we believe that
+              At Arizona Institute of Performing Arts and Event Management, we believe that
               every stage is more than just a platform—it is a space where confidence is built,
               creativity finds its voice, and stories come alive. Led by a visionary Director with a
               deep-rooted passion for premium event production, Arizona reflects a unique blend of
@@ -180,10 +180,10 @@ export default function AboutUs() {
                 ))}
               </div>
             </div>
-            <div className={styles.founderVisual}>
-              <TiltCard className="card-3d">
-                <div className={styles.avatarPlaceholderLarge}>
-                  <Users className={styles.avatarIcon} size={60} />
+            <div className={styles.founderVisual} style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <TiltCard className="card-3d" style={{ width: "100%", maxWidth: "380px" }}>
+                <div style={{ position: "relative", width: "100%", minWidth: "min(100%, 280px)", aspectRatio: "3/4", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.3)", boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}>
+                  <Image src="/AartiDang.jpeg" alt="Arti Dang" fill style={{ objectFit: "cover", objectPosition: "center bottom", transform: "scale(1.55)", transformOrigin: "center 85%", transition: "transform 0.5s ease" }} />
                 </div>
               </TiltCard>
             </div>

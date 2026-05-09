@@ -200,8 +200,8 @@ export default function ContactUs() {
               <div className={styles.infoCard}>
                 <h3>Direct Lines</h3>
                 <ul>
-                  <li>📧 arti@arizonaevents.in</li>
-                  <li>📸 @arizonaevents.official</li>
+                  <li>📧 arrizonaevents@gmail.com</li>
+                  <li>🌐 www.arrizona.in</li>
                   <li>📍 All-India Bookings Accepted</li>
                   <li>👤 Director: Arti Arizona</li>
                 </ul>
@@ -211,12 +211,7 @@ export default function ContactUs() {
               </div>
             </TiltCard>
 
-            <div className={styles.socialRow}>
-              <a href="#" className={styles.socialCircle}>IG</a>
-              <a href="#" className={styles.socialCircle}>FB</a>
-              <a href="#" className={styles.socialCircle}>YT</a>
-              <a href="#" className={styles.socialCircle}>WA</a>
-            </div>
+
 
             <div className={styles.contactLogoWrap}>
               <Image 

@@ -42,7 +42,7 @@ export default function OurWork() {
   }));
 
   const skills = [
-    "Event Planning", "Stage & Concept Design", "School Annual Days",
+    "Event Planning", "Stage & Concept Design", "School Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops",
     "Talent Grooming", "Production Management", "Thematic Costumes", "Choreography",
     "Showstopper Props", "Sound & Lighting",
     "Backstage Coordination", "Experiential Programs", "Media Collaborations"
@@ -169,18 +169,27 @@ export default function OurWork() {
           <h2>Our Expertise</h2>
         </motion.div>
         <div className={styles.skillsGrid}>
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill}
-              className={styles.skillPill}
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.05, duration: 0.4 }}
-            >
-              {skill}
-            </motion.div>
-          ))}
+          {skills.map((skill, index) => {
+            const isHighlighted = ["School Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops"].some(kw => skill.toLowerCase().includes(kw.toLowerCase()));
+            return (
+              <motion.div
+                key={skill}
+                className={styles.skillPill}
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.05, duration: 0.4 }}
+                animate={isHighlighted ? { 
+                  boxShadow: ["0 0 0px rgba(212,175,55,0)", "0 0 15px rgba(212,175,55,0.6)", "0 0 0px rgba(212,175,55,0)"],
+                  borderColor: ["rgba(212,175,55,0.2)", "rgba(212,175,55,1)", "rgba(212,175,55,0.2)"],
+                  color: ["var(--color-text-secondary)", "var(--color-gold)", "var(--color-text-secondary)"]
+                } : {}}
+                {...(isHighlighted ? { transition: { duration: 2, repeat: Infinity } } : {})}
+              >
+                {skill}
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
