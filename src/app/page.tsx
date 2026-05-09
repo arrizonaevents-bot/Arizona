@@ -177,31 +177,39 @@ export default function Home() {
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1.5rem" }}>
             {[
-              { title: "Annual Days", desc: "Comprehensive production management for massive school events." },
-              { title: "Sports Day", desc: "Complete event execution from creative concept to final applause." },
-              { title: "Graduation Ceremony", desc: "Memorable experiences for students moving to their next chapter." },
-              { title: "Theatre Workshops", desc: "Performance curation and intensive training for young stars." },
-              { title: "Stage & Concept Design", desc: "Creative thematic development and theatrical stage setups." },
-              { title: "Experiential Programs", desc: "Interactive workshops and engaging short-term programs." },
-              { title: "Media Collaborations", desc: "Working seamlessly with industry and media professionals." },
-              { title: "Customized Events", desc: "Tailored private events for schools, institutions & groups." }
+              { title: "Annual Days", desc: "Comprehensive production management for massive school events.", image: "/img/services/annual_days.png" },
+              { title: "Sports Day", desc: "Complete event execution from creative concept to final applause.", image: "/img/services/sports_day.png" },
+              { title: "Graduation Ceremony", desc: "Memorable experiences for students moving to their next chapter.", image: "/img/services/graduation.png" },
+              { title: "Theatre Workshops", desc: "Performance curation and intensive training for young stars.", image: "/img/services/theatre_workshops.png" },
+              { title: "Stage & Concept Design", desc: "Creative thematic development and theatrical stage setups.", image: "/img/services/stage_design.png" },
+              { title: "Experiential Programs", desc: "Interactive workshops and engaging short-term programs.", image: "/img/services/experiential.png" },
+              { title: "Media Collaborations", desc: "Working seamlessly with industry and media professionals.", image: "/img/services/media_collabs.png" },
+              { title: "Customized Events", desc: "Tailored private events for schools, institutions & groups.", image: "/img/services/customized_events.png" }
             ].map((item, idx) => {
               const isHighlighted = ["Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops"].includes(item.title);
               return (
               <div key={idx} style={{ 
                 background: "var(--color-bg)", 
-                padding: "1.5rem", borderRadius: "12px", 
+                borderRadius: "12px", 
+                overflow: "hidden",
                 border: "1px solid rgba(212, 175, 55, 0.2)",
                 borderTop: isHighlighted ? "4px solid var(--color-gold)" : "1px solid rgba(212, 175, 55, 0.2)",
                 boxShadow: isHighlighted ? "0 10px 30px rgba(212, 175, 55, 0.1)" : "0 4px 20px rgba(0,0,0,0.02)",
                 transform: isHighlighted ? "translateY(-4px)" : "none",
-                transition: "all 0.3s ease"
+                transition: "all 0.3s ease",
+                display: "flex",
+                flexDirection: "column"
               }}>
-                <h4 style={{ color: "var(--color-gold)", marginBottom: "0.5rem", fontSize: "1.15rem", fontWeight: isHighlighted ? "700" : "500", display: "flex", alignItems: "center", gap: "8px" }}>
-                  {isHighlighted && <span>✦</span>}
-                  {item.title}
-                </h4>
-                <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
+                <div style={{ position: "relative", width: "100%", height: "200px" }}>
+                  <Image src={item.image} alt={item.title} fill style={{ objectFit: "cover" }} />
+                </div>
+                <div style={{ padding: "1.5rem" }}>
+                  <h4 style={{ color: "var(--color-gold)", marginBottom: "0.5rem", fontSize: "1.15rem", fontWeight: isHighlighted ? "700" : "500", display: "flex", alignItems: "center", gap: "8px" }}>
+                    {isHighlighted && <span>✦</span>}
+                    {item.title}
+                  </h4>
+                  <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
+                </div>
               </div>
             )})}
           </div>
