@@ -9,7 +9,18 @@ import TheaterMasksBackground from "../components/TheaterMasksBackground";
 import { Compass, Flame, Users, Quote } from "lucide-react";
 
 export default function AboutUs() {
-  const team = [];
+  const team = [
+    {
+      name: "Gurmeet Singh Mitwa",
+      role: "Actor & Theatre Director",
+      bio: "Acted in more than 30 Bollywood films",
+    },
+    {
+      name: "Darshan Singh",
+      role: "Scriptwriter & Theatre Director",
+      bio: "Directed more than 20 stage plays, worked with various TV channels and Production Houses",
+    }
+  ];
 
   const AWARD_IMAGES = [
     { src: "/awards/236.png", title: "Excellence in Choreography" },
@@ -113,53 +124,6 @@ export default function AboutUs() {
         </motion.div>
       </section>
 
-      {/* 4. OFFERINGS & REACH */}
-      <section className={styles.offeringsSection}>
-        <motion.div className={styles.offeringsHeader} {...fadeUp}>
-          <span className={styles.sectionLabel}>Our Reach</span>
-          <h2 className={styles.sectionTitle}>A Comprehensive <span className={styles.goldText}>Event Curriculum</span></h2>
-        </motion.div>
-
-        <div className={styles.offeringsGrid}>
-          <motion.div className={styles.offeringsText} {...fadeUp}>
-            <p>
-              Beside event management, Arizona offers structured performance grooming programs
-              designed for longevity. We work directly with schools to integrate theatre, music,
-              and dance into <strong>school timetables</strong>, <strong>after-school clubs</strong>,
-              and specialized <strong>workshops</strong>.
-            </p>
-            <p>
-              Each program is developed to support student growth in a supportive and
-              encouraging environment, focusing on practical performance skills:
-            </p>
-            <ul className={styles.offeringsList}>
-              <li>Developing Dialogue Delivery & Voice Modulation</li>
-              <li>Encouraging Creative Writing and Improvisational Skills</li>
-              <li>Improving Body Movement & Strategic Stage Presence</li>
-            </ul>
-            <p>
-              Our <strong>production-focused approach</strong> ensures that students of all ages
-              gain the confidence to perform for live audiences, learning the fundamentals of
-              stagecraft and storytelling along the way.
-            </p>
-          </motion.div>
-          <motion.div className={styles.offeringsVisual} {...fadeUp}>
-            <TiltCard className="card-3d">
-              <div className={styles.highlightsCard}>
-                <div className={styles.highlightItem}>
-                  <div className={styles.highlightNumber}>50+</div>
-                  <div className={styles.highlightLabel}>Original Themes</div>
-                </div>
-                <hr className={styles.highlightDivider} />
-                <div className={styles.highlightItem}>
-                  <div className={styles.highlightNumber}>Execution</div>
-                  <div className={styles.highlightLabel}>Beyond Performance</div>
-                </div>
-              </div>
-            </TiltCard>
-          </motion.div>
-        </div>
-      </section>
 
       {/* 5. TEAM */}
       <section className={styles.teamSection}>
@@ -180,18 +144,32 @@ export default function AboutUs() {
                 ))}
               </div>
             </div>
-            <div className={styles.founderVisual} style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <div className={styles.founderVisual} style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
               <TiltCard className="card-3d" style={{ width: "100%", maxWidth: "380px" }}>
                 <div style={{ position: "relative", width: "100%", minWidth: "min(100%, 280px)", aspectRatio: "3/4", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.3)", boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}>
                   <Image src="/AartiDang.jpeg" alt="Arti Dang" fill style={{ objectFit: "cover", objectPosition: "center bottom", transform: "scale(1.55)", transformOrigin: "center 85%", transition: "transform 0.5s ease" }} />
                 </div>
               </TiltCard>
+              <div className={styles.quoteAuthor} style={{ marginTop: "1.5rem" }}>— Arti, Founder &amp; Director</div>
             </div>
           </div>
         </motion.div>
 
-
-      </section>
+        {/* Additional Leadership */}
+        <motion.div className={styles.teamGrid} {...fadeUp}>
+          {team.map((member, i) => (
+            <TiltCard key={i} className="card-3d" style={{ height: "100%" }}>
+              <div className={styles.teamCard}>
+                <div className={styles.avatarPlaceholder}>
+                  <Users size={32} className={styles.avatarIcon} />
+                </div>
+                <h3 className={styles.memberName}>{member.name}</h3>
+                <div className={styles.rolePill}>{member.role}</div>
+                <p className={styles.memberBio}>{member.bio}</p>
+              </div>
+            </TiltCard>
+          ))}
+        </motion.div>      </section>
 
       {/* 6. ACCOLADES */}
       <section className={styles.accoladesSection}>

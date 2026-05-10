@@ -510,6 +510,10 @@
   color: #ffffff;
   position: relative;
   overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 260px;
 }
 
 .btnPrimary {

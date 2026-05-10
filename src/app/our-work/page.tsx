@@ -19,7 +19,7 @@ export default function OurWork() {
     { name: "DAV Public School", area: "Pakhowal Road", city: "Ludhiana", state: "Punjab", logo: "/schllogos/6.png" },
     { name: "Max Arthur Macauliffe Public School", area: "Samrala", city: "Ludhiana", state: "Punjab", logo: "/schllogos/7.png" },
     { name: "JMK International School", area: "Pathankot", city: "Pathankot", state: "Punjab", logo: "/schllogos/9.png" },
-    { name: "Pratap World School", area: "Pathankot", city: "Pathankot", state: "Punjab", logo: "/schllogos/10.png" },
+    { name: "Partap World School", area: "Pathankot", city: "Pathankot", state: "Punjab", logo: "/schllogos/10.png" },
     { name: "Modern Sandeepni Public School", area: "Pathankot", city: "Pathankot", state: "Punjab", logo: "/schllogos/11.png" },
     { name: "St. Joseph Convent School", area: "Bathinda", city: "Bathinda", state: "Punjab", logo: "/schllogos/12.png" },
     { name: "Guru Nanak Public School", area: "Model Town", city: "Ludhiana", state: "Punjab", logo: "/schllogos/13.png" },
@@ -45,8 +45,41 @@ export default function OurWork() {
     "Event Planning", "Stage & Concept Design", "School Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops",
     "Talent Grooming", "Production Management", "Thematic Costumes", "Choreography",
     "Showstopper Props", "Sound & Lighting",
-    "Backstage Coordination", "Experiential Programs", "Media Collaborations"
+    "Backstage Coordination", "Experiential Programs", "Media Collaborations",
+    "Acting", "Improvisation", "Dialogue Delivery", "Movement", "Mime", "Comedy Plays", 
+    "Theatre Games", "Creative Writing", "Voice Modulation", "Memory Building", 
+    "Stylizing the Character", "Experienced Media Skill"
   ];
+
+  const row1Skills = skills.slice(0, Math.ceil(skills.length / 2));
+  const row2Skills = skills.slice(Math.ceil(skills.length / 2));
+
+  const renderMarqueeRow = (items: string[], directionClass: string) => {
+    const doubledItems = [...items, ...items];
+    return (
+      <div className={`${styles.marqueeRow} ${directionClass}`}>
+        {doubledItems.map((skill, index) => {
+          const isHighlighted = ["School Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops"].some(kw => skill.toLowerCase().includes(kw.toLowerCase()));
+          return (
+            <div
+              key={`${skill}-${index}`}
+              className={styles.skillPill}
+              style={isHighlighted ? {
+                borderTop: "3px solid var(--color-gold)",
+                borderColor: "rgba(212,175,55,0.3)",
+                color: "var(--color-gold)",
+                fontWeight: "700",
+                boxShadow: "0 8px 25px rgba(212,175,55,0.15)"
+              } : {}}
+            >
+              {isHighlighted && <span style={{ marginRight: '6px' }}>✦</span>}
+              {skill}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 
   const fadeUp = {
     initial: { opacity: 0, y: 50 },
@@ -67,7 +100,7 @@ export default function OurWork() {
         >
           <div className={styles.label}>The Portfolio</div>
           <h1>Stages We&apos;ve <span style={{ color: 'var(--color-gold)', fontStyle: 'italic' }}>Transformed</span></h1>
-          <p>Collaborating with 100+ premier institutions.</p>
+          <p>Working with 100+ leading institutions and schools.</p>
         </motion.div>
       </section>
 
@@ -130,68 +163,15 @@ export default function OurWork() {
         </div>
       </section>
 
-      {/* 4. DELIVERY MODULES */}
-      <section className={styles.deliverySection}>
-        <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <h2>Our Methodology</h2>
-        </motion.div>
-        <div className={styles.stepContainer}>
-          {[
-            { num: "01", title: 'Creative Ideation', desc: 'Developing bespoke thematic concepts.', icon: <Briefcase size={30} className={styles.stepIcon} /> },
-            { num: "02", title: 'Talent Grooming', desc: 'Intensive performance preparation for students.', icon: <Play size={30} className={styles.stepIcon} /> },
-            { num: "03", title: 'Stage & Tech Setup', desc: 'Handling all stage, sound, and lighting needs.', icon: <Zap size={30} className={styles.stepIcon} /> },
-            { num: "04", title: 'Grand Execution', desc: 'Directing full-scale flawless Annual Day Events.', icon: <Zap size={30} className={styles.stepIcon} /> }
-          ].map((mode, i) => (
-            <motion.div
-              key={mode.num}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.2, duration: 0.6 }}
-              viewport={{ once: true, margin: "-50px" }}
-              style={{ flex: 1 }}
-            >
-              <div className={styles.stepCard}>
-                <div className={styles.stepHeader}>
-                  <span className={styles.stepNumber}>{mode.num}</span>
-                  {mode.icon}
-                </div>
-                <h3>{mode.title}</h3>
-                <p>{mode.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* 5. SKILLS OFFERED */}
       <section className={styles.skillsSection}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
           <h2>Our Expertise</h2>
         </motion.div>
-        <div className={styles.skillsGrid}>
-          {skills.map((skill, index) => {
-            const isHighlighted = ["School Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops"].some(kw => skill.toLowerCase().includes(kw.toLowerCase()));
-            return (
-              <motion.div
-                key={skill}
-                className={styles.skillPill}
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                style={isHighlighted ? {
-                  borderTop: "3px solid var(--color-gold)",
-                  borderColor: "rgba(212,175,55,0.3)",
-                  color: "var(--color-gold)",
-                  fontWeight: "700",
-                  boxShadow: "0 8px 25px rgba(212,175,55,0.15)"
-                } : {}}
-              >
-                {isHighlighted && <span style={{ marginRight: '6px' }}>✦</span>}
-                {skill}
-              </motion.div>
-            );
-          })}
+        <div className={styles.marqueeWrapper}>
+          {renderMarqueeRow(row1Skills, styles.marqueeLeft)}
+          {renderMarqueeRow(row2Skills, styles.marqueeRight)}
         </div>
       </section>
 

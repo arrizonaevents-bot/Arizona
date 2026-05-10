@@ -128,7 +128,7 @@ export default function Home() {
             </h1>
 
             <p className={styles.subtitle}>
-              Arizona is a dynamic and experienced event organizing company with over a decade of excellence in curating impactful and memorable experiences.
+              Arizona is a dynamic event organizing company with over a decade of excellence in curating impactful and memorable experiences for educational institutions.
             </p>
 
             {/* Secondary elements (Interaction phase) */}
@@ -138,7 +138,7 @@ export default function Home() {
               style={{ transitionDelay: "0.4s" }}
             >
               <Link href="/about-us" className={styles.btnPrimary}>
-                Explore Our Events
+                About Arizona
               </Link>
               <button
                 onClick={() => {
@@ -178,15 +178,15 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1.5rem" }}>
             {[
               { title: "Annual Days", desc: "Comprehensive production management for massive school events.", image: "/img/services/annual_days.png" },
-              { title: "Sports Day", desc: "Complete event execution from creative concept to final applause.", image: "/img/services/sports_day.png" },
+              { title: "Sports Days", desc: "Complete event execution from creative concept to final applause.", image: "/img/services/sports_day.png" },
               { title: "Graduation Ceremony", desc: "Memorable experiences for students moving to their next chapter.", image: "/img/services/graduation.png" },
               { title: "Theatre Workshops", desc: "Performance curation and intensive training for young stars.", image: "/img/services/theatre_workshops.png" },
               { title: "Stage & Concept Design", desc: "Creative thematic development and theatrical stage setups.", image: "/img/services/stage_design.png" },
-              { title: "Experiential Programs", desc: "Interactive workshops and engaging short-term programs.", image: "/img/services/experiential.png" },
-              { title: "Media Collaborations", desc: "Working seamlessly with industry and media professionals.", image: "/img/services/media_collabs.png" },
-              { title: "Customized Events", desc: "Tailored private events for schools, institutions & groups.", image: "/img/services/customized_events.png" }
+              { title: "Experiential Programs", desc: "Interactive activities featuring arts, crafts, and culinary experiences.", image: "/img/services/experiential.png" },
+              { title: "Media Collaborations", desc: "Professional event videography and strategic press coverage.", image: "/img/services/media_collabs.png" },
+              { title: "Customized Events", desc: "Bespoke choreography and management for weddings and private gatherings.", image: "/img/services/customized_events.png" }
             ].map((item, idx) => {
-              const isHighlighted = ["Annual Days", "Sports Day", "Graduation Ceremony", "Theatre Workshops"].includes(item.title);
+              const isHighlighted = ["Annual Days", "Sports Days", "Graduation Ceremony", "Theatre Workshops"].includes(item.title);
               return (
               <div key={idx} style={{ 
                 background: "var(--color-bg)", 
@@ -222,12 +222,8 @@ export default function Home() {
       <section className={styles.aboutTeaser}>
         <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>Who We Are</span>
-          <h2 className={styles.sectionTitle}>Crafting Unforgettable Experiences Since 10 Years</h2>
+          <h2 className={styles.sectionTitle}>Crafting Unforgettable Experiences</h2>
           <div className={styles.aboutTextGroup} style={{ borderLeft: "none", paddingLeft: 0, marginTop: "2rem" }}>
-            <p style={{ fontSize: "1.2rem", fontWeight: 500, color: "var(--color-text-main)", marginBottom: "2rem", lineHeight: 1.6 }}>
-              Arizona is a dynamic event organizing company with over a decade of excellence in curating impactful and memorable experiences.
-            </p>
-            
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", marginBottom: "2.5rem" }}>
               <div style={{ padding: "1.5rem", background: "rgba(212, 175, 55, 0.03)", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
                 <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Trusted Industry Expertise</h4>
@@ -236,7 +232,7 @@ export default function Home() {
                 </p>
               </div>
               <div style={{ padding: "1.5rem", background: "rgba(212, 175, 55, 0.03)", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
-                <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Flawless Professional Execution</h4>
+                <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Creative Professional Execution</h4>
                 <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
                   Every event is thoughtfully planned, seamlessly managed, and emotionally engaging, creating dynamic platforms for young performers to shine.
                 </p>
@@ -303,14 +299,14 @@ export default function Home() {
                 </div>
                 <div className={styles.cardBody}>
                   <p>
-                    Our <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>professional choreographer team</strong> and <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>theatre experts</strong> bring over 10+ years of event management excellence, handling large-scale youth events.
+                    Our <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>professional choreographer team</strong> and <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>theatre experts</strong> bring over 10+ years of event management excellence, handling large-scale events. We cater to students of all ages — from kindergarten to adults.
                   </p>
                   <div className={styles.featureList}>
                     <div className={styles.featureItem}>
                       <span className={styles.featureDot} />
                       <div>
-                        <strong>Flawless Execution</strong>
-                        <p>We provide <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>customised costume and creative and showstoppers props with excellent team stage and do</strong> everything necessary to <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>make the event memorable</strong>.</p>
+                        <strong>Impactful Execution</strong>
+                        <p>We provide <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>customised costumes, creative showstopper props, professional makeup artists, photography & videography, and complete stage setup with expert team coordination</strong> — delivering everything necessary to <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>make every event impactful</strong>.</p>
                       </div>
                     </div>
                     <div className={styles.featureItem}>
@@ -332,7 +328,7 @@ export default function Home() {
                 </div>
                 <div className={styles.cardBody}>
                   <p>
-                    <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em", display: "inline-block", borderLeft: "3px solid var(--color-gold)" }}>Each student confident vibrate wt energy due to well trained professionals amazing transferring skills with in less span of days students show great results on stage.</strong>
+                    <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em", display: "inline-block", borderLeft: "3px solid var(--color-gold)" }}>Each student vibrates with confident energy, thanks to the amazing skill-transfer by our well-trained professionals. Within a short span of days, students show great results on stage.</strong>
                   </p>
                   <div className={styles.featureList}>
                     <div className={styles.featureItem}>
@@ -428,7 +424,7 @@ export default function Home() {
                 <div style={{ width: "60px", height: "60px", borderRadius: "50%", border: "1px solid var(--color-gold)", background: "rgba(212, 175, 55, 0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-gold)", fontSize: "1.2rem", fontWeight: "bold", marginBottom: "1.5rem" }}>M</div>
                 <h3 style={{ fontSize: "2rem", color: "var(--color-text-main)", marginBottom: "1.5rem", fontFamily: "var(--font-heading)" }}>Our Mission</h3>
                 <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0 }}>
-                  Arizona&apos;s mission is to cultivate confident, expressive, and thoughtful individuals through the transformative experience of performance. The company is dedicated to providing a stress-free and engaging learning environment where children can develop essential life skills. By blending elements of wordplay, spontaneity, body movement, and theatrical techniques, Arizona fosters creativity while instilling confidence, communication skills, and excellence in every participant.
+                  Arizona&apos;s mission is to cultivate confident, expressive, and thoughtful individuals through the transformative experience of performance and events. The company is dedicated to providing a stress-free and engaging learning environment where children can develop essential life skills in a fun way. By blending elements of wordplay, spontaneity, body movement, and theatrical techniques, Arizona fosters creativity while instilling confidence, communication skills, and excellence in every participant.
                 </p>
               </div>
             </div>
@@ -438,45 +434,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════
-          3.7 EXPERTISE
-      ══════════════════════════════════════════════════ */}
-      <section className={styles.aboutTeaser} style={{ padding: "clamp(4rem, 10vw, 8rem) 5%", background: "var(--color-bg)" }}>
-        <div className={styles.aboutLeft}>
-          <span className={styles.sectionLabel}>Driven by Expertise</span>
-          <h2 className={styles.sectionTitle} style={{ fontSize: "clamp(1.8rem, 5vw, 2.5rem)" }}>Crafting Performers, Creating Experiences</h2>
-          <div className={styles.aboutTextGroup}>
-            <p>
-              At Arizona, we go beyond event management—we create transformative performance experiences for young talent. With a strong foundation in event production, we design and deliver engaging programs for children of every age group, seamlessly integrating learning with live event execution. Our structured sessions are carefully curated to develop essential performance skills such as acting, improvisation, dialogue delivery, and stage presence.
-            </p>
-            <div style={{ padding: "1.5rem", borderLeft: "4px solid var(--color-gold)", background: "rgba(212, 175, 55, 0.05)", borderRadius: "0 8px 8px 0", margin: "1.5rem 0" }}>
-              <p style={{ margin: 0, fontStyle: "italic", color: "var(--color-gold-adaptive)", fontSize: "1rem", lineHeight: 1.6 }}>
-                &quot;Within a short span of one month, participants undergo intensive, hands-on training that prepares them to confidently perform live in front of an audience.&quot;
-              </p>
-            </div>
-            <p>
-              Our strength lies in our people—a team of highly experienced, energetic, and dedicated professionals who bring creativity and direction to every event we execute. Our faculty and mentors are deeply committed to inspiring young talent, working tirelessly to nurture skills, build confidence, and deliver exceptional performance outcomes.
-            </p>
-          </div>
-        </div>
-        
-        <div className={styles.aboutRight}>
-          <TiltCard className="card-3d" disabled style={{ width: "100%" }}>
-            <div className={styles.photoFrame} style={{ height: "min(600px, 70vh)", width: "100%", position: "relative", borderRadius: "12px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.2)" }}>
-              <Image
-                src="/img/school_team.png"
-                alt="Professional Event Team Backstage"
-                fill
-                style={{ objectFit: "cover" }}
-              />
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "3rem 1.5rem 1.5rem", background: "linear-gradient(to top, rgba(10,10,10,0.95), transparent)" }}>
-                <h3 style={{ color: "white", margin: 0, fontSize: "1.5rem" }}>Expert Mentorship</h3>
-                <p style={{ color: "rgba(255,255,255,0.8)", margin: "0.25rem 0 0 0", fontSize: "0.9rem" }}>Guiding young talent to the spotlight.</p>
-              </div>
-            </div>
-          </TiltCard>
-        </div>
-      </section>
+
 
       <section className={styles.achievements}>
         <TheaterMasksBackground position="right" opacity={0.18} offsetX="-10vw" />
