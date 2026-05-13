@@ -26,6 +26,26 @@
   backface-visibility: hidden;
 }
 
+.maskGlow {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  top: -20%;
+  left: -20%;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.4;
+  background: radial-gradient(circle at 30% 50%, var(--color-vibrant-rose) 0%, transparent 50%),
+              radial-gradient(circle at 70% 50%, var(--color-vibrant-amber) 0%, transparent 50%);
+  animation: glowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% { transform: scale(0.9); opacity: 0.3; }
+  100% { transform: scale(1.1); opacity: 0.5; }
+}
+
 .masksSvg {
   width: auto;
   height: clamp(200px, 35vh, 500px);

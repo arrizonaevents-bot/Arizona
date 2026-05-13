@@ -41,10 +41,33 @@ export default function Footer() {
         
         <div className={styles.contact}>
           <h3>Contact Info</h3>
-          <p>📞 +91 99158 48400</p>
+          <p>📞 +91 90566 20545</p>
           <p>📍 All-India Bookings Accepted</p>
           <p>✉️ arrizonaevents@gmail.com</p>
           <p>🌐 www.arrizona.in</p>
+          
+          <div className={styles.socials}>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
+              <div className={styles.iconBox}>
+                <Image src="/socials/insta.png" alt="Instagram" width={24} height={24} />
+              </div>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Facebook">
+              <div className={styles.iconBox}>
+                <Image src="/socials/facebook.png" alt="Facebook" width={24} height={24} />
+              </div>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Twitter">
+              <div className={styles.iconBox}>
+                <Image src="/socials/images.png" alt="Twitter" width={20} height={20} />
+              </div>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="YouTube">
+              <div className={styles.iconBox}>
+                <Image src="/socials/youtube.jpeg" alt="YouTube" width={28} height={20} />
+              </div>
+            </a>
+          </div>
         </div>
       </div>
       <div className={styles.bottom}>

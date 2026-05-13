@@ -41,6 +41,8 @@ const AWARD_IMAGES = [
   { src: "/awards/246.png", title: "Community Impact Recognition" },
 ];
 
+const MAIN_AWARD = { src: "/awards/award.jpeg", title: "Achievement Award" };
+
 export default function Home() {
   const router = useRouter();
   const [heroActive, setHeroActive] = useState(false);
@@ -70,7 +72,7 @@ export default function Home() {
       particleCount: 60,
       spread: 90,
       origin: { y: 0.6 },
-      colors: ["#D4AF37", "#FFF", "#8C7323", "#C0C0C0"],
+      colors: ["#4f46e5", "#0ea5e9", "#f43f5e", "#f59e0b", "#10b981"],
     });
   };
 
@@ -90,6 +92,7 @@ export default function Home() {
         {/* Spotlight */}
         <div className={styles.spotlightWrapper} aria-hidden="true">
           <div className={styles.spotlightMain} />
+          <div className={styles.spotlightSecondary} />
         </div>
 
         {/* Theatrical Curtains — Reveal the 3D background */}
@@ -128,7 +131,9 @@ export default function Home() {
             </h1>
 
             <p className={styles.subtitle}>
-              Arizona is a dynamic event organizing company with over a decade of excellence in curating impactful and memorable experiences for educational institutions.
+              Arizona is a dynamic event organizing company with over a decade <br /> 
+              of excellence in curating impactful and memorable experiences <br /> 
+              for educational institutions.
             </p>
 
             {/* Secondary elements (Interaction phase) */}
@@ -164,12 +169,20 @@ export default function Home() {
           <div className={styles.statLine}><h3>10,000+</h3><span>Students</span></div>
         </div>
       </section>
+      
+      <div className="ambient-glow glow-indigo" style={{ top: "120vh", left: "-10vw", opacity: 0.08 }} />
+      <div className="ambient-glow glow-rose" style={{ top: "160vh", right: "-10vw", opacity: 0.08 }} />
+
 
       {/* ══════════════════════════════════════════════════
           2. WHAT WE DELIVER (Our Offerings)
       ══════════════════════════════════════════════════ */}
-      <section style={{ padding: "clamp(4rem, 10vw, 8rem) 5%", background: "var(--color-bg-alt)" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <section style={{ 
+        padding: "clamp(4rem, 10vw, 8rem) 5%", 
+        background: "var(--color-bg-main)",
+        position: "relative"
+      }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ textAlign: "center", marginBottom: "clamp(2rem, 5vw, 4rem)" }}>
             <span className={styles.sectionLabel}>Our Offerings</span>
             <h2 className={styles.sectionTitle}>What Arizona Delivers</h2>
@@ -177,38 +190,50 @@ export default function Home() {
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1.5rem" }}>
             {[
-              { title: "Annual Days", desc: "Comprehensive production management for massive school events.", image: "/img/services/annual_days.png" },
-              { title: "Sports Days", desc: "Complete event execution from creative concept to final applause.", image: "/img/services/sports_day.png" },
-              { title: "Graduation Ceremony", desc: "Memorable experiences for students moving to their next chapter.", image: "/img/services/graduation.png" },
-              { title: "Theatre Workshops", desc: "Performance curation and intensive training for young stars.", image: "/img/services/theatre_workshops.png" },
-              { title: "Stage & Concept Design", desc: "Creative thematic development and theatrical stage setups.", image: "/img/services/stage_design.png" },
-              { title: "Experiential Programs", desc: "Interactive activities featuring arts, crafts, and culinary experiences.", image: "/img/services/experiential.png" },
-              { title: "Media Collaborations", desc: "Professional event videography and strategic press coverage.", image: "/img/services/media_collabs.png" },
-              { title: "Customized Events", desc: "Bespoke choreography and management for weddings and private gatherings.", image: "/img/services/customized_events.png" }
+              { title: "Annual Days", desc: "Comprehensive production management for massive school events.", image: "/img/services/annual_days.png", color: "var(--color-vibrant-rose)" },
+              { title: "Sports Days", desc: "Complete event execution from creative concept to final applause.", image: "/img/services/sports_day.png", color: "var(--color-vibrant-indigo)" },
+              { title: "Graduation Ceremony", desc: "Memorable experiences for students moving to their next chapter.", image: "/img/services/graduation.png", color: "var(--color-vibrant-teal)" },
+              { title: "Theatre Workshops", desc: "Performance curation and intensive training for young stars.", image: "/img/services/theatre_workshops.png", color: "var(--color-vibrant-amber)" },
+              { title: "Stage & Concept Design", desc: "Creative thematic development and theatrical stage setups.", image: "/img/services/stage_design.png", color: "var(--color-vibrant-violet)" },
+              { title: "Experiential Programs", desc: "Interactive activities featuring arts, crafts, and culinary experiences.", image: "/img/services/experiential.png", color: "var(--color-vibrant-emerald)" },
+              { title: "Media Collaborations", desc: "Professional event videography and strategic press coverage.", image: "/img/services/media_collabs.png", color: "var(--color-vibrant-rose)" },
+              { title: "Customized Events", desc: "Bespoke choreography and management for weddings and private gatherings.", image: "/img/services/customized_events.png", color: "var(--color-vibrant-teal)" }
             ].map((item, idx) => {
               const isHighlighted = ["Annual Days", "Sports Days", "Graduation Ceremony", "Theatre Workshops"].includes(item.title);
               return (
               <div key={idx} style={{ 
-                background: "var(--color-bg)", 
-                borderRadius: "12px", 
+                background: "var(--color-bg-main)", 
+                borderRadius: "24px", 
                 overflow: "hidden",
-                border: "1px solid rgba(212, 175, 55, 0.2)",
-                borderTop: isHighlighted ? "4px solid var(--color-gold)" : "1px solid rgba(212, 175, 55, 0.2)",
-                boxShadow: isHighlighted ? "0 10px 30px rgba(212, 175, 55, 0.1)" : "0 4px 20px rgba(0,0,0,0.02)",
-                transform: isHighlighted ? "translateY(-4px)" : "none",
-                transition: "all 0.3s ease",
+                border: `1px solid ${item.color}22`,
+                boxShadow: `0 20px 40px ${item.color}15`,
+                transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
                 display: "flex",
-                flexDirection: "column"
+                flexDirection: "column",
+                position: "relative"
               }}>
-                <div style={{ position: "relative", width: "100%", height: "200px" }}>
+                <div style={{ position: "relative", width: "100%", height: "220px" }}>
                   <Image src={item.image} alt={item.title} fill style={{ objectFit: "cover" }} />
+                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 30%, ${item.color}88 100%)`, mixBlendMode: "overlay" }} />
                 </div>
-                <div style={{ padding: "1.5rem" }}>
-                  <h4 style={{ color: "var(--color-gold)", marginBottom: "0.5rem", fontSize: "1.15rem", fontWeight: isHighlighted ? "700" : "500", display: "flex", alignItems: "center", gap: "8px" }}>
-                    {isHighlighted && <span>✦</span>}
+                <div style={{ padding: "2rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                  <h4 style={{ 
+                    color: item.color, 
+                    marginBottom: "1rem", 
+                    fontSize: "1.25rem", 
+                    fontWeight: "700", 
+                    display: "flex", 
+                    alignItems: "center", 
+                    gap: "10px"
+                  }}>
+                    <span style={{ fontSize: "0.9em", opacity: 0.8 }}>✦</span>
                     {item.title}
                   </h4>
-                  <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem", lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
+                  <p style={{ color: "var(--color-text-secondary)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0, opacity: 0.9 }}>{item.desc}</p>
+                  
+                  <div style={{ marginTop: "auto", paddingTop: "1.5rem" }}>
+                    <div style={{ width: "30px", height: "3px", background: item.color, borderRadius: "2px", opacity: 0.6 }} />
+                  </div>
                 </div>
               </div>
             )})}
@@ -216,10 +241,14 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="ambient-glow glow-teal" style={{ top: "220vh", left: "20vw", opacity: 0.1 }} />
+      <div className="ambient-glow glow-amber" style={{ top: "280vh", right: "10vw", opacity: 0.1 }} />
+
       {/* ══════════════════════════════════════════════════
           3. ABOUT TEASER
       ══════════════════════════════════════════════════ */}
       <section className={styles.aboutTeaser}>
+        <div className={styles.aboutTeaserContainer}>
         <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>Who We Are</span>
           <h2 className={styles.sectionTitle}>Crafting Unforgettable Experiences</h2>
@@ -271,6 +300,80 @@ export default function Home() {
             <span style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "1px", color: "var(--color-text-main)", marginTop: "0.5rem", fontWeight: 600 }}>Large-Scale<br/>School Events</span>
           </motion.div>
         </div>
+      </div>
+      </section>
+
+
+      {/* ══════════════════════════════════════════════════
+          1.5 EXPERTISE (New Highlight)
+      ══════════════════════════════════════════════════ */}
+      <section className={styles.expertiseSection}>
+        <motion.div 
+          style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "1100px", margin: "0 auto 5rem" }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className={styles.sectionLabel} style={{ marginBottom: "1.5rem", display: "inline-block" }}>Our Expertise</span>
+          <h2 className={styles.goldText} style={{ 
+            fontSize: "clamp(2.2rem, 6vw, 4.5rem)", 
+            lineHeight: 1.1, 
+            textTransform: "none", 
+            letterSpacing: "-0.02em",
+            fontWeight: 900,
+            filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.1))"
+          }}>
+            Transforming Craft into <br/> Powerful Stage Spectacles
+          </h2>
+          <div style={{ width: "80px", height: "4px", background: "var(--gradient-gold-text)", margin: "2rem auto 0", borderRadius: "2px" }} />
+        </motion.div>
+        <div className={styles.expertiseGrid}>
+          {/* Card 1: Dance Forms */}
+          <motion.div 
+            className={`${styles.expertiseCard} ${styles.danceCard}`}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className={styles.cardGlow} />
+            <div className={styles.cardIcon}>💃</div>
+            <h2 className={styles.cardTitle}>Dance Forms</h2>
+            <div className={styles.cardSubtitle}>
+              Traditional • Folk • Semi-Classical • <span>Hip-Hop</span> • Contemporary
+            </div>
+            <p className={styles.cardContent}>
+              At Arizona, every performance is a spectacle of <strong>creativity, precision, and grandeur</strong>. 
+              Known for weaving <strong>powerful themes</strong> with diverse dance styles, we craft 
+              <strong>visually stunning productions</strong> featuring <strong>dynamic choreography</strong> and 
+              <strong>100+ mesmerizing stage formations</strong> that leave audiences spellbound.
+            </p>
+          </motion.div>
+
+          {/* Card 2: Theatre Excellence */}
+          <motion.div 
+            className={`${styles.expertiseCard} ${styles.theatreCard}`}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className={styles.cardGlow} />
+            <div className={styles.cardIcon}>🎭</div>
+            <h2 className={styles.cardTitle}>Theatre Excellence</h2>
+            <div className={styles.cardSubtitle}>
+              Drama • Storytelling • <span>Workshops</span> • Production
+            </div>
+            <p className={styles.cardContent}>
+              From <strong>Dance Ballets</strong> and <strong>Mythological Acts</strong> to enchanting 
+              <strong>Disney Productions</strong>, Arizona creates <strong>powerful theatrical experiences</strong> 
+              in any language a school envisions. With expertise in <strong>large-scale theatre productions</strong> 
+              and our unique <strong>Theatre in Education</strong> workshops conducted across India, we blend 
+              <strong>creativity, learning, and performance</strong> into <strong>unforgettable stage journeys</strong>.
+            </p>
+          </motion.div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════
@@ -292,28 +395,21 @@ export default function Home() {
             
             <div className={styles.ethosCardWrapper}>
               {/* Card 1 — Elevated Glass */}
-              <div className={styles.ethosGlassCard}>
+              <div className={styles.ethosGlassCard} style={{ background: "#4c1d95", borderColor: "rgba(255, 255, 255, 0.2)", boxShadow: "0 20px 50px rgba(76, 29, 149, 0.2)" }}>
                 <div className={styles.cardHeader}>
-                  <div className={styles.cardIndicator}>01</div>
-                  <h3>Expertise & Execution</h3>
+                  <div className={styles.cardIndicator} style={{ background: "rgba(255, 255, 255, 0.2)", color: "#fff", borderColor: "rgba(255, 255, 255, 0.4)" }}>01</div>
+                  <h3 style={{ color: "#fff" }}>Expertise & Execution</h3>
                 </div>
                 <div className={styles.cardBody}>
-                  <p>
-                    Our <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>professional choreographer team</strong> and <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>theatre experts</strong> bring over 10+ years of event management excellence, handling large-scale events. We cater to students of all ages — from kindergarten to adults.
+                  <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+                    Our <strong style={{ color: "#fff" }}>professional choreographer team</strong> and <strong style={{ color: "#fff" }}>theatre experts</strong> bring over 10+ years of event management excellence, handling large-scale events. We cater to students of all ages — from kindergarten to adults.
                   </p>
-                  <div className={styles.featureList}>
+                  <div className={styles.featureList} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
                     <div className={styles.featureItem}>
-                      <span className={styles.featureDot} />
+                      <span className={styles.featureDot} style={{ background: "#fff" }} />
                       <div>
-                        <strong>Impactful Execution</strong>
-                        <p>We provide <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>customised costumes, creative showstopper props, professional makeup artists, photography & videography, and complete stage setup with expert team coordination</strong> — delivering everything necessary to <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em" }}>make every event impactful</strong>.</p>
-                      </div>
-                    </div>
-                    <div className={styles.featureItem}>
-                      <span className={styles.featureDot} />
-                      <div>
-                        <strong>Creative & Innovative</strong>
-                        <p>Impact-driven event concepts that focus on quality, creativity, and high audience engagement.</p>
+                        <strong style={{ color: "#fff" }}>Impactful Execution</strong>
+                        <p style={{ color: "rgba(255, 255, 255, 0.85)" }}>We provide <strong>customised costumes, creative showstopper props, professional makeup artists, photography & videography, and complete stage setup with expert team coordination</strong> — delivering everything necessary to <strong>make every event impactful</strong>.</p>
                       </div>
                     </div>
                   </div>
@@ -321,32 +417,33 @@ export default function Home() {
               </div>
 
               {/* Card 2 — Overlapping Glass */}
-              <div className={`${styles.ethosGlassCard} ${styles.visionCardOffset}`}>
+              <div className={`${styles.ethosGlassCard} ${styles.visionCardOffset}`} style={{ background: "#0d9488", borderColor: "rgba(255, 255, 255, 0.2)", boxShadow: "0 20px 50px rgba(13, 148, 136, 0.2)" }}>
                 <div className={styles.cardHeader}>
-                  <div className={styles.cardIndicator}>02</div>
-                  <h3>Transformative Results</h3>
+                  <div className={styles.cardIndicator} style={{ background: "rgba(255, 255, 255, 0.2)", color: "#fff", borderColor: "rgba(255, 255, 255, 0.4)" }}>02</div>
+                  <h3 style={{ color: "#fff" }}>Transformative Results</h3>
                 </div>
                 <div className={styles.cardBody}>
-                  <p>
-                    <strong style={{ color: "var(--color-gold)", backgroundColor: "rgba(212, 175, 55, 0.1)", padding: "0.1em 0.3em", borderRadius: "0.2em", display: "inline-block", borderLeft: "3px solid var(--color-gold)" }}>Each student vibrates with confident energy, thanks to the amazing skill-transfer by our well-trained professionals. Within a short span of days, students show great results on stage.</strong>
+                  <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+                    <strong style={{ color: "#fff" }}>Each student vibrates with confident energy, thanks to the amazing skill-transfer by our well-trained professionals. Within a short span of days, students show great results on stage.</strong>
                   </p>
-                  <div className={styles.featureList}>
+                  <div className={styles.featureList} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
                     <div className={styles.featureItem}>
-                      <span className={styles.featureDotGold} />
+                      <span className={styles.featureDot} style={{ background: "#fff" }} />
                       <div>
-                        <strong>Confident Performers</strong>
-                        <p>We foster self-belief, ensuring every young talent shines brightly and finds their true voice.</p>
+                        <strong style={{ color: "#fff" }}>Confident Performers</strong>
+                        <p style={{ color: "rgba(255, 255, 255, 0.85)" }}>We foster self-belief, ensuring every young talent shines brightly and finds their true voice.</p>
                       </div>
                     </div>
                     <div className={styles.featureItem}>
-                      <span className={styles.featureDotGold} />
+                      <span className={styles.featureDot} style={{ background: "#fff" }} />
                       <div>
-                        <strong>Real Stage Exposure</strong>
-                        <p>Providing platforms where students don’t just perform—they express, evolve, and shine.</p>
+                        <strong style={{ color: "#fff" }}>Real Stage Exposure</strong>
+                        <p style={{ color: "rgba(255, 255, 255, 0.85)" }}>Providing platforms where students don’t just perform—they express, evolve, and shine.</p>
                       </div>
                     </div>
                   </div>
-                  <div className={styles.premiumQuote}>
+
+                  <div className={styles.premiumQuote} style={{ borderLeftColor: "#fff", color: "#fff" }}>
                     &quot;With Arizona, every session leads to a stage, and every stage creates a star.&quot;
                   </div>
                 </div>
@@ -359,34 +456,37 @@ export default function Home() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "2rem", width: "100%" }}>
               
               {/* Card 1 */}
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+              <div style={{ background: "var(--color-bg-main)", borderRadius: "24px", overflow: "hidden", border: "1px solid var(--color-border-glass)", boxShadow: "0 10px 40px rgba(0,0,0,0.05)", transition: "all 0.4s ease" }}>
                 <div style={{ position: "relative", height: "300px", width: "100%" }}>
                   <Image src="/why-choose-us/performance.png" alt="Vibrant Stage Performances" fill style={{ objectFit: "cover" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%)" }} />
                 </div>
                 <div style={{ padding: "2rem" }}>
-                  <h3 style={{ color: "var(--color-gold)", marginBottom: "1rem", fontSize: "1.5rem" }}>Dynamic Performances</h3>
+                  <h3 style={{ color: "#312e81", marginBottom: "1rem", fontSize: "1.5rem", fontWeight: "700" }}>Dynamic Performances</h3>
                   <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6 }}>We transform students into confident performers, perfectly coordinating high-energy acts that captivate parents and audiences alike.</p>
                 </div>
               </div>
               
               {/* Card 2 */}
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+              <div style={{ background: "var(--color-bg-main)", borderRadius: "24px", overflow: "hidden", border: "1px solid var(--color-border-glass)", boxShadow: "0 10px 40px rgba(0,0,0,0.05)", transition: "all 0.4s ease" }}>
                 <div style={{ position: "relative", height: "300px", width: "100%" }}>
                   <Image src="/why-choose-us/props.png" alt="Customised Costumes" fill style={{ objectFit: "cover" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%)" }} />
                 </div>
                 <div style={{ padding: "2rem" }}>
-                  <h3 style={{ color: "var(--color-gold)", marginBottom: "1rem", fontSize: "1.5rem" }}>Customised Costumes & Props</h3>
+                  <h3 style={{ color: "#0d9488", marginBottom: "1rem", fontSize: "1.5rem", fontWeight: "700" }}>Customised Costumes & Props</h3>
                   <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Every event features exclusive, customized costumes and highly creative showstopper props, bringing grand concepts to life on stage.</p>
                 </div>
               </div>
-
+ 
               {/* Card 3 */}
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+              <div style={{ background: "var(--color-bg-main)", borderRadius: "24px", overflow: "hidden", border: "1px solid var(--color-border-glass)", boxShadow: "0 10px 40px rgba(0,0,0,0.05)", transition: "all 0.4s ease" }}>
                 <div style={{ position: "relative", height: "300px", width: "100%" }}>
                   <Image src="/img/school_team.png" alt="Professional Backstage Management" fill style={{ objectFit: "cover" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%)" }} />
                 </div>
                 <div style={{ padding: "2rem" }}>
-                  <h3 style={{ color: "var(--color-gold)", marginBottom: "1rem", fontSize: "1.5rem" }}>Professional Stage Management</h3>
+                  <h3 style={{ color: "var(--color-vibrant-teal)", marginBottom: "1rem", fontSize: "1.5rem", fontWeight: "700" }}>Professional Stage Management</h3>
                   <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Our dedicated team of experts orchestrates every detail seamlessly behind the scenes, ensuring flawless execution from start to finish.</p>
                 </div>
               </div>
@@ -397,10 +497,14 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="ambient-glow glow-indigo" style={{ top: "100vh", left: "-50vw" }} />
+      <div className="ambient-glow glow-rose" style={{ top: "400vh", right: "-50vw" }} />
+      <div className="ambient-glow glow-teal" style={{ top: "700vh", left: "-50vw" }} />
+
       {/* ══════════════════════════════════════════════════
           3.5 VISION & MISSION
       ══════════════════════════════════════════════════ */}
-      <section className={styles.whatWeDoSection} style={{ background: "var(--color-bg-darker)", padding: "6rem 5%" }}>
+      <section className={styles.whatWeDoSection} style={{ background: "var(--color-bg-main)", padding: "6rem 5%" }}>
         <div className={styles.whatWeDoContainer}>
           <div className={styles.modernEthosLayout} style={{ flexDirection: "column", gap: "4rem", padding: 0 }}>
             
@@ -409,22 +513,20 @@ export default function Home() {
               <h2 className={styles.sectionTitle}>Vision <span className={styles.goldText}>&amp;</span> Mission</h2>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "2rem", width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
-              <div style={{ background: "var(--color-bg)", padding: "3rem", borderRadius: "16px", border: "1px solid rgba(212, 175, 55, 0.2)", boxShadow: "0 10px 40px rgba(0,0,0,0.03)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "4px", background: "linear-gradient(90deg, transparent, var(--color-gold), transparent)" }}></div>
-                <div style={{ width: "60px", height: "60px", borderRadius: "50%", border: "1px solid var(--color-gold)", background: "rgba(212, 175, 55, 0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-gold)", fontSize: "1.2rem", fontWeight: "bold", marginBottom: "1.5rem" }}>V</div>
-                <h3 style={{ fontSize: "2rem", color: "var(--color-text-main)", marginBottom: "1.5rem", fontFamily: "var(--font-heading)" }}>Our Vision</h3>
-                <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "2.5rem", width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
+              <div style={{ background: "var(--color-vibrant-teal)", padding: "3.5rem 3rem", borderRadius: "4px", clipPath: "polygon(0 0, 100% 3%, 100% 100%, 3% 97%)", boxShadow: "0 20px 50px rgba(13, 148, 136, 0.2)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                <div style={{ width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem", border: "2px solid rgba(255, 255, 255, 0.4)" }}>V</div>
+                <h3 style={{ fontSize: "2.2rem", color: "#fff", marginBottom: "1.5rem", fontFamily: "var(--font-heading)", fontWeight: "800" }}>Our Vision</h3>
+                <p style={{ color: "rgba(255, 255, 255, 0.95)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0, fontWeight: "500" }}>
                   Arizona envisions a world where every child is empowered to explore their imagination and express their creativity with confidence. By integrating the power of performance and storytelling, Arizona strives to nurture young minds, helping them discover their unique voice and build the self-belief needed to shine both on and off the stage.
                 </p>
               </div>
 
-              <div style={{ background: "var(--color-bg)", padding: "3rem", borderRadius: "16px", border: "1px solid rgba(212, 175, 55, 0.2)", boxShadow: "0 10px 40px rgba(0,0,0,0.03)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "4px", background: "linear-gradient(90deg, transparent, var(--color-gold), transparent)" }}></div>
-                <div style={{ width: "60px", height: "60px", borderRadius: "50%", border: "1px solid var(--color-gold)", background: "rgba(212, 175, 55, 0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-gold)", fontSize: "1.2rem", fontWeight: "bold", marginBottom: "1.5rem" }}>M</div>
-                <h3 style={{ fontSize: "2rem", color: "var(--color-text-main)", marginBottom: "1.5rem", fontFamily: "var(--font-heading)" }}>Our Mission</h3>
-                <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0 }}>
-                  Arizona&apos;s mission is to cultivate confident, expressive, and thoughtful individuals through the transformative experience of performance and events. The company is dedicated to providing a stress-free and engaging learning environment where children can develop essential life skills in a fun way. By blending elements of wordplay, spontaneity, body movement, and theatrical techniques, Arizona fosters creativity while instilling confidence, communication skills, and excellence in every participant.
+              <div style={{ background: "var(--color-vibrant-amber)", padding: "3.5rem 3rem", borderRadius: "4px", clipPath: "polygon(3% 3%, 100% 0, 97% 100%, 0 97%)", boxShadow: "0 20px 50px rgba(245, 158, 11, 0.2)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                <div style={{ width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem", border: "2px solid rgba(255, 255, 255, 0.4)" }}>M</div>
+                <h3 style={{ fontSize: "2.2rem", color: "#fff", marginBottom: "1.5rem", fontFamily: "var(--font-heading)", fontWeight: "800" }}>Our Mission</h3>
+                <p style={{ color: "rgba(255, 255, 255, 0.95)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0, fontWeight: "500" }}>
+                  Arizona&apos;s mission is to cultivate confident, expressive, and thoughtful individuals through the transformative experience of performance and events. The company is dedicated to providing a stress-free and engaging learning environment where children can develop essential life skills in a fun way. By blending theatrical techniques and spontaneity, Arizona fosters excellence in every participant.
                 </p>
               </div>
             </div>
@@ -439,33 +541,71 @@ export default function Home() {
       <section className={styles.achievements}>
         <TheaterMasksBackground position="right" opacity={0.18} offsetX="-10vw" />
         <div className={styles.sectionHeader}>
+          <span className={styles.sectionLabel}>Industry Accolades</span>
           <h2>Accolades &amp; Recognition</h2>
+          <div style={{ width: "60px", height: "4px", background: "var(--gradient-gold-text)", margin: "1.5rem auto", borderRadius: "2px" }} />
         </div>
-        <div className={styles.masonryGrid}>
-          {AWARD_IMAGES.map((award, i) => (
-            <div
-              key={i}
-              className={styles.masonryItem}
-            >
-              <TiltCard className="card-3d" style={{ width: "100%", height: "100%" }} disabled>
-                <div className={styles.photoFrame}>
-                  <Image
-                    src={award.src}
-                    alt={award.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 400px"
-                    className={styles.awardImage}
-                    loading="lazy"
-                  />
-                  <div className={styles.photoOverlay}>
-                    <p>{award.title}</p>
+
+        <div className={styles.awardsGridContainer}>
+          <div className={styles.symmetricAwardsGrid}>
+            {/* We'll place the MAIN_AWARD in the center of a 3x3 grid (position 5) */}
+            {[
+              AWARD_IMAGES[0], AWARD_IMAGES[1], AWARD_IMAGES[2],
+              AWARD_IMAGES[3], "MAIN", AWARD_IMAGES[4],
+              AWARD_IMAGES[5], AWARD_IMAGES[0], AWARD_IMAGES[1] // Filling extras for symmetry
+            ].map((award, i) => {
+              if (award === "MAIN") {
+                return (
+                  <motion.div 
+                    key="main-award"
+                    className={styles.centerAwardItem}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <TiltCard className="card-3d" disabled>
+                      <div className={styles.mainAwardCenterFrame}>
+                        <Image
+                          src={MAIN_AWARD.src}
+                          alt={MAIN_AWARD.title}
+                          fill
+                          style={{ objectFit: "contain", padding: "10px" }}
+                          priority
+                        />
+                        {/* No Text Overlay as requested */}
+                      </div>
+                    </TiltCard>
+                  </motion.div>
+                );
+              }
+
+              return (
+                <motion.div
+                  key={i}
+                  className={styles.gridAwardItem}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05, duration: 0.5 }}
+                >
+                  <div className={styles.gridAwardFrame}>
+                    <Image
+                      src={(award as any).src}
+                      alt={(award as any).title}
+                      fill
+                      sizes="(max-width: 600px) 100vw, 300px"
+                      style={{ padding: "8px" }}
+                      className={styles.awardImgMobileFit}
+                    />
                   </div>
-                </div>
-              </TiltCard>
-            </div>
-          ))}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
+
 
       {/* ══════════════════════════════════════════════════
           4. PARTNERS
@@ -473,7 +613,7 @@ export default function Home() {
       <section className={styles.workPreview}>
         <TheaterMasksBackground position="left" opacity={0.15} offsetX="5vw" offsetY="-10px" scale={0.9} />
         <div className={styles.sectionHeader}>
-          <h2>Our Work With Schools</h2>
+          <h2>Partnering with schools</h2>
         </div>
         <div className={styles.carouselWrapper}>
           <div className={styles.carouselTrack}>

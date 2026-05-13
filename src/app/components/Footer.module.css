@@ -11,8 +11,8 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: linear-gradient(90deg, transparent, var(--color-crimson), transparent);
-  box-shadow: 0 0 15px var(--color-crimson);
+  background: var(--gradient-vibrant-1);
+  box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
 }
 
 .content {
@@ -65,7 +65,9 @@
 .footerBrandName {
   font-family: var(--font-heading);
   font-size: 2rem;
-  color: var(--color-gold);
+  background: var(--gradient-vibrant-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 0.2rem;
   letter-spacing: 3px;
   line-height: 1;
@@ -85,9 +87,9 @@
   font-size: 0.75rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-vibrant-teal);
   margin-bottom: 1.5rem;
-  opacity: 0.9;
+  font-weight: 600;
 }
 
 .tagline {
@@ -122,7 +124,7 @@
 }
 
 .links a:hover {
-  color: var(--color-gold);
+  color: var(--color-vibrant-rose);
 }
 
 .contact p {
@@ -130,10 +132,50 @@
   color: var(--color-text-muted);
 }
 
+.socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .socials {
+    justify-content: center;
+  }
+}
+
+.socialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-bg-offset);
+  border: 1px solid var(--color-border-glass);
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.socialIcon:hover {
+  transform: translateY(-5px);
+  background: var(--gradient-vibrant-1);
+  border-color: transparent;
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .bottom {
   text-align: center;
   padding: 2rem;
-  background-color: var(--color-bg-offset);
+  background-color: var(--color-bg-main);
+  border-top: 1px solid var(--color-border-glass);
   font-size: 0.9rem;
   color: var(--color-text-muted);
   letter-spacing: 1px;

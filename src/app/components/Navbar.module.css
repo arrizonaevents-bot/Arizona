@@ -86,7 +86,9 @@
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 3px;
-  color: var(--color-fixed-gold);
+  background: var(--gradient-vibrant-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-transform: uppercase;
 }
 
@@ -181,9 +183,9 @@
   left: 1.1rem;
   right: 1.1rem;
   height: 2px;
-  background: var(--color-gold-adaptive);
+  background: var(--gradient-vibrant-1);
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(var(--color-gold-rgb), 0.6);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.8);
 }
 
 /* ── Actions ────────────────────────────── */
@@ -233,16 +235,17 @@
 .ctaBtn {
   display: none;
   padding: 0.55rem 1.4rem;
-  background: var(--color-crimson);
+  background: var(--gradient-vibrant-2);
   color: #fff;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  border-radius: 6px;
+  border-radius: 50px;
   text-decoration: none;
-  transition: background 0.25s, box-shadow 0.25s;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 @media (min-width: 900px) {
@@ -252,31 +255,27 @@
 }
 
 .ctaBtn:hover {
-  background: var(--color-crimson-bright);
-  box-shadow: 0 0 20px rgba(158, 27, 27, 0.6);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(244, 63, 94, 0.4);
+  filter: brightness(1.1);
 }
 
 /* ── Mobile toggle ──────────────────────── */
 .mobileToggle {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: none;
-  border: 1px solid var(--color-nav-border);
-  color: var(--color-nav-text);
+  border: none;
+  color: var(--color-text-main);
   border-radius: 8px;
-  padding: 0.4rem 0.6rem;
-  outline: none;
+  padding: 8px;
+  cursor: pointer;
   transition: all 0.2s ease;
-  margin-left: 0.25rem;
-}
-
-:global([data-theme='light']) .mobileToggle {
-  border-color: rgba(45, 27, 78, 0.2);
-  color: rgba(45, 27, 78, 0.8);
+  z-index: 350;
 }
 
 .mobileToggle:hover {
-  border-color: var(--color-gold);
   color: var(--color-gold);
 }
 
@@ -366,19 +365,13 @@
 /* Ensure toggle stays above drawer */
 @media (max-width: 900px) {
   .mobileToggle {
+    display: flex !important;
     position: relative;
-    z-index: 300;
-    background: transparent;
-    border: none;
-    color: var(--color-nav-text-hover);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    transition: transform 0.3s ease;
+    z-index: 400;
+    color: var(--color-text-main);
   }
 
   .mobileToggle.toggleOpen {
-    color: var(--color-nav-mobile-text); /* Use theme-aware color against the drawer bg */
+    color: var(--color-nav-mobile-text);
   }
 }

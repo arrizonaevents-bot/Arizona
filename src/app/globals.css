@@ -11,6 +11,13 @@
   --color-text-main: #f5f5f5;
   --color-text-muted: #a0a0a0;
   --color-text-dim: rgba(255, 255, 255, 0.45);
+  --color-bg-darker: #050505;
+  --color-bg-panel-solid: #15151a;
+  --color-tint-indigo: rgba(79, 70, 229, 0.08);
+  --color-tint-rose: rgba(244, 63, 94, 0.08);
+  --color-tint-teal: rgba(13, 148, 136, 0.08);
+  --color-tint-amber: rgba(217, 119, 6, 0.08);
+  --color-bg-alt: #0d0d12;
 
   /* ── Fixed Tokens (Constant across themes for Always-Dark sections) ── */
   --color-fixed-white: #ffffff;
@@ -53,24 +60,36 @@
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
 
+  /* ── Vibrant Palette ─────────────────────────────────── */
+  --color-vibrant-indigo: #312e81; /* Deeper for more pop */
+  --color-vibrant-teal: #0d9488;
+  --color-vibrant-rose: #e11d48;
+  --color-vibrant-amber: #d97706;
+  --color-vibrant-emerald: #059669;
+  --color-vibrant-violet: #7c3aed;
+  
+  --gradient-vibrant-1: linear-gradient(135deg, var(--color-vibrant-indigo), var(--color-vibrant-teal));
+  --gradient-vibrant-2: linear-gradient(135deg, var(--color-vibrant-rose), var(--color-vibrant-amber));
+  --gradient-vibrant-3: linear-gradient(135deg, var(--color-vibrant-emerald), var(--color-vibrant-teal));
+  
   /* ── Hero Specific Tokens ── */
-  --hero-vignette-core: rgba(0, 0, 0, 0.3);
-  --hero-vignette-mid: rgba(0, 0, 0, 0.55);
-  --hero-vignette-edge: rgba(0, 0, 0, 0.85);
+  --hero-vignette-core: rgba(0, 0, 0, 0.2);
+  --hero-vignette-mid: rgba(0, 0, 0, 0.45);
+  --hero-vignette-edge: rgba(0, 0, 0, 0.75);
 
-  --mask-base-opacity: 0.2;
-  --mask-color-red: #9e1b1b;
-  --mask-color-gold: #d4af37;
-  --mask-fill-opacity: 0.15;
+  --mask-base-opacity: 0.25;
+  --mask-color-red: #f43f5e;
+  --mask-color-gold: #f59e0b;
+  --mask-fill-opacity: 0.2;
 }
 
 /* ── Light Theme ────────────────────────────────────── */
 :root[data-theme='light'] {
-  --color-bg-main: #FFF8F0;
-  --color-bg-offset: #F5EDE0;
-  --color-bg-panel: rgba(255, 255, 255, 0.75);
-  --color-border-glass: rgba(100, 60, 20, 0.15);
-  --color-overlay: rgba(253, 232, 216, 0.9);
+  --color-bg-main: #FFFFFF; /* Pure white for freshness */
+  --color-bg-offset: #F8FAFC; /* Slate-50 for clean offset */
+  --color-bg-panel: rgba(255, 255, 255, 0.9);
+  --color-border-glass: rgba(0, 0, 0, 0.05);
+  --color-overlay: rgba(255, 255, 255, 0.9);
   --shadow-main: rgba(45, 27, 78, 0.15);
   --shadow-light: rgba(45, 27, 78, 0.1);
 
@@ -95,6 +114,13 @@
   --color-drawer-bg: #FFF8F0;
   --color-drawer-border: rgba(45, 27, 78, 0.1);
   --color-nav-mobile-text: #1D152D;
+  --color-bg-darker: #F1F5F9;
+  --color-bg-panel-solid: #FFFFFF;
+  --color-tint-indigo: rgba(67, 56, 202, 0.03);
+  --color-tint-rose: rgba(225, 29, 72, 0.03);
+  --color-tint-teal: rgba(13, 148, 136, 0.03);
+  --color-tint-amber: rgba(217, 119, 6, 0.03);
+  --color-bg-alt: #F8FAFC;
 
   /* Light Theme Hero Adjustments (Softer/Lighter) */
   --hero-vignette-core: rgba(0, 0, 0, 0.15);
@@ -116,21 +142,13 @@
 
 /* ── Body ─────────────────────────────────────────────── */
 body {
-  background-color: var(--color-bg-main);
-  opacity: 1;
+  background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-bg-offset) 100%);
+  background-attachment: fixed;
   color: var(--color-text-main);
   font-family: var(--font-body);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: var(--color-bg-main);
-  z-index: -1;
+  transition: background 0.5s ease, color 0.3s ease;
 }
 
 a {
@@ -186,3 +204,26 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-crimson);
 }
+
+/* ── Ambient Glow Utilities ──────────────────────────── */
+.ambient-glow {
+  position: absolute;
+  width: 150vw;
+  height: 150vh;
+  border-radius: 50%;
+  filter: blur(250px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  mix-blend-mode: screen;
+}
+
+:root[data-theme='light'] .ambient-glow {
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+}
+
+.glow-indigo { background: radial-gradient(circle, var(--color-vibrant-indigo), transparent 70%); }
+.glow-teal   { background: radial-gradient(circle, var(--color-vibrant-teal),   transparent 70%); }
+.glow-rose   { background: radial-gradient(circle, var(--color-vibrant-rose),   transparent 70%); }
+.glow-amber  { background: radial-gradient(circle, var(--color-vibrant-amber),  transparent 70%); }

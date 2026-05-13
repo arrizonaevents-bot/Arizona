@@ -129,7 +129,7 @@ export default function OurWork() {
       {/* 3. SCHOOLS GRID */}
       <section className={styles.schoolsSection}>
         <motion.div className={styles.sectionHeader} {...fadeUp}>
-          <h2>Our Work With Schools</h2>
+          <h2>Partnering with schools</h2>
         </motion.div>
         <div className={styles.schoolsGrid}>
           {schools.map((school, i) => (

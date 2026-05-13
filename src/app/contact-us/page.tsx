@@ -151,7 +151,7 @@ export default function ContactUs() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 XXXXX XXXXX" 
+                    placeholder="+91 90566 20545" 
                     className={styles.inputField} 
                     required 
                   />
@@ -200,6 +200,7 @@ export default function ContactUs() {
               <div className={styles.infoCard}>
                 <h3>Direct Lines</h3>
                 <ul>
+                  <li>📞 +91 90566 20545</li>
                   <li>📧 arrizonaevents@gmail.com</li>
                   <li>🌐 www.arrizona.in</li>
                   <li>📍 All-India Bookings Accepted</li>
@@ -279,8 +280,8 @@ export default function ContactUs() {
         <motion.div className={styles.ctaContent} {...fadeUp}>
           <h2 className={styles.quote}>&quot;Every child is a star waiting for their spotlight.&quot;</h2>
           <div className={styles.actionBtns}>
-            <a href="#" className={styles.btnOutlineGold}>Message on WhatsApp</a>
-            <a href="#" className={styles.btnPrimaryLg}>Direct Dial</a>
+            <a href="https://wa.me/919056620545" target="_blank" rel="noopener noreferrer" className={styles.btnOutlineGold}>Message on WhatsApp</a>
+            <a href="tel:+919056620545" className={styles.btnPrimaryLg}>Direct Dial</a>
           </div>
         </motion.div>
       </section>

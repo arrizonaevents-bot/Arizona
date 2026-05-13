@@ -35,6 +35,7 @@ const TheaterMasksBackground: React.FC<TheaterMasksBackgroundProps> = ({
         transform: `translate(calc(${translate || '0px'} + ${offsetX || '0px'}), calc(0px + ${offsetY || '0px'})) scale(${(localScale || 1) * propScale})`
       }}
     >
+      <div className={styles.maskGlow} />
       <svg 
         viewBox="0 0 300 220" 
         fill="none" 
@@ -59,7 +60,7 @@ const TheaterMasksBackground: React.FC<TheaterMasksBackgroundProps> = ({
                <path d="m334.43 475.92c-4.934 9.4373-5.6221 17.823-7.4192 25.012-1.7971 7.1892-2.4518 9.5115-5.644 12.816-3.1922 3.3043-9.1384 13.493-5.2969 12.708 3.8414-0.78473 6.6788 1.2324 9.9737 1.6094 3.5096-21.557 6.2406-38.847 8.3865-52.145z" fill="currentColor" fillOpacity="0.5" />
                <path d="m298.84 548.95s15.049-14.679 25.954-12.868l-1.6094 9.9736c-10.035-1.6193-24.345 2.8939-24.345 2.8939z" fill="currentColor" fillOpacity="0.5" />
              </g>
-
+ 
              {/* Comedy Mask */}
              <g className={styles.maskGold}>
                <path d="m423.2 322.96c-41.137 3.7248-64.326 32.741-60.7 72.787 3.5409 39.106 20.034 72.256 35.158 91.024 15.162 18.814 36.845 30.309 43.068 29.746 6.2227-0.56345 25.489-15.766 37.024-36.998 11.219-20.649 21.872-55.704 18.237-95.858-3.626-40.046-32.741-64.326-72.787-60.7z" fill="currentColor" fillOpacity="var(--mask-fill-opacity)" stroke="currentColor" strokeWidth="2" />
