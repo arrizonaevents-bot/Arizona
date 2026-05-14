@@ -35,7 +35,7 @@ const SCHOOL_LOGOS = [
 const AWARD_IMAGES = [
   { src: "/awards/236.png", title: "Excellence in Choreography" },
   { src: "/awards/238.png", title: "Outstanding Stage Presence" },
-  { src: "/awards/240.png", title: "Creative Direction Award" },
+  { src: "/awards/236.png", title: "Creative Direction Award" },
   { src: "/awards/242.png", title: "Best Theatrical Production" },
   { src: "/awards/244.png", title: "Holistic Event Execution" },
   { src: "/awards/246.png", title: "Community Impact Recognition" },
@@ -401,7 +401,7 @@ export default function Home() {
                   <h3 style={{ color: "#fff" }}>Expertise & Execution</h3>
                 </div>
                 <div className={styles.cardBody}>
-                  <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+                  <p style={{ color: "#fff" }}>
                     Our <strong style={{ color: "#fff" }}>professional choreographer team</strong> and <strong style={{ color: "#fff" }}>theatre experts</strong> bring over 10+ years of event management excellence, handling large-scale events. We cater to students of all ages — from kindergarten to adults.
                   </p>
                   <div className={styles.featureList} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
@@ -409,7 +409,7 @@ export default function Home() {
                       <span className={styles.featureDot} style={{ background: "#fff" }} />
                       <div>
                         <strong style={{ color: "#fff" }}>Impactful Execution</strong>
-                        <p style={{ color: "rgba(255, 255, 255, 0.85)" }}>We provide <strong>customised costumes, creative showstopper props, professional makeup artists, photography & videography, and complete stage setup with expert team coordination</strong> — delivering everything necessary to <strong>make every event impactful</strong>.</p>
+                        <p style={{ color: "#fff" }}>We provide <strong style={{ color: "#fff" }}>customised costumes, creative showstopper props, professional makeup artists, photography & videography, and complete stage setup with expert team coordination</strong> — delivering everything necessary to <strong style={{ color: "#fff" }}>make every event impactful</strong>.</p>
                       </div>
                     </div>
                   </div>
@@ -423,7 +423,7 @@ export default function Home() {
                   <h3 style={{ color: "#fff" }}>Transformative Results</h3>
                 </div>
                 <div className={styles.cardBody}>
-                  <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+                  <p style={{ color: "#fff" }}>
                     <strong style={{ color: "#fff" }}>Each student vibrates with confident energy, thanks to the amazing skill-transfer by our well-trained professionals. Within a short span of days, students show great results on stage.</strong>
                   </p>
                   <div className={styles.featureList} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
@@ -431,14 +431,14 @@ export default function Home() {
                       <span className={styles.featureDot} style={{ background: "#fff" }} />
                       <div>
                         <strong style={{ color: "#fff" }}>Confident Performers</strong>
-                        <p style={{ color: "rgba(255, 255, 255, 0.85)" }}>We foster self-belief, ensuring every young talent shines brightly and finds their true voice.</p>
+                        <p style={{ color: "#fff" }}>We foster self-belief, ensuring every young talent shines brightly and finds their true voice.</p>
                       </div>
                     </div>
                     <div className={styles.featureItem}>
                       <span className={styles.featureDot} style={{ background: "#fff" }} />
                       <div>
                         <strong style={{ color: "#fff" }}>Real Stage Exposure</strong>
-                        <p style={{ color: "rgba(255, 255, 255, 0.85)" }}>Providing platforms where students don’t just perform—they express, evolve, and shine.</p>
+                        <p style={{ color: "#fff" }}>Providing platforms where students don’t just perform—they express, evolve, and shine.</p>
                       </div>
                     </div>
                   </div>
@@ -517,7 +517,7 @@ export default function Home() {
               <div style={{ background: "var(--color-vibrant-teal)", padding: "3.5rem 3rem", borderRadius: "4px", clipPath: "polygon(0 0, 100% 3%, 100% 100%, 3% 97%)", boxShadow: "0 20px 50px rgba(13, 148, 136, 0.2)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
                 <div style={{ width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem", border: "2px solid rgba(255, 255, 255, 0.4)" }}>V</div>
                 <h3 style={{ fontSize: "2.2rem", color: "#fff", marginBottom: "1.5rem", fontFamily: "var(--font-heading)", fontWeight: "800" }}>Our Vision</h3>
-                <p style={{ color: "rgba(255, 255, 255, 0.95)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0, fontWeight: "500" }}>
+                <p style={{ color: "#fff", lineHeight: 1.8, fontSize: "1.05rem", margin: 0, fontWeight: "500" }}>
                   Arizona envisions a world where every child is empowered to explore their imagination and express their creativity with confidence. By integrating the power of performance and storytelling, Arizona strives to nurture young minds, helping them discover their unique voice and build the self-belief needed to shine both on and off the stage.
                 </p>
               </div>
@@ -525,7 +525,7 @@ export default function Home() {
               <div style={{ background: "var(--color-vibrant-amber)", padding: "3.5rem 3rem", borderRadius: "4px", clipPath: "polygon(3% 3%, 100% 0, 97% 100%, 0 97%)", boxShadow: "0 20px 50px rgba(245, 158, 11, 0.2)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
                 <div style={{ width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem", border: "2px solid rgba(255, 255, 255, 0.4)" }}>M</div>
                 <h3 style={{ fontSize: "2.2rem", color: "#fff", marginBottom: "1.5rem", fontFamily: "var(--font-heading)", fontWeight: "800" }}>Our Mission</h3>
-                <p style={{ color: "rgba(255, 255, 255, 0.95)", lineHeight: 1.8, fontSize: "1.05rem", margin: 0, fontWeight: "500" }}>
+                <p style={{ color: "#fff", lineHeight: 1.8, fontSize: "1.05rem", margin: 0, fontWeight: "500" }}>
                   Arizona&apos;s mission is to cultivate confident, expressive, and thoughtful individuals through the transformative experience of performance and events. The company is dedicated to providing a stress-free and engaging learning environment where children can develop essential life skills in a fun way. By blending theatrical techniques and spontaneity, Arizona fosters excellence in every participant.
                 </p>
               </div>
