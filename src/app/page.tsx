@@ -277,14 +277,14 @@ export default function Home() {
           <h2 className={styles.sectionTitle}>Crafting Unforgettable Experiences</h2>
           <div className={styles.aboutTextGroup} style={{ borderLeft: "none", paddingLeft: 0, marginTop: "2rem" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", marginBottom: "2.5rem" }}>
-              <div style={{ padding: "1.5rem", background: "rgba(212, 175, 55, 0.03)", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
-                <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Trusted Industry Expertise</h4>
+              <div style={{ padding: "1.5rem", background: "#ffffff", borderRadius: "12px", border: "1px solid rgba(79, 70, 229, 0.15)", boxShadow: "0 4px 20px rgba(79, 70, 229, 0.06)" }}>
+                <h4 style={{ color: "var(--color-vibrant-indigo)", margin: "0 0 0.5rem 0", fontSize: "1.1rem", fontWeight: 700 }}>Trusted Industry Expertise</h4>
                 <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
                   Over 10 years established as a trusted name in designing and managing events that inspire creativity, confidence, and self-expression.
                 </p>
               </div>
-              <div style={{ padding: "1.5rem", background: "rgba(212, 175, 55, 0.03)", borderRadius: "12px", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
-                <h4 style={{ color: "var(--color-gold)", margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Creative Professional Execution</h4>
+              <div style={{ padding: "1.5rem", background: "#ffffff", borderRadius: "12px", border: "1px solid rgba(13, 148, 136, 0.15)", boxShadow: "0 4px 20px rgba(13, 148, 136, 0.06)" }}>
+                <h4 style={{ color: "var(--color-vibrant-teal)", margin: "0 0 0.5rem 0", fontSize: "1.1rem", fontWeight: 700 }}>Creative Professional Execution</h4>
                 <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
                   Every event is thoughtfully planned, seamlessly managed, and emotionally engaging, creating dynamic platforms for young performers to shine.
                 </p>
@@ -646,7 +646,7 @@ export default function Home() {
       <section className={styles.workPreview}>
         <TheaterMasksBackground position="left" opacity={0.15} offsetX="5vw" offsetY="-10px" scale={0.9} />
         <div className={styles.sectionHeader}>
-          <h2>Partnering with schools</h2>
+          <h2>Institutions who believe in us</h2>
         </div>
         <div className={styles.carouselWrapper}>
           <div className={styles.carouselTrack}>
