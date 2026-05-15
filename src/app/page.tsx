@@ -208,7 +208,7 @@ export default function Home() {
         <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ textAlign: "center", marginBottom: "clamp(2rem, 5vw, 4rem)" }}>
             <span className={styles.sectionLabel}>Our Offerings</span>
-            <h2 className={styles.sectionTitle}>What Arizona Delivers</h2>
+            <h2 className={`${styles.sectionTitle} ${styles.vibrantTitleTeal}`}>What Arizona Delivers</h2>
           </div>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1.5rem" }}>
@@ -274,7 +274,7 @@ export default function Home() {
         <div className={styles.aboutTeaserContainer}>
         <div className={styles.aboutLeft}>
           <span className={styles.sectionLabel}>Who We Are</span>
-          <h2 className={styles.sectionTitle}>Crafting Unforgettable Experiences</h2>
+          <h2 className={`${styles.sectionTitle} ${styles.vibrantTitleRose}`}>Crafting Unforgettable Experiences</h2>
           <div className={styles.aboutTextGroup} style={{ borderLeft: "none", paddingLeft: 0, marginTop: "2rem" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", marginBottom: "2.5rem" }}>
               <div style={{ padding: "1.5rem", background: "#ffffff", borderRadius: "12px", border: "1px solid rgba(79, 70, 229, 0.15)", boxShadow: "0 4px 20px rgba(79, 70, 229, 0.06)" }}>
@@ -417,7 +417,7 @@ export default function Home() {
         <div className={styles.whatWeDoContainer}>
           <div className={styles.whatWeDoHeader}>
             <span className={styles.sectionLabel}>Why Choose Arizona</span>
-            <h2 className={styles.sectionTitle}>Where Talent Meets <span className={styles.goldText}>Opportunity</span></h2>
+            <h2 className={`${styles.sectionTitle} ${styles.vibrantTitleIndigo}`}>Where Talent Meets Opportunity</h2>
             <p className={styles.sectionSubtitle}>
               &quot;Delivering Memorable Experiences that Inspire &amp; Impress&quot;
             </p>
@@ -576,7 +576,7 @@ export default function Home() {
         <TheaterMasksBackground position="right" opacity={0.18} offsetX="-10vw" />
         <div className={styles.sectionHeader}>
           <span className={styles.sectionLabel}>Industry Accolades</span>
-          <h2>Accolades &amp; Recognition</h2>
+          <h2 className={styles.vibrantTitleAmber}>Accolades &amp; Recognition</h2>
           <div style={{ width: "60px", height: "4px", background: "var(--gradient-gold-text)", margin: "1.5rem auto", borderRadius: "2px" }} />
         </div>
 
@@ -646,7 +646,7 @@ export default function Home() {
       <section className={styles.workPreview}>
         <TheaterMasksBackground position="left" opacity={0.15} offsetX="5vw" offsetY="-10px" scale={0.9} />
         <div className={styles.sectionHeader}>
-          <h2>Institutions who believe in us</h2>
+          <h2 className={styles.vibrantTitleViolet}>Institutions who believe in us</h2>
         </div>
         <div className={styles.carouselWrapper}>
           <div className={styles.carouselTrack}>
