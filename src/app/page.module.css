@@ -1855,38 +1855,52 @@
 
 @media (max-width: 900px) {
   .symmetricAwardsGrid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-  }
-  .centerAwardItem {
-    grid-column: span 2;
-    order: -1; /* Fixed typo from grid-order to order */
   }
   .mainAwardCenterFrame {
     transform: none;
-    height: 300px;
-    background: var(--color-bg-alt); /* Light gray for contain to look better */
+    height: 250px;
+    background: transparent;
   }
   .gridAwardFrame {
-    height: 180px;
-    background: var(--color-bg-alt);
+    height: 150px;
+    background: transparent;
   }
 }
 
 @media (max-width: 600px) {
+  .awardsGridContainer {
+    overflow: visible;
+  }
+  
   .symmetricAwardsGrid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 1.2rem;
+    padding: 1rem 5% 3rem;
+    margin: 0 -5%;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
-  .centerAwardItem {
-    grid-column: 1;
-    order: 1; /* Move main award to middle or bottom for better mobile browsing */
+
+  .symmetricAwardsGrid::-webkit-scrollbar {
+    display: none;
   }
-  .mainAwardCenterFrame {
-    height: 280px;
+
+  .gridAwardItem, .centerAwardItem {
+    flex: 0 0 85%; /* Shows a peek of the next card */
+    scroll-snap-align: center;
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
-  .gridAwardFrame {
-    height: 220px;
+
+  .mainAwardCenterFrame, .gridAwardFrame {
+    height: 380px !important;
+    background: var(--color-bg-offset);
+    border: 1px solid var(--color-border-glass);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
 }
 

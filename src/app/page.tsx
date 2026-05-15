@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import Hero3DScene from "./components/Hero3DScene";
@@ -35,7 +35,6 @@ const SCHOOL_LOGOS = [
 const AWARD_IMAGES = [
   { src: "/awards/236.png", title: "Excellence in Choreography" },
   { src: "/awards/238.png", title: "Outstanding Stage Presence" },
-  { src: "/awards/236.png", title: "Creative Direction Award" },
   { src: "/awards/242.png", title: "Best Theatrical Production" },
   { src: "/awards/244.png", title: "Holistic Event Execution" },
   { src: "/awards/246.png", title: "Community Impact Recognition" },
@@ -48,6 +47,7 @@ export default function Home() {
   const [heroActive, setHeroActive] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const [stagedReveal, setStagedReveal] = useState(false);
+  const accoladesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Stage 1: Reveal primary text instantly for maximum impact
@@ -60,6 +60,29 @@ export default function Home() {
       clearTimeout(timer);
       clearTimeout(stage2Timer);
     };
+  }, []);
+
+  // Autoscroll for Accolades Carousel on Mobile
+  useEffect(() => {
+    const container = accoladesRef.current;
+    if (!container) return;
+
+    let intervalId: NodeJS.Timeout;
+
+    const autoScroll = () => {
+      if (window.innerWidth > 768) return; // Only autoscroll on mobile
+
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (container.scrollLeft >= maxScroll - 5) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        container.scrollBy({ left: container.clientWidth * 0.85, behavior: "smooth" });
+      }
+    };
+
+    intervalId = setInterval(autoScroll, 4000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -273,8 +296,19 @@ export default function Home() {
           </Link>
         </div>
         <div className={styles.aboutRight} style={{ position: "relative" }}>
-          <TiltCard className="card-3d" disabled style={{ width: "100%" }}>
-            <div className={styles.photoFrame} style={{ height: "550px", width: "100%", position: "relative", borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.2)", border: "1px solid rgba(212, 175, 55, 0.15)" }}>
+          <TiltCard 
+            className="card-3d" 
+            disabled 
+            style={{ 
+              width: "100%", 
+              borderRadius: "16px", 
+              overflow: "hidden", 
+              boxShadow: "0 20px 40px rgba(0,0,0,0.2)", 
+              border: "1px solid rgba(212, 175, 55, 0.15)",
+              background: "transparent"
+            }}
+          >
+            <div className={styles.photoFrame} style={{ height: "550px", width: "100%", position: "relative", background: "transparent" }}>
               <Image
                 src="/img/event_vertical.png"
                 alt="Grand Event Production"
@@ -547,12 +581,11 @@ export default function Home() {
         </div>
 
         <div className={styles.awardsGridContainer}>
-          <div className={styles.symmetricAwardsGrid}>
+          <div className={styles.symmetricAwardsGrid} ref={accoladesRef}>
             {/* We'll place the MAIN_AWARD in the center of a 3x3 grid (position 5) */}
             {[
               AWARD_IMAGES[0], AWARD_IMAGES[1], AWARD_IMAGES[2],
-              AWARD_IMAGES[3], "MAIN", AWARD_IMAGES[4],
-              AWARD_IMAGES[5], AWARD_IMAGES[0], AWARD_IMAGES[1] // Filling extras for symmetry
+              AWARD_IMAGES[3], "MAIN", AWARD_IMAGES[4]
             ].map((award, i) => {
               if (award === "MAIN") {
                 return (

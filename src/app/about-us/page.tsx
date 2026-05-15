@@ -25,7 +25,7 @@ export default function AboutUs() {
   const AWARD_IMAGES = [
     { src: "/awards/236.png", title: "Excellence in Choreography" },
     { src: "/awards/238.png", title: "Outstanding Stage Presence" },
-    { src: "/awards/240.png", title: "Creative Direction Award" },
+    { src: "/awards/award.jpeg", title: "Achievement Award" },
     { src: "/awards/242.png", title: "Best Theatrical Production" },
     { src: "/awards/244.png", title: "Holistic Event Execution" },
     { src: "/awards/246.png", title: "Community Impact Recognition" },
