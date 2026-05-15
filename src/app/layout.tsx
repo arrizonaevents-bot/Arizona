@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
+import type { Viewport } from 'next'
 import './globals.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -103,6 +104,13 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 import SmoothScroll from './components/SmoothScroll'
 
 export default function RootLayout({
@@ -125,6 +133,7 @@ export default function RootLayout({
         <meta httpEquiv="content-language" content="en-IN" />
         <meta name="language" content="English" />
         {/* Mobile / PWA */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <meta name="theme-color" content="#1a1a2e" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
